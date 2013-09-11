@@ -23,8 +23,6 @@ public class ApiMessage
 	private string from;
 	private readonly Guid id;
 	private readonly string networkId;
-	private bool premium;
-	private int premiumServiceId;
 	private readonly double rate;
 	private bool registeredDelivery;
 	private readonly string status;
@@ -127,30 +125,6 @@ public class ApiMessage
 	public string NetworkId {
 		get {
 			return this.networkId;
-		}
-	}
-	
-	/**
-	 * Gets or sets premium.
-	 */
-	public bool IsPremium {
-		get {
-			return this.premium;
-		}
-		set {
-			this.premium = value;
-		}
-	}
-	
-	/**
-	 * Gets or set premiumServiceId.
-	 */
-	public int PremiumServiceId {
-		get {
-			return this.premiumServiceId;
-		}
-		set {
-			this.premiumServiceId = value;
 		}
 	}
 	
@@ -276,12 +250,6 @@ public class ApiMessage
 				case "networkid":
 					this.networkId = Convert.ToString(jso[key]);
 					break;
-				case "premium":
-					this.premium = Convert.ToBoolean(jso[key]);
-					break;
-				case "premiumserviceid":
-					this.premiumServiceId = Convert.ToInt32(jso[key]);
-					break;
 				case "rate":
 					this.rate = Convert.ToDouble(jso[key]);
 					break;
@@ -353,12 +321,6 @@ public class ApiMessage
 		
 		if (this.flashMessage) {
 			sbBuffer.Append(",\"FlashMessage\":true");
-		}
-		
-		if (this.premium) {
-			sbBuffer.AppendFormat(
-				",\"Premium\":true,\"PremiumServiceId\":{0}",
-					this.premiumServiceId);
 		}
 		
 		if (this.registeredDelivery) {

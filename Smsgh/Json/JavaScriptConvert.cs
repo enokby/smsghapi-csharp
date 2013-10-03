@@ -86,9 +86,7 @@ namespace Smsgh.Json
     /// <returns>A Json string representation of the <see cref="DateTime"/>.</returns>
     public static string ToString(DateTime value)
     {
-      long javaScriptTicks = ConvertDateTimeToJavaScriptTicks(value);
-
-      return "new Date(" + javaScriptTicks + ")";
+      return "\"" + value.ToString("yyyy-MM-dd HH:mm:ss") + "\"";
     }
 
     internal static long ConvertDateTimeToJavaScriptTicks(DateTime dateTime)

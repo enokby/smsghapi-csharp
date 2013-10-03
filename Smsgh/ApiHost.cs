@@ -20,6 +20,7 @@ public class ApiHost
 	private ApiMessagesResource messagesResource;
 	private ApiAccountResource accountResource;
 	private ApiContactsResource contactsResource;
+	private ApiPremiumResource premiumResource;
 	
 	/**
 	 * Gets or sets clientId.
@@ -121,6 +122,15 @@ public class ApiHost
 	}
 	
 	/**
+	 * Gets premiumResource.
+	 */
+	public ApiPremiumResource Premium {
+		get {
+			return this.premiumResource;
+		}
+	}
+	
+	/**
 	 * Primary constructor.
 	 */
 	public ApiHost() {
@@ -131,6 +141,7 @@ public class ApiHost
 		this.accountResource = new ApiAccountResource(this);
 		this.messagesResource = new ApiMessagesResource(this);
 		this.contactsResource = new ApiContactsResource(this);
+		this.premiumResource = new ApiPremiumResource(this);
 		ServicePointManager.Expect100Continue = false;
 		ServicePointManager.ServerCertificateValidationCallback = CertChecker;
 	}

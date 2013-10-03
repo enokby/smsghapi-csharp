@@ -62,30 +62,59 @@ public class ApiList<T>
 			case "totalpages":
 				this.totalPages = Convert.ToInt32(jso[key]);
 				break;
+				
+			case "actionlist":
+				foreach (JavaScriptObject o in jso[key] as JavaScriptArray)
+					this.items.Add((T) Convert.ChangeType
+						(new ApiAction(o), typeof(T)));
+				break;
+				
+			case "campaignlist":
+				foreach (JavaScriptObject o in jso[key] as JavaScriptArray)
+					this.items.Add((T) Convert.ChangeType
+						(new ApiCampaign(o), typeof(T)));
+				break;
+				
 			case "childaccountlist":
-				foreach (JavaScriptObject obj in jso[key] as JavaScriptArray)
-					this.items.Add((T) Convert.ChangeType(
-						new ApiChildAccount(obj), typeof(T)));
+				foreach (JavaScriptObject o in jso[key] as JavaScriptArray)
+					this.items.Add((T) Convert.ChangeType
+						(new ApiChildAccount(o), typeof(T)));
 				break;
+				
 			case "contactlist":
-				foreach (JavaScriptObject obj in jso[key] as JavaScriptArray)
-					this.items.Add((T) Convert.ChangeType(
-						new ApiContact(obj), typeof(T)));
+				foreach (JavaScriptObject o in jso[key] as JavaScriptArray)
+					this.items.Add((T) Convert.ChangeType
+						(new ApiContact(o), typeof(T)));
 				break;
+				
 			case "grouplist":
-				foreach (JavaScriptObject obj in jso[key] as JavaScriptArray)
-					this.items.Add((T) Convert.ChangeType(
-						new ApiContactGroup(obj), typeof(T)));
+				foreach (JavaScriptObject o in jso[key] as JavaScriptArray)
+					this.items.Add((T) Convert.ChangeType
+						(new ApiContactGroup(o), typeof(T)));
 				break;
+				
 			case "invoicestatementlist":
-				foreach (JavaScriptObject obj in jso[key] as JavaScriptArray)
-					this.items.Add((T) Convert.ChangeType(
-						new ApiAccountInvoice(obj), typeof(T)));
+				foreach (JavaScriptObject o in jso[key] as JavaScriptArray)
+					this.items.Add((T) Convert.ChangeType
+						(new ApiAccountInvoice(o), typeof(T)));
 				break;
+				
+			case "mokeywordlist":
+				foreach (JavaScriptObject o in jso[key] as JavaScriptArray)
+					this.items.Add((T) Convert.ChangeType
+						(new ApiMoKeyword(o), typeof(T)));
+				break;
+				
+			case "numberplanlist":
+				foreach (JavaScriptObject o in jso[key] as JavaScriptArray)
+					this.items.Add((T) Convert.ChangeType
+						(new ApiNumberPlan(o), typeof(T)));
+				break;
+				
 			case "servicelist":
-				foreach (JavaScriptObject obj in jso[key] as JavaScriptArray)
-					this.items.Add((T) Convert.ChangeType(
-						new ApiAccountService(obj), typeof(T)));
+				foreach (JavaScriptObject o in jso[key] as JavaScriptArray)
+					this.items.Add((T) Convert.ChangeType
+						(new ApiAccountService(o), typeof(T)));
 				break;
 		}
 	}

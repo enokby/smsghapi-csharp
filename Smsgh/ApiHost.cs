@@ -19,6 +19,7 @@ public class ApiHost
 	private bool   https;
 	private int    timeout;
 	private ApiMessagesResource messagesResource;
+	private ApiAccountResource accountResource;
 	
 	/**
 	 * Gets or sets clientId.
@@ -102,6 +103,15 @@ public class ApiHost
 	}
 	
 	/**
+	 * Gets accountResource.
+	 */
+	public ApiAccountResource Account {
+		get {
+			return this.accountResource;
+		}
+	}
+	
+	/**
 	 * Primary constructor.
 	 */
 	public ApiHost() {
@@ -109,7 +119,9 @@ public class ApiHost
 		this.port = 443;
 		this.https = true;
 		this.timeout = 15;
+		this.accountResource = new ApiAccountResource(this);
 		this.messagesResource = new ApiMessagesResource(this);
+		ServicePointManager.Expect100Continue = false;
 		ServicePointManager.ServerCertificateValidationCallback = CertChecker;
 	}
 	

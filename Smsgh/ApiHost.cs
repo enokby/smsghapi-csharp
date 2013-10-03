@@ -1,5 +1,4 @@
-// $Id: ApiHost.cs 229 2013-08-30 16:38:25Z mkwayisi $
-
+// $Id: ApiHost.cs 0 1970-01-01 00:00:00Z mkwayisi $
 namespace Smsgh
 {
 
@@ -20,6 +19,7 @@ public class ApiHost
 	private int    timeout;
 	private ApiMessagesResource messagesResource;
 	private ApiAccountResource accountResource;
+	private ApiContactsResource contactsResource;
 	
 	/**
 	 * Gets or sets clientId.
@@ -112,6 +112,15 @@ public class ApiHost
 	}
 	
 	/**
+	 * Gets contactsResource.
+	 */
+	public ApiContactsResource Contacts {
+		get {
+			return this.contactsResource;
+		}
+	}
+	
+	/**
 	 * Primary constructor.
 	 */
 	public ApiHost() {
@@ -121,6 +130,7 @@ public class ApiHost
 		this.timeout = 15;
 		this.accountResource = new ApiAccountResource(this);
 		this.messagesResource = new ApiMessagesResource(this);
+		this.contactsResource = new ApiContactsResource(this);
 		ServicePointManager.Expect100Continue = false;
 		ServicePointManager.ServerCertificateValidationCallback = CertChecker;
 	}

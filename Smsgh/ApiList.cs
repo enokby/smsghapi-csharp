@@ -1,4 +1,4 @@
-// $Id$
+// $Id: ApiList.cs 0 1970-01-01 00:00:00Z mkwayisi $
 namespace Smsgh
 {
 
@@ -67,6 +67,16 @@ public class ApiList<T>
 					this.items.Add((T) Convert.ChangeType(
 						new ApiChildAccount(obj), typeof(T)));
 				break;
+			case "contactlist":
+				foreach (JavaScriptObject obj in jso[key] as JavaScriptArray)
+					this.items.Add((T) Convert.ChangeType(
+						new ApiContact(obj), typeof(T)));
+				break;
+			case "grouplist":
+				foreach (JavaScriptObject obj in jso[key] as JavaScriptArray)
+					this.items.Add((T) Convert.ChangeType(
+						new ApiContactGroup(obj), typeof(T)));
+				break;
 			case "invoicestatementlist":
 				foreach (JavaScriptObject obj in jso[key] as JavaScriptArray)
 					this.items.Add((T) Convert.ChangeType(
@@ -89,4 +99,3 @@ public class ApiList<T>
 	}
 }
 }
-	

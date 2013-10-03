@@ -1,4 +1,4 @@
-// $Id$
+// $Id: ApiHelper.cs 0 1970-01-01 00:00:00Z mkwayisi $
 namespace Smsgh
 {
 
@@ -20,6 +20,7 @@ public static class ApiHelper
 			String.Format("http{0}://{1}:{2}{3}",
 				apiHost.Https ? "s" : "", apiHost.Hostname,
 					apiHost.Port, uri)) as HttpWebRequest;
+		request.Method = method;
 		request.Accept = "application/json";
 		request.Timeout = apiHost.Timeout * 1000;
 		request.Headers.Add(String.Format("Authorization: Basic {0}",
@@ -27,7 +28,6 @@ public static class ApiHelper
 					apiHost.ClientId, apiHost.ClientSecret)))));
 					
 		if (data != null) {
-			request.Method = method;
 			request.ContentType = "application/json";
 			request.ContentLength = data.Length;
 			request.GetRequestStream().Write(data, 0, data.Length);
@@ -41,15 +41,28 @@ public static class ApiHelper
 	}
 	
 	/**
-	 * GetApiList
+	 * Gets ApiList<T>
 	 */
 	public static ApiList<T> GetApiList<T>
 		(ApiHost apiHost, string uri, int page, int pageSize)
 	{
-		if (page > 0)
-			uri += "?Page=" + page;
-		if (pageSize > 0)
-			uri += (page > 0 ? "&" : "?") + "PageSize=" + pageSize;
+		return GetApiList<T>(apiHost, uri, page, pageSize, false);
+	}
+	
+	/**
+	 * Gets ApiList<T> (Extended)
+	 */
+	public static ApiList<T> GetApiList<T>
+		(ApiHost apiHost, string uri, int page, int pageSize, bool hasQ)
+	{
+		if (page > 0) {
+			uri += String.Format("{0}Page={1}", hasQ ? "&" : "?", page);
+			if (!hasQ) hasQ = true;
+		}
+		if (pageSize > 0) {
+			uri += String.Format("{0}PageSize={1}",
+				hasQ ? "&" : "?", pageSize);
+		}
 		try {
 			return new ApiList<T>(
 				ApiHelper.GetJson<JavaScriptObject>

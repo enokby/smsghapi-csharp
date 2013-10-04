@@ -10,12 +10,12 @@ public class ApiChildAccount
 	/**
 	 * Data fields.
 	 */
-	private int       accountNumber;
+	private long      accountNumber;
 	private double    balance;
 	private bool      canImpersonate;
 	private string    child;
 	private double    credit;
-	private int       id;
+	private long      id;
 	private string    parent;
 	private string    productId;
 	private string    productName;
@@ -26,7 +26,7 @@ public class ApiChildAccount
 	/**
 	 * Gets accountNumber.
 	 */
-	public int AccountNumber {
+	public long AccountNumber {
 		get {
 			return this.accountNumber;
 		}
@@ -71,7 +71,7 @@ public class ApiChildAccount
 	/**
 	 * Gets id.
 	 */
-	public int Id {
+	public long Id {
 		get {
 			return this.id;
 		}
@@ -139,7 +139,7 @@ public class ApiChildAccount
 		foreach (string key in jso.Keys)
 		switch (key.ToLower()) {
 			case "accountnumber":
-				this.accountNumber = Convert.ToInt32(jso[key]);
+				this.accountNumber = Convert.ToInt64(jso[key]);
 				break;
 			case "balance":
 				this.balance = Convert.ToDouble(jso[key]);
@@ -154,7 +154,7 @@ public class ApiChildAccount
 				this.credit = Convert.ToDouble(jso[key]);
 				break;
 			case "id":
-				this.id = Convert.ToInt32(jso[key]);
+				this.id = Convert.ToInt64(jso[key]);
 				break;
 			case "parent":
 				this.parent = Convert.ToString(jso[key]);
@@ -169,10 +169,12 @@ public class ApiChildAccount
 				this.status = Convert.ToInt32(jso[key]);
 				break;
 			case "timecreated":
-				this.timeCreated = Convert.ToDateTime(jso[key]);
+				if (jso[key].ToString() != "")
+					this.timeCreated = Convert.ToDateTime(jso[key]);
 				break;
 			case "timeremoved":
-				this.timeRemoved = Convert.ToDateTime(jso[key]);
+				if (jso[key].ToString() != "")
+					this.timeRemoved = Convert.ToDateTime(jso[key]);
 				break;
 		}
 	}

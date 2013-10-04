@@ -5,32 +5,32 @@
 namespace Smsgh
 {
 
-using Smsgh.Json;
 using System;
 using System.IO;
 using System.Text;
+using Smsgh.Json;
 
 public class ApiMessage
 {
 	/**
 	 * Data fields.
 	 */
-	private int apiMessageType = -1;
-	private string clientReference;
-	private string content;
-	private readonly string direction;
-	private bool flashMessage;
-	private string from;
-	private readonly Guid id;
-	private readonly string networkId;
-	private readonly double rate;
-	private bool registeredDelivery;
-	private readonly string status;
-	private System.DateTime? time;
-	private string to;
-	private string udh;
-	private readonly double units;
-	private readonly System.DateTime? updateTime;
+	private int       apiMessageType = -1;
+	private string    clientReference;
+	private string    content;
+	private string    direction;
+	private bool      flashMessage;
+	private string    from;
+	private Guid      id;
+	private string    networkId;
+	private double    rate;
+	private bool      registeredDelivery;
+	private string    status;
+	private DateTime? time;
+	private string    to;
+	private string    udh;
+	private double    units;
+	private DateTime? updateTime;
 	
 	/**
 	 * Gets or sets apiMessageType.

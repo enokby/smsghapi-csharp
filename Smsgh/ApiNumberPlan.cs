@@ -187,16 +187,20 @@ public class ApiNumberPlan
 				this.accountId = Convert.ToString(jso[key]);
 				break;
 			case "dateactivated":
-				this.dateActivated = Convert.ToDateTime(jso[key]);
+				if (jso[key].ToString() != "")
+					this.dateActivated = Convert.ToDateTime(jso[key]);
 				break;
 			case "datecreated":
-				this.dateCreated = Convert.ToDateTime(jso[key]);
+				if (jso[key].ToString() != "")
+					this.dateCreated = Convert.ToDateTime(jso[key]);
 				break;
 			case "datedeactivated":
-				this.dateDeactivated = Convert.ToDateTime(jso[key]);
+				if (jso[key].ToString() != "")
+					this.dateDeactivated = Convert.ToDateTime(jso[key]);
 				break;
 			case "dateexpiring":
-				this.dateExpiring = Convert.ToDateTime(jso[key]);
+				if (jso[key].ToString() != "")
+					this.dateExpiring = Convert.ToDateTime(jso[key]);
 				break;
 			case "description":
 				this.description = Convert.ToString(jso[key]);

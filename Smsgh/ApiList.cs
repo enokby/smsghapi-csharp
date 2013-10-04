@@ -11,31 +11,25 @@ public class ApiList<T>
 	/**
 	 * Data fields.
 	 */
-	private int count;
-	private int totalPages;
+	private long count;
+	private long totalPages;
 	private List<T> items;
 	
 	/**
-	 * Gets or sets count.
+	 * Gets count.
 	 */
-	public int Count {
+	public long Count {
 		get {
 			return this.count;
-		}
-		set {
-			this.count = value;
 		}
 	}
 	
 	/**
-	 * Gets or sets totalPages.
+	 * Gets totalPages.
 	 */
-	public int TotalPages {
+	public long TotalPages {
 		get {
 			return this.totalPages;
-		}
-		set {
-			this.totalPages = value;
 		}
 	}
 	
@@ -57,10 +51,10 @@ public class ApiList<T>
 		foreach (string key in jso.Keys)
 		switch (key.ToLower()) {
 			case "count":
-				this.count = Convert.ToInt32(jso[key]);
+				this.count = Convert.ToInt64(jso[key]);
 				break;
 			case "totalpages":
-				this.totalPages = Convert.ToInt32(jso[key]);
+				this.totalPages = Convert.ToInt64(jso[key]);
 				break;
 				
 			case "actionlist":
@@ -99,6 +93,12 @@ public class ApiList<T>
 						(new ApiAccountInvoice(o), typeof(T)));
 				break;
 				
+			case "messagetemplatelist":
+				foreach (JavaScriptObject o in jso[key] as JavaScriptArray)
+					this.items.Add((T) Convert.ChangeType
+						(new ApiTemplate(o), typeof(T)));
+				break;
+				
 			case "mokeywordlist":
 				foreach (JavaScriptObject o in jso[key] as JavaScriptArray)
 					this.items.Add((T) Convert.ChangeType
@@ -109,6 +109,12 @@ public class ApiList<T>
 				foreach (JavaScriptObject o in jso[key] as JavaScriptArray)
 					this.items.Add((T) Convert.ChangeType
 						(new ApiNumberPlan(o), typeof(T)));
+				break;
+				
+			case "senderaddresseslist":
+				foreach (JavaScriptObject o in jso[key] as JavaScriptArray)
+					this.items.Add((T) Convert.ChangeType
+						(new ApiSender(o), typeof(T)));
 				break;
 				
 			case "servicelist":

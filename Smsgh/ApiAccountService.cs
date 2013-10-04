@@ -12,15 +12,15 @@ public class ApiAccountService
 	 */
 	private string   accountId;
 	private DateTime billDate;
-	private int      billingCycleId;
+	private long     billingCycleId;
 	private DateTime dateCreated;
 	private string   description;
 	private bool     isCreditBased;
 	private bool     isPrepaid;
 	private double   rate;
-	private int      serviceId;
-	private int      serviceStatusTypeId;
-	private int      serviceTypeId;
+	private long     serviceId;
+	private long     serviceStatusTypeId;
+	private long     serviceTypeId;
 	
 	/**
 	 * Gets accountId.
@@ -43,7 +43,7 @@ public class ApiAccountService
 	/**
 	 * Gets billingCycleId.
 	 */
-	public int BillingCycleId {
+	public long BillingCycleId {
 		get {
 			return this.billingCycleId;
 		}
@@ -97,7 +97,7 @@ public class ApiAccountService
 	/**
 	 * Gets serviceId.
 	 */
-	public int ServiceId {
+	public long ServiceId {
 		get {
 			return this.serviceId;
 		}
@@ -106,7 +106,7 @@ public class ApiAccountService
 	/**
 	 * Gets serviceStatusTypeId.
 	 */
-	public int ServiceStatusTypeId {
+	public long ServiceStatusTypeId {
 		get {
 			return this.serviceStatusTypeId;
 		}
@@ -115,7 +115,7 @@ public class ApiAccountService
 	/**
 	 * Gets serviceTypeId.
 	 */
-	public int ServiceTypeId {
+	public long ServiceTypeId {
 		get {
 			return this.serviceTypeId;
 		}
@@ -132,13 +132,15 @@ public class ApiAccountService
 				this.accountId = Convert.ToString(jso[key]);
 				break;
 			case "billdate":
-				this.billDate = Convert.ToDateTime(jso[key]);
+				if (jso[key].ToString() != "")
+					this.billDate = Convert.ToDateTime(jso[key]);
 				break;
 			case "billingcycleid":
-				this.billingCycleId = Convert.ToInt32(jso[key]);
+				this.billingCycleId = Convert.ToInt64(jso[key]);
 				break;
 			case "datecreated":
-				this.dateCreated = Convert.ToDateTime(jso[key]);
+				if (jso[key].ToString() != "")
+					this.dateCreated = Convert.ToDateTime(jso[key]);
 				break;
 			case "description":
 				this.description = Convert.ToString(jso[key]);
@@ -153,13 +155,13 @@ public class ApiAccountService
 				this.rate = Convert.ToDouble(jso[key]);
 				break;
 			case "serviceid":
-				this.serviceId = Convert.ToInt32(jso[key]);
+				this.serviceId = Convert.ToInt64(jso[key]);
 				break;
 			case "servicestatustypeid":
-				this.serviceStatusTypeId = Convert.ToInt32(jso[key]);
+				this.serviceStatusTypeId = Convert.ToInt64(jso[key]);
 				break;
 			case "servicetypeid":
-				this.serviceTypeId = Convert.ToInt32(jso[key]);
+				this.serviceTypeId = Convert.ToInt64(jso[key]);
 				break;
 		}
 	}

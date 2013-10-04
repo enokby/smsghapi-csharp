@@ -14,12 +14,12 @@ public class ApiMessageResponse
 	/**
 	 * Data fields.
 	 */
-	private readonly int status;
-	private readonly Guid messageId;
-	private readonly double rate;
-	private readonly string networkId;
-	private readonly string clientReference;
-	private readonly Dictionary<string,string> detail;
+	private int    status;
+	private Guid   messageId;
+	private double rate;
+	private string networkId;
+	private string clientReference;
+	private Dictionary<string,string> detail;
 	
 	/**
 	 * Gets or sets status.

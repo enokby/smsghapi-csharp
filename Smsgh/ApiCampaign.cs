@@ -172,10 +172,12 @@ public class ApiCampaign
 				this.campaignId = Convert.ToInt64(jso[key]);
 				break;
 			case "datecreated":
-				this.dateCreated = Convert.ToDateTime(jso[key]);
+				if (jso[key].ToString() != "")
+					this.dateCreated = Convert.ToDateTime(jso[key]);
 				break;
 			case "dateended":
-				this.dateEnded = Convert.ToDateTime(jso[key]);
+				if (jso[key].ToString() != "")
+					this.dateEnded = Convert.ToDateTime(jso[key]);
 				break;
 			case "description":
 				this.description = Convert.ToString(jso[key]);

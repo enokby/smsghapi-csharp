@@ -21,6 +21,7 @@ public class ApiHost
 	private ApiAccountResource accountResource;
 	private ApiContactsResource contactsResource;
 	private ApiPremiumResource premiumResource;
+	private ApiBulkMessagingResource bulkMessagingResource;
 	
 	/**
 	 * Gets or sets clientId.
@@ -131,6 +132,15 @@ public class ApiHost
 	}
 	
 	/**
+	 * Gets bulkMessagingResource.
+	 */
+	public ApiBulkMessagingResource BulkMessaging {
+		get {
+			return this.bulkMessagingResource;
+		}
+	}
+	
+	/**
 	 * Primary constructor.
 	 */
 	public ApiHost() {
@@ -142,6 +152,7 @@ public class ApiHost
 		this.messagesResource = new ApiMessagesResource(this);
 		this.contactsResource = new ApiContactsResource(this);
 		this.premiumResource = new ApiPremiumResource(this);
+		this.bulkMessagingResource = new ApiBulkMessagingResource(this);
 		ServicePointManager.Expect100Continue = false;
 		ServicePointManager.ServerCertificateValidationCallback = CertChecker;
 	}

@@ -10,7 +10,7 @@ public class ApiAccountContact
 	/**
 	 * Data fields.
 	 */
-	private int    accountContactId;
+	private long   accountContactId;
 	private string address1;
 	private string address2;
 	private string city;
@@ -30,7 +30,7 @@ public class ApiAccountContact
 	 * Get accountContactId.
 	 */
 	[JsonIgnoreAttribute]
-	public int AccountContactId {
+	public long AccountContactId {
 		get {
 			return this.accountContactId;
 		}
@@ -212,7 +212,7 @@ public class ApiAccountContact
 		foreach (string key in jso.Keys) {
 			switch (key.ToLower()) {
 				case "accountcontactid":
-					this.accountContactId = Convert.ToInt32(jso[key]);
+					this.accountContactId = Convert.ToInt64(jso[key]);
 					break;
 				case "address1":
 					this.address1 = Convert.ToString(jso[key]);

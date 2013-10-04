@@ -10,12 +10,12 @@ public class ApiContact
 	/**
 	 * Data fields.
 	 */
-	private int    contactId;
+	private long   contactId;
 	private string custom1;
 	private string custom2;
 	private string custom3;
 	private string firstName;
-	private int    groupId;
+	private long   groupId;
 	private string groupName;
 	private string mobileNumber;
 	private string owner;
@@ -26,7 +26,7 @@ public class ApiContact
 	 * Gets contactId.
 	 */
 	[JsonIgnoreAttribute]
-	public int ContactId {
+	public long ContactId {
 		get {
 			return this.contactId;
 		}
@@ -83,7 +83,7 @@ public class ApiContact
 	/**
 	 * Gets or sets groupId.
 	 */
-	public int GroupId {
+	public long GroupId {
 		get {
 			return this.groupId;
 		}
@@ -163,7 +163,7 @@ public class ApiContact
 		foreach (string key in jso.Keys)
 		switch (key.ToLower()) {
 			case "contactid":
-				this.contactId = Convert.ToInt32(jso[key]);
+				this.contactId = Convert.ToInt64(jso[key]);
 				break;
 			case "custom1":
 				this.custom1 = Convert.ToString(jso[key]);
@@ -178,7 +178,7 @@ public class ApiContact
 				this.firstName = Convert.ToString(jso[key]);
 				break;
 			case "groupid":
-				this.groupId = Convert.ToInt32(jso[key]);
+				this.groupId = Convert.ToInt64(jso[key]);
 				break;
 			case "groupname":
 				this.groupName = Convert.ToString(jso[key]);

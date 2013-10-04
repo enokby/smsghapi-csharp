@@ -13,7 +13,7 @@ public class ApiAccountProfile
 	 */
 	private string   accountId;
 	private string   accountManager;
-	private int      accountNumber;
+	private long     accountNumber;
 	private string   accountStatus;
 	private double   balance;
 	private string   company;
@@ -46,7 +46,7 @@ public class ApiAccountProfile
 	/**
 	 * Get accountNumber.
 	 */
-	public int AccountNumber {
+	public long AccountNumber {
 		get {
 			return this.accountNumber;
 		}
@@ -156,7 +156,7 @@ public class ApiAccountProfile
 					this.accountManager = Convert.ToString(jso[key]);
 					break;
 				case "accountnumber":
-					this.accountNumber = Convert.ToInt32(jso[key]);
+					this.accountNumber = Convert.ToInt64(jso[key]);
 					break;
 				case "accountstatus":
 					this.accountStatus = Convert.ToString(jso[key]);
@@ -174,7 +174,8 @@ public class ApiAccountProfile
 					this.emailAddress = Convert.ToString(jso[key]);
 					break;
 				case "lastaccessed":
-					this.lastAccessed = Convert.ToDateTime(jso[key]);
+					if (jso[key].ToString() != "")
+						this.lastAccessed = Convert.ToDateTime(jso[key]);
 					break;
 				case "mobilenumber":
 					this.mobileNumber = Convert.ToString(jso[key]);

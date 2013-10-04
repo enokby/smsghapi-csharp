@@ -1,6 +1,4 @@
-/**
- * $Id: ApiMessagesResource.cs 229 2013-08-30 16:38:25Z mkwayisi $
- */
+// $Id: ApiMessagesResource.cs 229 2013-08-30 16:38:25Z mkwayisi $
 namespace Smsgh
 {
 

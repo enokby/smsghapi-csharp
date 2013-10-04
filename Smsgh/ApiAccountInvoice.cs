@@ -15,7 +15,7 @@ public class ApiAccountInvoice
 	private string description;
 	private DateTime dueDate;
 	private double ending;
-	private int id;
+	private long id;
 	private bool isPaid;
 	private string type;
 	
@@ -67,7 +67,7 @@ public class ApiAccountInvoice
 	/**
 	 * Gets id.
 	 */
-	public int Id {
+	public long Id {
 		get {
 			return this.id;
 		}
@@ -102,19 +102,21 @@ public class ApiAccountInvoice
 				this.amount = Convert.ToDouble(jso[key]);
 				break;
 			case "created":
-				this.created = Convert.ToDateTime(jso[key]);
+				if (jso[key].ToString() != "")
+					this.created = Convert.ToDateTime(jso[key]);
 				break;
 			case "description":
 				this.description = Convert.ToString(jso[key]);
 				break;
 			case "duedate":
-				this.dueDate = Convert.ToDateTime(jso[key]);
+				if (jso[key].ToString() != "")
+					this.dueDate = Convert.ToDateTime(jso[key]);
 				break;
 			case "ending":
 				this.ending = Convert.ToDouble(jso[key]);
 				break;
 			case "id":
-				this.id = Convert.ToInt32(jso[key]);
+				this.id = Convert.ToInt64(jso[key]);
 				break;
 			case "ispaid":
 				this.isPaid = Convert.ToBoolean(jso[key]);

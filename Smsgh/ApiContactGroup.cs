@@ -11,8 +11,8 @@ public class ApiContactGroup
 	 * Data fields.
 	 */
 	private string accountId;
-	private int    contactCount;
-	private int    groupId;
+	private long   contactCount;
+	private long   groupId;
 	private string name;
 	
 	/**
@@ -29,7 +29,7 @@ public class ApiContactGroup
 	 * Gets contactCount.
 	 */
 	[JsonIgnoreAttribute]
-	public int ContactCount {
+	public long ContactCount {
 		get {
 			return this.contactCount;
 		}
@@ -39,7 +39,7 @@ public class ApiContactGroup
 	 * Gets groupId.
 	 */
 	[JsonIgnoreAttribute]
-	public int GroupId {
+	public long GroupId {
 		get {
 			return this.groupId;
 		}
@@ -75,10 +75,10 @@ public class ApiContactGroup
 				this.accountId = Convert.ToString(jso[key]);
 				break;
 			case "contactcount":
-				this.contactCount = Convert.ToInt32(jso[key]);
+				this.contactCount = Convert.ToInt64(jso[key]);
 				break;
 			case "groupid":
-				this.groupId = Convert.ToInt32(jso[key]);
+				this.groupId = Convert.ToInt64(jso[key]);
 				break;
 			case "name":
 				this.name = Convert.ToString(jso[key]);

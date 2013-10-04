@@ -5,7 +5,7 @@ namespace Smsgh
 using System;
 using Smsgh.Json;
 
-public class ApiAccountService
+public class ApiService
 {
 	/**
 	 * Data fields.
@@ -124,7 +124,7 @@ public class ApiAccountService
 	/**
 	 * Primary constructor.
 	 */
-	public ApiAccountService(JavaScriptObject jso)
+	public ApiService(JavaScriptObject jso)
 	{
 		foreach (string key in jso.Keys)
 		switch (key.ToLower()) {

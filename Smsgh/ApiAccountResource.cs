@@ -113,10 +113,10 @@ public class ApiAccountResource
 	/**
 	 * Gets account services.
 	 */
-	public ApiList<ApiAccountService> GetServices() { return GetServices(-1, -1); }
-	public ApiList<ApiAccountService> GetServices(int page, int pageSize)
+	public ApiList<ApiService> GetServices() { return GetServices(-1, -1); }
+	public ApiList<ApiService> GetServices(int page, int pageSize)
 	{
-		return ApiHelper.GetApiList<ApiAccountService>
+		return ApiHelper.GetApiList<ApiService>
 			(this.apiHost, "/v3/account/services", page, pageSize);
 	}
 	

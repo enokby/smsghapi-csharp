@@ -120,7 +120,7 @@ public class ApiList<T>
 			case "servicelist":
 				foreach (JavaScriptObject o in jso[key] as JavaScriptArray)
 					this.items.Add((T) Convert.ChangeType
-						(new ApiAccountService(o), typeof(T)));
+						(new ApiService(o), typeof(T)));
 				break;
 		}
 	}

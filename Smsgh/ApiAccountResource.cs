@@ -94,7 +94,7 @@ public class ApiAccountResource
 	/**
 	 * Updates an account contact.
 	 */
-	public void UpdateContact(ApiAccountContact apiAccountContact)
+	public void Update(ApiAccountContact apiAccountContact)
 	{
 		try {
 			if (apiAccountContact == null)
@@ -123,10 +123,10 @@ public class ApiAccountResource
 	/**
 	 * Gets account settings.
 	 */
-	public ApiAccountSettings GetSettings()
+	public ApiSettings GetSettings()
 	{
 		try {
-			return new ApiAccountSettings(ApiHelper.GetJson<JavaScriptObject>
+			return new ApiSettings(ApiHelper.GetJson<JavaScriptObject>
 				(this.apiHost, "GET", "/v3/account/settings", null));
 		} catch (Exception ex) {
 			throw new ApiException(ex.Message);
@@ -136,14 +136,14 @@ public class ApiAccountResource
 	/**
 	 * Updates account settings.
 	 */
-	public ApiAccountSettings UpdateSettings(ApiAccountSettings apiAccountSettings)
+	public ApiSettings Update(ApiSettings apiSettings)
 	{
 		try {
-			if (apiAccountSettings == null)
+			if (apiSettings == null)
 				throw new ArgumentNullException("apiAccountSettings");
 			StringWriter stringWriter = new StringWriter();
-			new JsonSerializer().Serialize(stringWriter, apiAccountSettings);
-			return new ApiAccountSettings(ApiHelper.GetJson<JavaScriptObject>
+			new JsonSerializer().Serialize(stringWriter, apiSettings);
+			return new ApiSettings(ApiHelper.GetJson<JavaScriptObject>
 				(this.apiHost, "PUT", "/v3/account/settings",
 					Encoding.UTF8.GetBytes(stringWriter.ToString())));
 		} catch (Exception ex) {

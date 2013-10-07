@@ -162,12 +162,19 @@ public class ApiAccountResource
 	}
 	
 	/**
-	 * Gets account invoices.
+	 * Gets all account invoices.
 	 */
-	public ApiList<ApiAccountInvoice> GetInvoices() { return GetInvoices(-1, -1); }
-	public ApiList<ApiAccountInvoice> GetInvoices(int page, int pageSize)
+	public ApiList<ApiInvoice> GetInvoices()
 	{
-		return ApiHelper.GetApiList<ApiAccountInvoice>
+		return GetInvoices(-1, -1);
+	}
+	
+	/**
+	 * Gets account invoices by page and pageSize.
+	 */
+	public ApiList<ApiInvoice> GetInvoices(int page, int pageSize)
+	{
+		return ApiHelper.GetApiList<ApiInvoice>
 			(this.apiHost, "/v3/account/invoices", page, pageSize);
 	}
 }

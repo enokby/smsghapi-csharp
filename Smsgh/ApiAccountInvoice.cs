@@ -1,11 +1,11 @@
-// $Id$
+// $Id: ApiInvoice.cs 0 1970-01-01 00:00:00Z mkwayisi $
 namespace Smsgh
 {
 
 using System;
 using Smsgh.Json;
 
-public class ApiAccountInvoice
+public class ApiInvoice
 {
 	/**
 	 * Data fields.
@@ -94,7 +94,7 @@ public class ApiAccountInvoice
 	/**
 	 * Primary constructor.
 	 */
-	public ApiAccountInvoice(JavaScriptObject jso)
+	public ApiInvoice(JavaScriptObject jso)
 	{
 		foreach (string key in jso.Keys)
 		switch (key.ToLower()) {

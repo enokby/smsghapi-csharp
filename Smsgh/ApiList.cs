@@ -90,7 +90,7 @@ public class ApiList<T>
 			case "invoicestatementlist":
 				foreach (JavaScriptObject o in jso[key] as JavaScriptArray)
 					this.items.Add((T) Convert.ChangeType
-						(new ApiAccountInvoice(o), typeof(T)));
+						(new ApiInvoice(o), typeof(T)));
 				break;
 				
 			case "messagetemplatelist":

@@ -126,7 +126,7 @@ public class ApiPremiumResource
 	/**
 	 * Creates new campaign.
 	 */
-	public ApiCampaign CreateCampaign(ApiCampaign apiCampaign)
+	public ApiCampaign Create(ApiCampaign apiCampaign)
 	{
 		try {
 			if (apiCampaign == null)
@@ -144,7 +144,7 @@ public class ApiPremiumResource
 	/**
 	 * Updates campaign.
 	 */
-	public ApiCampaign UpdateCampaign(ApiCampaign apiCampaign)
+	public ApiCampaign Update(ApiCampaign apiCampaign)
 	{
 		try {
 			if (apiCampaign == null)
@@ -192,7 +192,7 @@ public class ApiPremiumResource
 	/**
 	 * Creates keyword.
 	 */
-	public ApiMoKeyword CreateKeyword(ApiMoKeyword apiMoKeyword)
+	public ApiMoKeyword Create(ApiMoKeyword apiMoKeyword)
 	{
 		try {
 			if (apiMoKeyword == null)
@@ -210,7 +210,7 @@ public class ApiPremiumResource
 	/**
 	 * Updates keyword.
 	 */
-	public ApiMoKeyword UpdateKeyword(ApiMoKeyword apiMoKeyword)
+	public ApiMoKeyword Update(ApiMoKeyword apiMoKeyword)
 	{
 		try {
 			if (apiMoKeyword == null)

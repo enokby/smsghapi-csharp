@@ -51,7 +51,7 @@ public class ApiBulkMessagingResource
 	/**
 	 * Creates new sender.
 	 */
-	public ApiSender CreateSender(ApiSender apiSender)
+	public ApiSender Create(ApiSender apiSender)
 	{
 		try {
 			if (apiSender == null)
@@ -69,7 +69,7 @@ public class ApiBulkMessagingResource
 	/**
 	 * Updates sender.
 	 */
-	public ApiSender UpdateSender(ApiSender apiSender)
+	public ApiSender Update(ApiSender apiSender)
 	{
 		try {
 			if (apiSender == null)
@@ -130,7 +130,7 @@ public class ApiBulkMessagingResource
 	/**
 	 * Creates message template.
 	 */
-	public ApiTemplate CreateTemplate(ApiTemplate apiTemplate)
+	public ApiTemplate Create(ApiTemplate apiTemplate)
 	{
 		try {
 			if (apiTemplate == null)
@@ -148,7 +148,7 @@ public class ApiBulkMessagingResource
 	/**
 	 * Updates message template.
 	 */
-	public ApiTemplate UpdateTemplate(ApiTemplate apiTemplate)
+	public ApiTemplate Update(ApiTemplate apiTemplate)
 	{
 		try {
 			if (apiTemplate == null)

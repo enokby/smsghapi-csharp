@@ -35,7 +35,7 @@ public class ApiContactsResource
 	/**
 	 * Gets contacts by group ID and filter.
 	 */
-	public ApiList<ApiContact> Get(int groupId, string filter)
+	public ApiList<ApiContact> Get(long groupId, string filter)
 	{
 		return Get(-1, -1, groupId, filter);
 	}
@@ -52,7 +52,7 @@ public class ApiContactsResource
 	 * Gets contacts by page, pageSize, groupId and filter.
 	 */
 	public ApiList<ApiContact> Get
-		(int page, int pageSize, int groupId, string filter)
+		(int page, int pageSize, long groupId, string filter)
 	{
 		string uri = "/v3/contacts";
 		if (groupId > 0)

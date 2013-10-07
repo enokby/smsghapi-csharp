@@ -11,8 +11,8 @@ public class ApiServiceType
 	 * Data fields.
 	 */
 	private string descriptor;
-	private bool   isPrepaid;
 	private bool   isCreditBased;
+	private bool   isPrepaid;
 	private string name;
 	private double rate;
 	private bool   requiresActivation;
@@ -27,20 +27,20 @@ public class ApiServiceType
 	}
 	
 	/**
-	 * Gets isPrepaid.
-	 */
-	public bool IsPrepaid {
-		get {
-			return this.isPrepaid;
-		}
-	}
-	
-	/**
 	 * Gets isCreditBased.
 	 */
 	public bool IsCreditBased {
 		get {
 			return this.isCreditBased;
+		}
+	}
+	
+	/**
+	 * Gets isPrepaid.
+	 */
+	public bool IsPrepaid {
+		get {
+			return this.isPrepaid;
 		}
 	}
 	
@@ -81,11 +81,11 @@ public class ApiServiceType
 			case "descriptor":
 				this.descriptor = Convert.ToString(jso[key]);
 				break;
-			case "isprepaid":
-				this.isPrepaid = Convert.ToBoolean(jso[key]);
-				break;
 			case "iscreditbased":
 				this.isCreditBased = Convert.ToBoolean(jso[key]);
+				break;
+			case "isprepaid":
+				this.isPrepaid = Convert.ToBoolean(jso[key]);
 				break;
 			case "name":
 				this.name = Convert.ToString(jso[key]);

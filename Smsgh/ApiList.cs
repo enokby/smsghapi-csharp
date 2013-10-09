@@ -102,7 +102,7 @@ public class ApiList<T>
 			case "mokeywordlist":
 				foreach (JavaScriptObject o in jso[key] as JavaScriptArray)
 					this.items.Add((T) Convert.ChangeType
-						(new ApiMoKeyword(o), typeof(T)));
+						(new ApiMoKeyWord(o), typeof(T)));
 				break;
 				
 			case "numberplanlist":

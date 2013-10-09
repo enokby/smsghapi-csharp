@@ -22,7 +22,7 @@ public class ApiNumberPlan
 	private bool                    isActive;
 	private bool                    isPremium;
 	private int                     maxAllowedKeywords;
-	private List<ApiMoKeyword>      moKeywords;
+	private List<ApiMoKeyWord>      moKeywords;
 	private string                  notes;
 	private List<ApiNumberPlanItem> numberPlanItems;
 	private double                  periodicCostBasis;
@@ -130,7 +130,7 @@ public class ApiNumberPlan
 	/**
 	 * Gets moKeywords.
 	 */
-	public List<ApiMoKeyword> MoKeywords {
+	public List<ApiMoKeyWord> MoKeywords {
 		get {
 			return this.moKeywords;
 		}
@@ -178,7 +178,7 @@ public class ApiNumberPlan
 	 */
 	public ApiNumberPlan(JavaScriptObject jso)
 	{
-		this.moKeywords = new List<ApiMoKeyword>();
+		this.moKeywords = new List<ApiMoKeyWord>();
 		this.numberPlanItems = new List<ApiNumberPlanItem>();
 		
 		foreach (string key in jso.Keys)
@@ -222,7 +222,7 @@ public class ApiNumberPlan
 				break;
 			case "mokeywords":
 				foreach (JavaScriptObject o in jso[key] as JavaScriptArray)
-					this.moKeywords.Add(new ApiMoKeyword(o));
+					this.moKeywords.Add(new ApiMoKeyWord(o));
 				break;
 			case "notes":
 				this.notes = Convert.ToString(jso[key]);

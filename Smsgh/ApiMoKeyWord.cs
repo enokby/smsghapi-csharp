@@ -1,11 +1,11 @@
-// $Id: ApiMoKeyword.cs 0 1970-01-01 00:00:00Z mkwayisi $
+// $Id: ApiMoKeyWord.cs 0 1970-01-01 00:00:00Z mkwayisi $
 namespace Smsgh
 {
 
 using System;
 using Smsgh.Json;
 
-public class ApiMoKeyword
+public class ApiMoKeyWord
 {
 	/**
 	 * Data fields.
@@ -142,14 +142,14 @@ public class ApiMoKeyword
 	/**
 	 * Primary constructor.
 	 */
-	public ApiMoKeyword()
+	public ApiMoKeyWord()
 	{
 	}
 	
 	/**
 	 * Constructor from JSO.
 	 */
-	public ApiMoKeyword(JavaScriptObject jso)
+	public ApiMoKeyWord(JavaScriptObject jso)
 	{
 		foreach (string key in jso.Keys)
 		switch (key.ToLower()) {

@@ -20,7 +20,7 @@ public class ApiCampaign
 	private string             description;
 	private bool               enabled;
 	private bool               isDefault;
-	private List<ApiMoKeyword> moKeywords;
+	private List<ApiMoKeyWord> moKeywords;
 	private bool               pendingApproval;
 	
 	/**
@@ -125,7 +125,7 @@ public class ApiCampaign
 	 * Gets moKeywords.
 	 */
 	[JsonIgnoreAttribute]
-	public List<ApiMoKeyword> MoKeywords {
+	public List<ApiMoKeyWord> MoKeywords {
 		get {
 			return this.moKeywords;
 		}
@@ -154,7 +154,7 @@ public class ApiCampaign
 	public ApiCampaign(JavaScriptObject jso)
 	{
 		this.actions = new List<ApiAction>();
-		this.moKeywords = new List<ApiMoKeyword>();
+		this.moKeywords = new List<ApiMoKeyWord>();
 		
 		foreach (string key in jso.Keys)
 		switch (key.ToLower()) {
@@ -190,7 +190,7 @@ public class ApiCampaign
 				break;
 			case "mokeywords":
 				foreach (JavaScriptObject o in jso[key] as JavaScriptArray)
-					this.moKeywords.Add(new ApiMoKeyword(o));
+					this.moKeywords.Add(new ApiMoKeyWord(o));
 				break;
 			case "pendingapproval":
 				this.pendingApproval = Convert.ToBoolean(jso[key]);

@@ -77,7 +77,7 @@ public class ApiPremiumResource
 	/**
 	 * Gets all number plan keywords by number plan ID.
 	 */
-	public ApiList<ApiMoKeyword> GetNumberPlanKeywords(long numberPlanId)
+	public ApiList<ApiMoKeyWord> GetNumberPlanKeywords(long numberPlanId)
 	{
 		return GetNumberPlanKeywords(numberPlanId, -1, -1);
 	}
@@ -85,10 +85,10 @@ public class ApiPremiumResource
 	/**
 	 * Gets number plan keywords by number plan ID, page and pageSize.
 	 */
-	public ApiList<ApiMoKeyword> GetNumberPlanKeywords
+	public ApiList<ApiMoKeyWord> GetNumberPlanKeywords
 		(long numberPlanId, int page, int pageSize)
 	{
-		return ApiHelper.GetApiList<ApiMoKeyword>
+		return ApiHelper.GetApiList<ApiMoKeyWord>
 			(this.apiHost, "/v3/numberplans/"
 				+ numberPlanId + "/keywords", page, pageSize);
 	}
@@ -175,7 +175,7 @@ public class ApiPremiumResource
 	/**
 	 * Gets keywords.
 	 */
-	public ApiList<ApiMoKeyword> GetKeywords()
+	public ApiList<ApiMoKeyWord> GetKeywords()
 	{
 		return GetKeywords(-1, -1);
 	}
@@ -183,23 +183,23 @@ public class ApiPremiumResource
 	/**
 	 * Gets keywords by page and pageSize.
 	 */
-	public ApiList<ApiMoKeyword> GetKeywords(int page, int pageSize)
+	public ApiList<ApiMoKeyWord> GetKeywords(int page, int pageSize)
 	{
-		return ApiHelper.GetApiList<ApiMoKeyword>
+		return ApiHelper.GetApiList<ApiMoKeyWord>
 			(this.apiHost, "/v3/keywords", page, pageSize);
 	}
 	
 	/**
 	 * Creates keyword.
 	 */
-	public ApiMoKeyword Create(ApiMoKeyword apiMoKeyword)
+	public ApiMoKeyWord Create(ApiMoKeyWord apiMoKeyword)
 	{
 		try {
 			if (apiMoKeyword == null)
 				throw new ArgumentNullException("apiMoKeyword");
 			StringWriter zw = new StringWriter();
 			new JsonSerializer().Serialize(zw, apiMoKeyword);
-			return new ApiMoKeyword(ApiHelper.GetJson<JavaScriptObject>
+			return new ApiMoKeyWord(ApiHelper.GetJson<JavaScriptObject>
 				(this.apiHost, "POST", "/v3/keywords",
 					Encoding.UTF8.GetBytes(zw.ToString())));
 		} catch (Exception ex) {
@@ -210,14 +210,14 @@ public class ApiPremiumResource
 	/**
 	 * Updates keyword.
 	 */
-	public ApiMoKeyword Update(ApiMoKeyword apiMoKeyword)
+	public ApiMoKeyWord Update(ApiMoKeyWord apiMoKeyword)
 	{
 		try {
 			if (apiMoKeyword == null)
 				throw new ArgumentNullException("apiMoKeyword");
 			StringWriter zw = new StringWriter();
 			new JsonSerializer().Serialize(zw, apiMoKeyword);
-			return new ApiMoKeyword(ApiHelper.GetJson<JavaScriptObject>
+			return new ApiMoKeyWord(ApiHelper.GetJson<JavaScriptObject>
 				(this.apiHost, "PUT", "/v3/keywords/" + apiMoKeyword.Id,
 					Encoding.UTF8.GetBytes(zw.ToString())));
 		} catch (Exception ex) {

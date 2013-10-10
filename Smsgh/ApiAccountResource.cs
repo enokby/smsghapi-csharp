@@ -13,12 +13,12 @@ public class ApiAccountResource
 	/**
 	 * Data fields.
 	 */
-	private ApiHost apiHost;
+	private SmsghApi apiHost;
 	
 	/**
 	 * Primary constructor.
 	 */
-	public ApiAccountResource(ApiHost apiHost)
+	public ApiAccountResource(SmsghApi apiHost)
 	{
 		this.apiHost = apiHost;
 	}

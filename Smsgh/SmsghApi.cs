@@ -1,4 +1,4 @@
-// $Id: ApiHost.cs 0 1970-01-01 00:00:00Z mkwayisi $
+// $Id: SmsghApi.cs 0 1970-01-01 00:00:00Z mkwayisi $
 namespace Smsgh
 {
 
@@ -6,7 +6,7 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 
-public class ApiHost
+public class SmsghApi
 {
 	/**
 	 * Data fields.
@@ -96,20 +96,20 @@ public class ApiHost
 	}
 	
 	/**
-	 * Gets messagesResource.
-	 */
-	public ApiMessagesResource MessagesResource {
-		get {
-			return this.messagesResource;
-		}
-	}
-	
-	/**
 	 * Gets accountResource.
 	 */
 	public ApiAccountResource Account {
 		get {
 			return this.accountResource;
+		}
+	}
+	
+	/**
+	 * Gets messagesResource.
+	 */
+	public ApiMessagesResource Messages {
+		get {
+			return this.messagesResource;
 		}
 	}
 	
@@ -143,7 +143,7 @@ public class ApiHost
 	/**
 	 * Primary constructor.
 	 */
-	public ApiHost() {
+	public SmsghApi() {
 		this.hostname = "api.smsgh.com";
 		this.port = 443;
 		this.https = true;
@@ -160,7 +160,7 @@ public class ApiHost
 	/**
 	 * Constructor with client id and secret.
 	 */
-	public ApiHost(string clientId, string clientSecret) : this() {
+	public SmsghApi(string clientId, string clientSecret) : this() {
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
 	}

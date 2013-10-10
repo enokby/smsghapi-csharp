@@ -12,12 +12,12 @@ public class ApiBulkMessagingResource
 	/**
 	 * Data fields.
 	 */
-	private ApiHost apiHost;
+	private SmsghApi apiHost;
 	
 	/**
 	 * Primary constructor.
 	 */
-	public ApiBulkMessagingResource(ApiHost apiHost)
+	public ApiBulkMessagingResource(SmsghApi apiHost)
 	{
 		this.apiHost = apiHost;
 	}

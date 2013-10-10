@@ -1,7 +1,4 @@
-/**
- * $Id: ApiMessage.cs 226 2013-08-29 11:34:52Z mkwayisi $
- */
-
+// $Id: ApiMessage.cs 0 1970-01-01 00:00:00Z mkwayisi $
 namespace Smsgh
 {
 
@@ -21,7 +18,7 @@ public class ApiMessage
 	private string    direction;
 	private bool      flashMessage;
 	private string    from;
-	private Guid      id;
+	private Guid      messageId;
 	private string    networkId;
 	private double    rate;
 	private bool      registeredDelivery;
@@ -71,6 +68,7 @@ public class ApiMessage
 	/**
 	 * Gets direction.
 	 */
+	[JsonIgnoreAttribute]
 	public string Direction {
 		get {
 			return this.direction;
@@ -104,24 +102,17 @@ public class ApiMessage
 	/**
 	 * Gets id.
 	 */
-	public Guid Id {
-		get {
-			return this.id;
-		}
-	}
-	
-	/**
-	 * Gets id.
-	 */
+	[JsonIgnoreAttribute]
 	public Guid MessageId {
 		get {
-			return this.id;
+			return this.messageId;
 		}
 	}
 	
 	/**
 	 * Gets networkId.
 	 */
+	[JsonIgnoreAttribute]
 	public string NetworkId {
 		get {
 			return this.networkId;
@@ -131,6 +122,7 @@ public class ApiMessage
 	/**
 	 * Gets rate.
 	 */
+	[JsonIgnoreAttribute]
 	public double Rate {
 		get {
 			return this.rate;
@@ -152,6 +144,7 @@ public class ApiMessage
 	/**
 	 * Gets status.
 	 */
+	[JsonIgnoreAttribute]
 	public string Status {
 		get {
 			return this.status;
@@ -197,6 +190,7 @@ public class ApiMessage
 	/**
 	 * Gets units.
 	 */
+	[JsonIgnoreAttribute]
 	public double Units {
 		get {
 			return this.units;
@@ -206,6 +200,7 @@ public class ApiMessage
 	/**
 	 * Gets updateTime.
 	 */
+	[JsonIgnoreAttribute]
 	public System.DateTime? UpdateTime {
 		get {
 			return this.updateTime;
@@ -220,7 +215,7 @@ public class ApiMessage
 	}
 	
 	/**
-	 * Construct from JavaScriptObject.
+	 * Construct from JSO.
 	 */
 	public ApiMessage(JavaScriptObject jso)
 	{
@@ -245,7 +240,7 @@ public class ApiMessage
 					this.from = Convert.ToString(jso[key]);
 					break;
 				case "messageid":
-					this.id = new Guid(Convert.ToString(jso[key]));
+					this.messageId = new Guid(Convert.ToString(jso[key]));
 					break;
 				case "networkid":
 					this.networkId = Convert.ToString(jso[key]);
@@ -274,73 +269,8 @@ public class ApiMessage
 				case "updatetime":
 					this.updateTime = Convert.ToDateTime(jso[key]);
 					break;
-				default:
-					// Nothing here to see.
-					break;
 			}
 		}
-	}
-	
-	/**
-	 * Encodes a string.
-	 */
-	private static string jsonEncode(string str)
-	{
-		return str == null ? "null" :
-			str
-			.Replace("\"", "\\\"")
-			.Replace("\b", "\\b")
-			.Replace("\f", "\\f")
-			.Replace("\r", "\\r")
-			.Replace("\n", "\\n")
-			.Replace("\t", "\\t")
-			.Insert(0, "\"") + "\"";
-	}
-	
-	/**
-	 * Serializes this object as JSON.
-	 */
-	public string Serialize()
-	{
-		StringBuilder sbBuffer = new StringBuilder().Append("{")
-			.AppendFormat("\"From\":{0},", jsonEncode(this.from))
-			.AppendFormat("\"To\":{0},", jsonEncode(this.to))
-			.AppendFormat("\"Content\":{0}", jsonEncode(this.content));
-			
-		if (this.apiMessageType >= 0) {
-			sbBuffer.AppendFormat(
-				",\"ApiMessageType\":{0}",
-					this.apiMessageType);
-		}
-		
-		if (this.clientReference != null) {
-			sbBuffer.AppendFormat(
-				",\"ClientReference\":{0}",
-					jsonEncode(this.clientReference));
-		}
-		
-		if (this.flashMessage) {
-			sbBuffer.Append(",\"FlashMessage\":true");
-		}
-		
-		if (this.registeredDelivery) {
-			sbBuffer.Append(",\"RegisteredDelivery\":true");
-		}
-		
-		if (this.time != null) {
-			sbBuffer.AppendFormat(
-				",\"Time\":\"{0}\"",
-					this.time.GetValueOrDefault()
-						.ToString("yyyy-MM-dd HH:mm:ss"));
-		}
-		
-		if (this.udh != null) {
-			sbBuffer.AppendFormat(
-				",\"Udh\":{0}",
-					jsonEncode(this.udh));
-		}
-		
-		return sbBuffer.Append("}").ToString();
 	}
 }
 }

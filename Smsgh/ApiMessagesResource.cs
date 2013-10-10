@@ -1,81 +1,27 @@
-// $Id: ApiMessagesResource.cs 229 2013-08-30 16:38:25Z mkwayisi $
+// $Id: ApiMessagesResource.cs 0 1970-01-01 00:00:00Z mkwayisi $
 namespace Smsgh
 {
 
 using System;
 using System.IO;
-using System.Collections.Generic;
+using System.Web;
 using System.Text;
-using System.Net;
 using Smsgh.Json;
 
 public class ApiMessagesResource
 {
-	/**
-	 * Data fields.
-	 */
-	private ApiHost apiHost;
-	private const string URI_V3_MESSAGES = "/v3/messages";
+	private SmsghApi apiHost;
 	
 	/**
 	 * Primary constructor.
 	 */
-	internal ApiMessagesResource(ApiHost apiHost)
+	public ApiMessagesResource(SmsghApi apiHost)
 	{
 		this.apiHost = apiHost;
 	}
 	
 	/**
-	 * Creates a request.
-	 */
-	private HttpWebRequest CreateRequest(string uri)
-	{
-		HttpWebRequest request = HttpWebRequest.Create(
-			String.Format("http{0}://{1}:{2}{3}",
-				this.apiHost.Https ? "s" : "", this.apiHost.Hostname,
-					this.apiHost.Port, uri)) as HttpWebRequest;
-		request.Accept = "application/json";
-		request.Timeout = this.apiHost.Timeout * 1000;
-		request.Headers.Add(String.Format("Authorization: Basic {0}",
-			Convert.ToBase64String(Encoding.UTF8.GetBytes(String.Format("{0}:{1}",
-					this.apiHost.ClientId, this.apiHost.ClientSecret)))));
-		return request;
-	}
-	
-	/**
-	 * Makes an ApiMessageResponse from WebResponse.
-	 */
-	private ApiMessageResponse ApiMessageResponse(WebResponse wr)
-	{
-		using (StreamReader sr = new StreamReader(wr.GetResponseStream()))
-		using (StringReader zr = new StringReader(sr.ReadToEnd()))
-		using (JsonReader jr = new JsonReader(zr))
-			return new ApiMessageResponse(
-				new JsonSerializer().Deserialize(jr) as JavaScriptObject);
-	}
-	
-	/**
-	 * Sends a message.
-	 */
-	public ApiMessageResponse Send(ApiMessage apiMessage)
-	{
-		try {
-			if (apiMessage == null)
-				throw new ArgumentNullException();
-			byte[] data = Encoding.UTF8.GetBytes(apiMessage.Serialize());
-			HttpWebRequest httpWebRequest = CreateRequest(URI_V3_MESSAGES);
-			httpWebRequest.Method = "POST";
-			httpWebRequest.ContentLength = data.Length;
-			httpWebRequest.ContentType = "application/json";
-			httpWebRequest.GetRequestStream().Write(data, 0, data.Length);
-			return ApiMessageResponse(httpWebRequest.GetResponse());
-		} catch (Exception ex) {
-			throw new ApiException(ex.Message);
-		}
-	}
-	
-	/**
-	 * Quick send.
+	 * Sends a quick message.
 	 */
 	public ApiMessageResponse Send(string from, string to, string content)
 	{
@@ -87,129 +33,132 @@ public class ApiMessagesResource
 	}
 	
 	/**
+	 * Sends a message.
+	 */
+	public ApiMessageResponse Send(ApiMessage apiMessage)
+	{
+		try {
+			if (apiMessage == null)
+				throw new ArgumentNullException("apiMessage");
+			StringWriter zw = new StringWriter();
+			new JsonSerializer().Serialize(zw, apiMessage);
+			return new ApiMessageResponse(ApiHelper.GetJson<JavaScriptObject>
+				(this.apiHost, "POST", "/v3/messages",
+					Encoding.UTF8.GetBytes(zw.ToString())));
+		} catch (Exception ex) {
+			throw new ApiException(ex.Message);
+		}
+	}
+	
+	/**
 	 * Schedules a message.
 	 */
 	public ApiMessageResponse Schedule(ApiMessage apiMessage, DateTime time)
 	{
-		if (apiMessage == null)
-			throw new ArgumentNullException();
-		apiMessage.Time = time;
-		return this.Send(apiMessage);
+		if (apiMessage != null)
+			apiMessage.Time = time;
+		return Send(apiMessage);
 	}
 	
 	/**
-	 * Reschedules a message.
+	 * Reschedules a message by ID and time.
 	 */
 	public ApiMessageResponse Reschedule(Guid messageId, DateTime time)
 	{
 		try {
-			byte[] data = Encoding.UTF8.GetBytes(String.Format(
-				"{{\"Time\":\"{0}\"}}", time.ToString("yyyy-MM-dd HH:mm:ss")));
-			HttpWebRequest httpWebRequest = CreateRequest(String.Format(
-				"{0}/{1}", URI_V3_MESSAGES, messageId.ToString().Replace("-", "")));
-			httpWebRequest.Method = "PUT";
-			httpWebRequest.ContentType = "application/json";
-			httpWebRequest.ContentLength = data.Length;
-			httpWebRequest.ContentType = "application/json";
-			httpWebRequest.GetRequestStream().Write(data, 0, data.Length);
-			return ApiMessageResponse(httpWebRequest.GetResponse());
+			return new ApiMessageResponse(ApiHelper.GetJson<JavaScriptObject>
+				(this.apiHost, "PUT", "/v3/messages/"
+					+ messageId.ToString().Replace("-", ""),
+						Encoding.UTF8.GetBytes(String.Format
+							("{{\"Time\":\"{0}\"}}",
+								time.ToString("yyyy-MM-dd HH:mm:ss")))));
 		} catch (Exception ex) {
 			throw new ApiException(ex.Message);
 		}
 	}
 	
 	/**
-	 * Cancels a scheduled message.
+	 * Cancels scheduled message by ID.
 	 */
 	public ApiMessageResponse Cancel(Guid messageId)
 	{
 		try {
-			HttpWebRequest httpWebRequest = CreateRequest(String.Format(
-				"{0}/{1}", URI_V3_MESSAGES, messageId.ToString().Replace("-", "")));
-			httpWebRequest.Method = "DELETE";
-			return ApiMessageResponse(httpWebRequest.GetResponse());
+			return new ApiMessageResponse(ApiHelper.GetJson<JavaScriptObject>
+				(this.apiHost, "DELETE", "/v3/messages/"
+					+ messageId.ToString().Replace("-", ""), null));
 		} catch (Exception ex) {
 			throw new ApiException(ex.Message);
 		}
 	}
 	
 	/**
-	 * Retrieves a message.
+	 * Gets a message.
 	 */
-	public ApiMessage GetMessage(Guid messageId)
+	public ApiMessage Get(Guid messageId)
 	{
 		try {
-			HttpWebRequest httpWebRequest = CreateRequest(String.Format(
-				"{0}/{1}", URI_V3_MESSAGES, messageId.ToString().Replace("-", "")));
-			using (WebResponse wr = httpWebRequest.GetResponse())
-			using (StreamReader sr = new StreamReader(wr.GetResponseStream()))
-			using (StringReader zr = new StringReader(sr.ReadToEnd()))
-			using (JsonReader jr = new JsonReader(zr))
-				return new ApiMessage(
-					new JsonSerializer().Deserialize(jr) as JavaScriptObject);
+			return new ApiMessage(ApiHelper.GetJson<JavaScriptObject>
+				(this.apiHost, "GET", "/v3/messages/"
+					+ messageId.ToString().Replace("-", ""), null));
 		} catch (Exception ex) {
 			throw new ApiException(ex.Message);
 		}
 	}
 	
 	/**
-	 * Retrieves messages.
+	 * Gets messages by several params.
 	 */
-	public List<ApiMessage> GetMessages(int index, int limit)
-	{
-		return GetMessages(index, limit, null, null, false, null);
-	}
-	
-	/**
-	 * Retrieves messages.
-	 */
-	public List<ApiMessage> GetMessages(int index, int limit,
-		DateTime? start, DateTime? end, bool pending, string direction)
-	{
-		List<ApiMessage> apiMessages = new List<ApiMessage>();
-		StringBuilder sbUri = new StringBuilder(URI_V3_MESSAGES);
-		sbUri.AppendFormat("?index={0}", index > 0 ? index : 0);
+	public ApiList<ApiMessage> Get(DateTime? start, DateTime? end,
+		int index, int limit, bool pending, string direction) {
+		bool hasQ = false;
+		StringBuilder sb = new StringBuilder();
+		sb.Append("/v3/messages");
 		
-		if (limit > 0)
-			sbUri.AppendFormat("&limit={0}", limit);
-			
 		if (start != null) {
-			sbUri.AppendFormat("&start={0}",
-				start.GetValueOrDefault().ToString("yyyy-MM-dd HH:mm:ss"));
+			sb.Append(hasQ ? "&" : "?")
+				.Append("start=")
+				.Append(HttpUtility.UrlEncode(start.GetValueOrDefault()
+					.ToString("yyyy-MM-dd HH:mm:ss")));
+			if (!hasQ) hasQ = true;
 		}
 		
 		if (end != null) {
-			sbUri.AppendFormat("&end={0}",
-				start.GetValueOrDefault().ToString("yyyy-MM-dd HH:mm:ss"));
+			sb.Append(hasQ ? "&" : "?")
+				.Append("end=")
+				.Append(HttpUtility.UrlEncode(end.GetValueOrDefault()
+					.ToString("yyyy-MM-dd HH:mm:ss")));
+			if (!hasQ) hasQ = true;
 		}
 		
-		if (pending)
-			sbUri.Append("&pending=true");
-			
-		if (direction != null)
-			sbUri.AppendFormat("&direction={0}", direction);
-			
-		try {
-			HttpWebRequest httpWebRequest = CreateRequest(sbUri.ToString());
-			using (WebResponse wr = httpWebRequest.GetResponse())
-			using (StreamReader sr = new StreamReader(wr.GetResponseStream()))
-			using (StringReader zr = new StringReader(sr.ReadToEnd()))
-			using (JsonReader jr = new JsonReader(zr)) {
-				JavaScriptObject jso = new JsonSerializer()
-					.Deserialize(jr) as JavaScriptObject;
-				foreach (string key in jso.Keys) {
-					switch (key.ToLower()) {
-						case "messages":
-							foreach (JavaScriptObject obj in jso[key] as JavaScriptArray)
-								apiMessages.Add(new ApiMessage(obj));
-							break;
-					}
-				}
-				return apiMessages;
-			}
-		} catch (Exception ex) {
-			throw new ApiException(ex.Message);
+		if (index > 0) {
+			sb.Append(hasQ ? "&" : "?")
+				.Append("index=")
+				.Append(index);
+			if (!hasQ) hasQ = true;
 		}
+		
+		if (limit > 0) {
+			sb.Append(hasQ ? "&" : "?")
+				.Append("limit=")
+				.Append(limit);
+			if (!hasQ) hasQ = true;
+		}
+		
+		if (pending) {
+			sb.Append(hasQ ? "&" : "?")
+				.Append("pending=")
+				.Append(pending);
+			if (!hasQ) hasQ = true;
+		}
+		
+		if (direction != null) {
+			sb.Append(hasQ ? "&" : "?")
+				.Append("direction=")
+				.Append(HttpUtility.UrlEncode(direction));
+		}
+		
+		return ApiHelper.GetApiList<ApiMessage>
+			(this.apiHost, sb.ToString(), -1, -1);
 	}
 }
 }

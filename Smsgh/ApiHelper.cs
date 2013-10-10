@@ -14,7 +14,7 @@ public static class ApiHelper
 	 * GetJson
 	 */
 	public static T GetJson<T>(
-		ApiHost apiHost, string method, string uri, byte[] data)
+		SmsghApi apiHost, string method, string uri, byte[] data)
 	{
 		HttpWebRequest request = HttpWebRequest.Create(
 			String.Format("http{0}://{1}:{2}{3}",
@@ -44,7 +44,7 @@ public static class ApiHelper
 	 * Gets ApiList<T>
 	 */
 	public static ApiList<T> GetApiList<T>
-		(ApiHost apiHost, string uri, int page, int pageSize)
+		(SmsghApi apiHost, string uri, int page, int pageSize)
 	{
 		return GetApiList<T>(apiHost, uri, page, pageSize, false);
 	}
@@ -53,7 +53,7 @@ public static class ApiHelper
 	 * Gets ApiList<T> (Extended)
 	 */
 	public static ApiList<T> GetApiList<T>
-		(ApiHost apiHost, string uri, int page, int pageSize, bool hasQ)
+		(SmsghApi apiHost, string uri, int page, int pageSize, bool hasQ)
 	{
 		if (page > 0) {
 			uri += String.Format("{0}Page={1}", hasQ ? "&" : "?", page);

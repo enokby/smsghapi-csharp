@@ -5,11 +5,12 @@ namespace Smsgh
 using System;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API service type.
+/// </summary>
 public class ApiServiceType
 {
-	/**
-	 * Data fields.
-	 */
+	// Data fields.
 	private string descriptor;
 	private bool   isCreditBased;
 	private bool   isPrepaid;
@@ -17,63 +18,63 @@ public class ApiServiceType
 	private double rate;
 	private bool   requiresActivation;
 	
-	/**
-	 * Gets descriptor.
-	 */
+    /// <summary>
+    /// Gets the descriptor of this API service type.
+    /// </summary>
 	public string Descriptor {
 		get {
 			return this.descriptor;
 		}
 	}
 	
-	/**
-	 * Gets isCreditBased.
-	 */
+    /// <summary>
+    /// Indicated whether this API service type is credit based.
+    /// </summary>
 	public bool IsCreditBased {
 		get {
 			return this.isCreditBased;
 		}
 	}
 	
-	/**
-	 * Gets isPrepaid.
-	 */
+    /// <summary>
+    /// Indicated whether this API service type is prepaid.
+    /// </summary>
 	public bool IsPrepaid {
 		get {
 			return this.isPrepaid;
 		}
 	}
 	
-	/**
-	 * Gets name.
-	 */
+    /// <summary>
+    /// Gets the name of this API service type.
+    /// </summary>
 	public string Name {
 		get {
 			return this.name;
 		}
 	}
 	
-	/**
-	 * Gets rate.
-	 */
+    /// <summary>
+    /// Gets the rate of this API service type.
+    /// </summary>
 	public double Rate {
 		get {
 			return this.rate;
 		}
 	}
 	
-	/**
-	 * Gets requiresActivation.
-	 */
+    /// <summary>
+    /// Indicated whether this API service type requires activation.
+    /// </summary>
 	public bool RequiresActivation {
 		get {
 			return this.requiresActivation;
 		}
 	}
 	
-	/**
-	 * Constructor from JSO.
-	 */
+    /// <summary>
+    /// Used internally to initialize the properties of this class.
+    /// </summary>
 	public ApiServiceType(JavaScriptObject jso)
 	{
 		foreach (string key in jso.Keys)

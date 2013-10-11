@@ -5,65 +5,66 @@ namespace Smsgh
 using System;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API number plan item.
+/// </summary>
 public class ApiNumberPlanItem
 {
-	/**
-	 * Data fields.
-	 */
+	// Data fields.
 	private long   id;
 	private string network;
 	private double payout;
 	private double reversePayout;
 	private string shortCode;
 	
-	/**
-	 * Gets id.
-	 */
+    /// <summary>
+    /// Gets the ID of this API number plan item.
+    /// </summary>
 	public long Id {
 		get {
 			return this.id;
 		}
 	}
 	
-	/**
-	 * Gets network.
-	 */
+    /// <summary>
+    /// Gets the network of this API number plan item.
+    /// </summary>
 	public string Network {
 		get {
 			return this.network;
 		}
 	}
 	
-	/**
-	 * Gets payout.
-	 */
+    /// <summary>
+    /// Gets the payout of this API number plan item.
+    /// </summary>
 	public double Payout {
 		get {
 			return this.payout;
 		}
 	}
 	
-	/**
-	 * Gets reversePayout.
-	 */
+    /// <summary>
+    /// Gets the reverse payout of this API number plan item.
+    /// </summary>
 	public double ReversePayout {
 		get {
 			return this.reversePayout;
 		}
 	}
 	
-	/**
-	 * Gets shortCode.
-	 */
+    /// <summary>
+    /// Gets the short code of this API number plan item.
+    /// </summary>
 	public string ShortCode {
 		get {
 			return this.shortCode;
 		}
 	}
 	
-	/**
-	 * Constructor from JSO.
-	 */
+    /// <summary>
+    /// Used internally to initialize this API number plan item.
+    /// </summary>
 	public ApiNumberPlanItem(JavaScriptObject jso)
 	{
 		foreach (string key in jso.Keys)

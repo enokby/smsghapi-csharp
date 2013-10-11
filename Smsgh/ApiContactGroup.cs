@@ -5,19 +5,20 @@ namespace Smsgh
 using System;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API contact group.
+/// </summary>
 public class ApiContactGroup
 {
-	/**
-	 * Data fields.
-	 */
+	// Data fields.
 	private string accountId;
 	private long   contactCount;
 	private long   groupId;
 	private string name;
 	
-	/**
-	 * Gets accountId.
-	 */
+    /// <summary>
+    /// Gets the account ID of this API contact group.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public string AccountId {
 		get {
@@ -25,9 +26,9 @@ public class ApiContactGroup
 		}
 	}
 	
-	/**
-	 * Gets contactCount.
-	 */
+    /// <summary>
+    /// Gets the contact count of this API contact group.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public long ContactCount {
 		get {
@@ -35,9 +36,9 @@ public class ApiContactGroup
 		}
 	}
 	
-	/**
-	 * Gets groupId.
-	 */
+    /// <summary>
+    /// Gets the ID of this API contact group.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public long GroupId {
 		get {
@@ -45,9 +46,9 @@ public class ApiContactGroup
 		}
 	}
 	
-	/**
-	 * Gets or sets name.
-	 */
+    /// <summary>
+    /// Gets or sets the name of this API contact group.
+    /// </summary>
 	public string Name {
 		get {
 			return this.name;
@@ -57,16 +58,16 @@ public class ApiContactGroup
 		}
 	}
 	
-	/**
-	 * Primary constructor.
-	 */
+    /// <summary>
+    /// Initializes a new instance of this API contact group.
+    /// </summary>
 	public ApiContactGroup()
 	{
 	}
 	
-	/**
-	 * Constructor from JSO.
-	 */
+    /// <summary>
+    /// Used internally to initialize the properties of this class.
+    /// </summary>
 	public ApiContactGroup(JavaScriptObject jso)
 	{
 		foreach (string key in jso.Keys)

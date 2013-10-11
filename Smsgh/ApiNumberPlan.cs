@@ -6,11 +6,12 @@ using System;
 using System.Collections.Generic;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API number plan.
+/// </summary>
 public class ApiNumberPlan
 {
-	/**
-	 * Data fields.
-	 */
+	// Data fields.
 	private string                  accountId;
 	private DateTime                dateActivated;
 	private DateTime                dateCreated;
@@ -28,126 +29,126 @@ public class ApiNumberPlan
 	private double                  periodicCostBasis;
 	private ApiServiceType          serviceType;
 	
-	/**
-	 * Gets accountId.
-	 */
+    /// <summary>
+    /// Gets the account ID of this API number plan.
+    /// </summary>
 	public string AccountId {
 		get {
 			return this.accountId;
 		}
 	}
 	
-	/**
-	 * Gets dateActivated.
-	 */
+    /// <summary>
+    /// Gets the activated date of this API number plan.
+    /// </summary>
 	public DateTime DateActivated {
 		get {
 			return this.dateActivated;
 		}
 	}
 	
-	/**
-	 * Gets dateCreated.
-	 */
+    /// <summary>
+    /// Gets the created date of this API number plan.
+    /// </summary>
 	public DateTime DateCreated {
 		get {
 			return this.dateCreated;
 		}
 	}
 	
-	/**
-	 * Gets dateDeactivated.
-	 */
+    /// <summary>
+    /// Gets the deactivated date of this API number plan.
+    /// </summary>
 	public DateTime? DateDeactivated {
 		get {
 			return this.dateDeactivated;
 		}
 	}
 	
-	/**
-	 * Gets dateExpiring.
-	 */
+    /// <summary>
+    /// Gets the expiring date of this API number plan.
+    /// </summary>
 	public DateTime DateExpiring {
 		get {
 			return this.dateExpiring;
 		}
 	}
 	
-	/**
-	 * Gets description.
-	 */
+    /// <summary>
+    /// Gets the description of this API number plan.
+    /// </summary>
 	public string Description {
 		get {
 			return this.description;
 		}
 	}
 	
-	/**
-	 * Gets id.
-	 */
+    /// <summary>
+    /// Gets the ID of this API number plan.
+    /// </summary>
 	public long Id {
 		get {
 			return this.id;
 		}
 	}
 	
-	/**
-	 * Gets initialCost.
-	 */
+    /// <summary>
+    /// Gets the initial cost of this API number plan.
+    /// </summary>
 	public double InitialCost {
 		get {
 			return this.initialCost;
 		}
 	}
 	
-	/**
-	 * Gets isActive.
-	 */
+    /// <summary>
+    /// Indicated whether this API number plan is active.
+    /// </summary>
 	public bool IsActive {
 		get {
 			return this.isActive;
 		}
 	}
 	
-	/**
-	 * Gets isPremium.
-	 */
+    /// <summary>
+    /// Indicates whether this API number plan is a premium.
+    /// </summary>
 	public bool IsPremium {
 		get {
 			return this.isPremium;
 		}
 	}
 	
-	/**
-	 * Gets maxAllowedKeywords.
-	 */
+    /// <summary>
+    /// Gets the maximum allowed keywords on this API number plan.
+    /// </summary> 
 	public int MaxAllowedKeywords {
 		get {
 			return this.maxAllowedKeywords;
 		}
 	}
 	
-	/**
-	 * Gets moKeywords.
-	 */
+    /// <summary>
+    /// Gets the API MO keywords this API number plan.
+    /// </summary>
 	public List<ApiMoKeyWord> MoKeywords {
 		get {
 			return this.moKeywords;
 		}
 	}
 	
-	/**
-	 * Gets notes.
-	 */
+    /// <summary>
+    /// Gets the notes of this API number plan.
+    /// </summary>
 	public string Notes {
 		get {
 			return this.notes;
 		}
 	}
 	
-	/**
-	 * Gets numberPlanItems.
-	 */
+    /// <summary>
+    /// Gets the API number plan items of this API number plan.
+    /// </summary>
 	public List<ApiNumberPlanItem> NumberPlanItems
 	{
 		get {
@@ -155,27 +156,27 @@ public class ApiNumberPlan
 		}
 	}
 	
-	/**
-	 * Gets periodicCostBasis.
-	 */
+    /// <summary>
+    /// Gets the periodic cost basis of this API number plan.
+    /// </summary>
 	public double PeriodicCostBasis {
 		get {
 			return this.periodicCostBasis;
 		}
 	}
 	
-	/**
-	 * Gets serviceType.
-	 */
+    /// <summary>
+    /// Gets the API service type of this API number plan.
+    /// </summary>
 	public ApiServiceType ServiceType {
 		get {
 			return this.serviceType;
 		}
 	}
 	
-	/**
-	 * Constructor from JSO.
-	 */
+    /// <summary>
+    /// Used internally to initialize a new instance of this class.
+    /// </summary>
 	public ApiNumberPlan(JavaScriptObject jso)
 	{
 		this.moKeywords = new List<ApiMoKeyWord>();

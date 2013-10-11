@@ -6,108 +6,108 @@ using System;
 using System.Collections.Generic;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API message response.
+/// </summary>
 public class ApiMessageResponse
 {
-	/**
-	 * Data fields.
-	 */
-	private int    status;
-	private Guid   messageId;
-	private double rate;
-	private string networkId;
+	// Data fields.
 	private string clientReference;
 	private Dictionary<string,string> detail;
+	private Guid   messageId;
+	private string networkId;
+	private double rate;
+	private int    status;
 	
-	/**
-	 * Gets or sets status.
-	 */
+    /// <summary>
+    /// Gets the status of this API message response.
+    /// </summary>
 	public int Status {
 		get {
 			return this.status;
 		}
 	}
 	
-	/**
-	 * Gets or sets messageId.
-	 */
+    /// <summary>
+    /// Gets the message ID of this API message response.
+    /// </summary>
 	public Guid MessageId {
 		get {
 			return this.messageId;
 		}
 	}
 	
-	/**
-	 * Gets or sets rate.
-	 */
+    /// <summary>
+    /// Gets the rate of this API message response.
+    /// </summary>
 	public double Rate {
 		get {
 			return this.rate;
 		}
 	}
 	
-	/**
-	 * Gets or sets networkId.
-	 */
+    /// <summary>
+    /// Gets the network ID of this API message response.
+    /// </summary>
 	public string NetworkId {
 		get {
 			return this.networkId;
 		}
 	}
 	
-	/**
-	 * Gets or sets clientReference.
-	 */
+    /// <summary>
+    /// Gets the client reference of this API message response.
+    /// </summary>
 	public string ClientReference {
 		get {
 			return this.clientReference;
 		}
 	}
 	
-	/**
-	 * Gets or sets detail.
-	 */
+    /// <summary>
+    /// Gets the detail of this API message response.
+    /// </summary>
 	public Dictionary<string, string> Detail {
 		get {
 			return this.detail;
 		}
 	}
 	
-	/**
-	 * Primary constructor.
-	 */
+    /// <summary>
+    /// Initializes a new instance of this API message response.
+    /// </summary>
 	public ApiMessageResponse()
 	{
 	}
 	
-	/**
-	 * Constructor from object.
-	 */
+    /// <summary>
+    /// Used internally to initialize the properties of this class.
+    /// </summary>
 	public ApiMessageResponse(JavaScriptObject jso)
 	{
 		foreach (string key in jso.Keys) {
 			switch (key.ToLower()) {
-				case "status":
-					this.status = Convert.ToInt32(jso[key]);
-					break;
-				case "messageid":
-					this.messageId = new Guid(Convert.ToString(jso[key]));
-					break;
-				case "rate":
-					this.rate = Convert.ToDouble(jso[key]);
-					break;
-				case "networkid":
-					this.networkId = Convert.ToString(jso[key]);
-					break;
 				case "clientreference":
 					this.clientReference = Convert.ToString(jso[key]);
 					break;
 				case "detail":
-					// TODO: Convert to type Dictionary.
-					this.detail = null; // Suppress compiler warning.
+					// ???
+					this.detail = null;  // Suppress compiler warning.
+					break;
+				case "messageid":
+					this.messageId = new Guid(Convert.ToString(jso[key]));
+					break;
+				case "networkid":
+					this.networkId = Convert.ToString(jso[key]);
+					break;
+				case "rate":
+					this.rate = Convert.ToDouble(jso[key]);
+					break;
+				case "status":
+					this.status = Convert.ToInt32(jso[key]);
 					break;
 			}
 		}
 	}
-	
 }
 }

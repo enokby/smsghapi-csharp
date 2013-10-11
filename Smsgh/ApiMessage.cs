@@ -7,11 +7,12 @@ using System.IO;
 using System.Text;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API message.
+/// </summary>
 public class ApiMessage
 {
-	/**
-	 * Data fields.
-	 */
+	// Data fields.
 	private int       apiMessageType = -1;
 	private string    clientReference;
 	private string    content;
@@ -29,9 +30,9 @@ public class ApiMessage
 	private double    units;
 	private DateTime? updateTime;
 	
-	/**
-	 * Gets or sets apiMessageType.
-	 */
+    /// <summary>
+    /// Gets or sets the API message type of this API message.
+    /// </summary>
 	public int ApiMessageType {
 		get {
 			return this.apiMessageType;
@@ -41,9 +42,9 @@ public class ApiMessage
 		}
 	}
 	
-	/**
-	 * Gets or sets clientReference.
-	 */
+    /// <summary>
+    /// Gets or sets the client reference of this API message.
+    /// </summary>
 	public string ClientReference {
 		get {
 			return this.clientReference;
@@ -53,9 +54,9 @@ public class ApiMessage
 		}
 	}
 	
-	/**
-	 * Gets or sets content.
-	 */
+    /// <summary>
+    /// Gets or sets the content of this API message.
+    /// </summary>
 	public string Content {
 		get {
 			return this.content;
@@ -65,9 +66,9 @@ public class ApiMessage
 		}
 	}
 	
-	/**
-	 * Gets direction.
-	 */
+    /// <summary>
+    /// Gets the direction of this API message.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public string Direction {
 		get {
@@ -75,9 +76,9 @@ public class ApiMessage
 		}
 	}
 	
-	/**
-	 * Gets or sets flashMessage;
-	 */
+    /// <summary>
+    /// Gets or sets a value indicating whether is this API message is flash.
+    /// </summary>
 	public bool IsFlashMessage {
 		get {
 			return this.flashMessage;
@@ -87,9 +88,9 @@ public class ApiMessage
 		}
 	}
 	
-	/**
-	 * Gets or sets from.
-	 */
+    /// <summary>
+    /// Gets or sets the originator of this API message.
+    /// </summary>
 	public string From {
 		get {
 			return this.from;
@@ -99,9 +100,9 @@ public class ApiMessage
 		}
 	}
 	
-	/**
-	 * Gets id.
-	 */
+    /// <summary>
+    /// Gets the ID of this API message.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public Guid MessageId {
 		get {
@@ -109,9 +110,9 @@ public class ApiMessage
 		}
 	}
 	
-	/**
-	 * Gets networkId.
-	 */
+    /// <summary>
+    /// Gets the network ID of this API message.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public string NetworkId {
 		get {
@@ -119,9 +120,9 @@ public class ApiMessage
 		}
 	}
 	
-	/**
-	 * Gets rate.
-	 */
+    /// <summary>
+    /// Gets the rate of this API message.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public double Rate {
 		get {
@@ -129,9 +130,9 @@ public class ApiMessage
 		}
 	}
 	
-	/**
-	 * Gets or sets registeredDelivery.
-	 */
+    /// <summary>
+    /// Gets or sets a value indicating whether this API message is registered delivery.
+    /// </summary>
 	public bool IsRegisteredDelivery {
 		get {
 			return this.registeredDelivery;
@@ -141,9 +142,9 @@ public class ApiMessage
 		}
 	}
 	
-	/**
-	 * Gets status.
-	 */
+    /// <summary>
+    /// Gets the status of this API message.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public string Status {
 		get {
@@ -151,9 +152,9 @@ public class ApiMessage
 		}
 	}
 	
-	/**
-	 * Gets or sets time.
-	 */
+    /// <summary>
+    /// Gets or sets the scheduled time of this API message.
+    /// </summary>
 	public System.DateTime? Time {
 		get {
 			return this.time;
@@ -163,9 +164,9 @@ public class ApiMessage
 		}
 	}
 	
-	/**
-	 * Gets or sets to.
-	 */
+    /// <summary>
+    /// Gets or sets the destination of this API message.
+    /// </summary>
 	public string To {
 		get {
 			return this.to;
@@ -175,9 +176,9 @@ public class ApiMessage
 		}
 	}
 	
-	/**
-	 * Gets or sets udh.
-	 */
+    /// <summary>
+    /// Gets or sets the UDH of this API message.
+    /// </summary>
 	public string Udh {
 		get {
 			return this.udh;
@@ -187,9 +188,9 @@ public class ApiMessage
 		}
 	}
 	
-	/**
-	 * Gets units.
-	 */
+    /// <summary>
+    /// Gets the units of this API message.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public double Units {
 		get {
@@ -197,9 +198,9 @@ public class ApiMessage
 		}
 	}
 	
-	/**
-	 * Gets updateTime.
-	 */
+    /// <summary>
+    /// Gets the update time of this API message.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public System.DateTime? UpdateTime {
 		get {
@@ -207,16 +208,16 @@ public class ApiMessage
 		}
 	}
 	
-	/**
-	 * Primary constructor.
-	 */
+    /// <summary>
+    /// Initializes a new instance of this API message.
+    /// </summary>
 	public ApiMessage()
 	{
 	}
 	
-	/**
-	 * Construct from JSO.
-	 */
+    /// <summary>
+    /// Used internally to initialize the properties of this class.
+    /// </summary>
 	public ApiMessage(JavaScriptObject jso)
 	{
 		foreach (string key in jso.Keys) {

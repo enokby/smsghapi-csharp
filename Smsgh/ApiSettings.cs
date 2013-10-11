@@ -5,11 +5,12 @@ namespace Smsgh
 using System;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API settings.
+/// </summary>
 public class ApiSettings
 {
-	/**
-	 * Data fields.
-	 */
+	// Data fields.
 	private string accountId;
 	private string countryCode;
 	private string deliveryReportNotificationUrl;
@@ -24,9 +25,9 @@ public class ApiSettings
 	private bool   smsTopUpNotification;
 	private string timeZone;
 	
-	/**
-	 * Gets accountId.
-	 */
+    /// <summary>
+    /// Gets the account ID of this API settings.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public string AccountId {
 		get {
@@ -34,9 +35,9 @@ public class ApiSettings
 		}
 	}
 	
-	/**
-	 * Gets or sets countryCode.
-	 */
+    /// <summary>
+    /// Gets or sets the country code of this API settings.
+    /// </summary>
 	public string CountryCode {
 		get {
 			return this.countryCode;
@@ -46,9 +47,9 @@ public class ApiSettings
 		}
 	}
 	
-	/**
-	 * Gets or sets deliveryReportNotificationUrl.
-	 */
+    /// <summary>
+    /// Gets or sets the delivery report notification URL of this API settings.
+    /// </summary>
 	public string DeliveryReportNotificationUrl {
 		get {
 			return this.deliveryReportNotificationUrl;
@@ -58,9 +59,9 @@ public class ApiSettings
 		}
 	}
 	
-	/**
-	 * Gets or sets emailDailySummary.
-	 */
+    /// <summary>
+    /// Gets or sets the email daily summary of this API settings.
+    /// </summary>
 	public bool EmailDailySummary {
 		get {
 			return this.emailDailySummary;
@@ -70,9 +71,9 @@ public class ApiSettings
 		}
 	}
 	
-	/**
-	 * Gets emailInvoiceReminders.
-	 */
+    /// <summary>
+    /// Gets or sets the email invoice reminders of this API settings.
+    /// </summary>
 	public bool EmailInvoiceReminders {
 		get {
 			return this.emailInvoiceReminders;
@@ -82,9 +83,9 @@ public class ApiSettings
 		}
 	}
 	
-	/**
-	 * Gets emailMaintenance.
-	 */
+    /// <summary>
+    /// Gets or sets the email maintenance of this API settings.
+    /// </summary>
 	public bool EmailMaintenance {
 		get {
 			return this.emailMaintenance;
@@ -94,9 +95,9 @@ public class ApiSettings
 		}
 	}
 	
-	/**
-	 * Gets emailNewInvoice.
-	 */
+    /// <summary>
+    /// Gets or sets the email new invoice of this API settings.
+    /// </summary>
 	public bool EmailNewInvoice {
 		get {
 			return this.emailNewInvoice;
@@ -106,9 +107,9 @@ public class ApiSettings
 		}
 	}
 	
-	/**
-	 * Gets smsFortnightBalance.
-	 */
+    /// <summary>
+    /// Gets or sets the SMS fornight balance of this API settings.
+    /// </summary>
 	public bool SmsFortnightBalance {
 		get {
 			return this.smsFortnightBalance;
@@ -118,9 +119,9 @@ public class ApiSettings
 		}
 	}
 	
-	/**
-	 * Gets smsLowBalanceNotification.
-	 */
+    /// <summary>
+    /// Gets or sets the SMS low balance notification of this API settings.
+    /// </summary>
 	public bool SmsLowBalanceNotification {
 		get {
 			return this.smsLowBalanceNotification;
@@ -130,9 +131,9 @@ public class ApiSettings
 		}
 	}
 	
-	/**
-	 * Gets smsMaintenance.
-	 */
+    /// <summary>
+    /// Gets or sets the SMS maintenance of this API settings.
+    /// </summary>
 	public bool SmsMaintenance {
 		get {
 			return this.smsMaintenance;
@@ -142,9 +143,9 @@ public class ApiSettings
 		}
 	}
 	
-	/**
-	 * Gets smsPromotionalMessages.
-	 */
+    /// <summary>
+    /// Gets or sets the SMS promotional messages of this API settings.
+    /// </summary>
 	public bool SmsPromotionalMessages {
 		get {
 			return this.smsPromotionalMessages;
@@ -154,9 +155,9 @@ public class ApiSettings
 		}
 	}
 	
-	/**
-	 * Gets smsTopUpNotification.
-	 */
+    /// <summary>
+    /// Gets or sets the SMS top-up notification of this API settings.
+    /// </summary>
 	public bool SmsTopUpNotification {
 		get {
 			return this.smsTopUpNotification;
@@ -166,9 +167,9 @@ public class ApiSettings
 		}
 	}
 	
-	/**
-	 * Gets timeZone.
-	 */
+    /// <summary>
+    /// Gets or sets the time zone of this API settings.
+    /// </summary>
 	public string TimeZone {
 		get {
 			return this.timeZone;
@@ -178,9 +179,9 @@ public class ApiSettings
 		}
 	}
 	
-	/**
-	 * Primary constructor.
-	 */
+    /// <summary>
+    /// Used internally to initialize the properties of this class.
+    /// </summary>
 	public ApiSettings(JavaScriptObject jso)
 	{
 		foreach (string key in jso.Keys)

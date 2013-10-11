@@ -5,11 +5,12 @@ namespace Smsgh
 using System;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API invoice.
+/// </summary>
 public class ApiInvoice
 {
-	/**
-	 * Data fields.
-	 */
+	// Data fields.
 	private double amount;
 	private DateTime created;
 	private string description;
@@ -19,81 +20,81 @@ public class ApiInvoice
 	private bool isPaid;
 	private string type;
 	
-	/**
-	 * Gets amount.
-	 */
+    /// <summary>
+    /// Gets the amount of this API invoice.
+    /// </summary>
 	public double Amount {
 		get {
 			return this.amount;
 		}
 	}
 	
-	/**
-	 * Gets created.
-	 */
+    /// <summary>
+    /// Gets the created date of this API invoice.
+    /// </summary>
 	public DateTime Created {
 		get {
 			return this.created;
 		}
 	}
 	
-	/**
-	 * Gets description.
-	 */
+    /// <summary>
+    /// Gets the description of this API invoice.
+    /// </summary>
 	public string Description {
 		get {
 			return this.description;
 		}
 	}
 	
-	/**
-	 * Gets dueDate.
-	 */
+    /// <summary>
+    /// Gets the due date of this API invoice.
+    /// </summary>
 	public DateTime DueDate {
 		get {
 			return this.dueDate;
 		}
 	}
 	
-	/**
-	 * Gets ending.
-	 */
+    /// <summary>
+    /// Gets the ending of this API invoice.
+    /// </summary>
 	public double Ending {
 		get {
 			return this.ending;
 		}
 	}
 	
-	/**
-	 * Gets id.
-	 */
+    /// <summary>
+    /// Gets the ID of this API invoice.
+    /// </summary>
 	public long Id {
 		get {
 			return this.id;
 		}
 	}
 	
-	/**
-	 * Gets isPaid.
-	 */
+    /// <summary>
+    /// Indicates whether this API invoice is paid.
+    /// </summary>
 	public bool IsPaid {
 		get {
 			return this.isPaid;
 		}
 	}
 	
-	/**
-	 * Gets type.
-	 */
+    /// <summary>
+    /// Gets the type of this API invoice.
+    /// </summary>
 	public string Type {
 		get {
 			return this.type;
 		}
 	}
 	
-	/**
-	 * Primary constructor.
-	 */
+    /// <summary>
+    /// Used internally to initialize the properties of this class.
+    /// </summary>
 	public ApiInvoice(JavaScriptObject jso)
 	{
 		foreach (string key in jso.Keys)

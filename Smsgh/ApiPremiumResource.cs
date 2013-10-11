@@ -8,83 +8,93 @@ using System.Text;
 using Smsgh.Json;
 using Smsgh.Json.Utilities;
 
+/// <summary>
+/// Represents an API premium resource.
+/// </summary>
 public class ApiPremiumResource
 {
-	/**
-	 * Data fields.
-	 */
 	private SmsghApi apiHost;
 	
-	/**
-	 * Primary constructor.
-	 */
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ApiPremiumResource"/> class.
+    /// </summary>
 	public ApiPremiumResource(SmsghApi apiHost)
 	{
 		this.apiHost = apiHost;
 	}
 	
-	/**
-	 * Gets all number plans.
-	 */
+    /// <summary>
+    /// Retrieves all API number plans.
+    /// </summary>
 	public ApiList<ApiNumberPlan> GetNumberPlans()
 	{
 		return GetNumberPlans(-1, -1);
 	}
 	
-	/**
-	 * Gets number plans by page and pageSize.
-	 */
+    /// <summary>
+    /// Retrieves API number plans by page and page size.
+    /// </summary>
+	/// <param name="page">One-based index of the page to query.</param>
+	/// <param name="pageSize">Maximum number of entries in a page.</param>
 	public ApiList<ApiNumberPlan> GetNumberPlans(int page, int pageSize)
 	{
 		return ApiHelper.GetApiList<ApiNumberPlan>
 			(this.apiHost, "/v3/numberplans", page, pageSize);
 	}
 	
-	/**
-	 * Gets all shared number plans.
-	 */
+    /// <summary>
+    /// Retrieves all shared API number plans.
+    /// </summary>
 	public ApiList<ApiNumberPlan> GetSharedNumberPlans()
 	{
 		return GetSharedNumberPlans(-1, -1);
 	}
 	
-	/**
-	 * Gets shared number plans by page and pageSize.
-	 */
+    /// <summary>
+    /// Retrieves shared API number plans by page and page size.
+    /// </summary>
+	/// <param name="page">One-based index of the page to query.</param>
+	/// <param name="pageSize">Maximum number of entries in a page.</param>
 	public ApiList<ApiNumberPlan> GetSharedNumberPlans(int page, int pageSize)
 	{
 		return ApiHelper.GetApiList<ApiNumberPlan>
 			(this.apiHost, "/v3/numberplans/shared", page, pageSize);
 	}
 	
-	/**
-	 * Gets all not-shared number plans.
-	 */
+    /// <summary>
+    /// Retrieves all not-shared API number plans.
+    /// </summary>
 	public ApiList<ApiNumberPlan> GetNotSharedNumberPlans()
 	{
 		return GetNotSharedNumberPlans(-1, -1);
 	}
 	
-	/**
-	 * Gets not-shared number plans by page and pageSize.
-	 */
+    /// <summary>
+    /// Retrieves not-shared API number plans by page and page size.
+    /// </summary>
+	/// <param name="page">One-based index of the page to query.</param>
+	/// <param name="pageSize">Maximum number of entries in a page.</param>
 	public ApiList<ApiNumberPlan> GetNotSharedNumberPlans(int page, int pageSize)
 	{
 		return ApiHelper.GetApiList<ApiNumberPlan>
 			(this.apiHost, "/v3/numberplans/notshared", page, pageSize);
 	}
 	
-	/**
-	 * Gets all number plan keywords by number plan ID.
-	 */
+    /// <summary>
+    /// Retrieves all API keywords for a number plan.
+    /// </summary>
+	/// <param name="numberPlanId">ID of the API number plan to query.</param>
 	public ApiList<ApiMoKeyWord> GetNumberPlanKeywords(long numberPlanId)
 	{
 		return GetNumberPlanKeywords(numberPlanId, -1, -1);
 	}
 	
-	/**
-	 * Gets number plan keywords by number plan ID, page and pageSize.
-	 */
+    /// <summary>
+    /// Retrieves API keywords for a number plan by page and page size.
+    /// </summary>
+	/// <param name="numberPlanId">ID of the API number plan to query.</param>
+	/// <param name="page">One-based index of the page to query.</param>
+	/// <param name="pageSize">Maximum number of entries in a page.</param>
 	public ApiList<ApiMoKeyWord> GetNumberPlanKeywords
 		(long numberPlanId, int page, int pageSize)
 	{
@@ -93,26 +103,29 @@ public class ApiPremiumResource
 				+ numberPlanId + "/keywords", page, pageSize);
 	}
 	
-	/**
-	 * Gets all campaigns.
-	 */
+    /// <summary>
+    /// Retrieves all API campaigns.
+    /// </summary>
 	public ApiList<ApiCampaign> GetCampaigns()
 	{
 		return GetCampaigns(-1, -1);
 	}
 	
-	/**
-	 * Gets campaigns by page and pageSize.
-	 */
+    /// <summary>
+    /// Retrieves API campaigns by page and page size.
+    /// </summary>
+	/// <param name="page">One-based index of the page to query.</param>
+	/// <param name="pageSize">Maximum number of entries in a page.</param>
 	public ApiList<ApiCampaign> GetCampaigns(int page, int pageSize)
 	{
 		return ApiHelper.GetApiList<ApiCampaign>
 			(this.apiHost, "/v3/campaigns", page, pageSize);
 	}
 	
-	/**
-	 * Gets campaign by ID.
-	 */
+    /// <summary>
+    /// Retrieves an API campaign by ID.
+    /// </summary>
+	/// <param name="campaignId">ID of the API campaign to query.</param>
 	public ApiCampaign GetCampaign(int campaignId)
 	{
 		try {
@@ -123,9 +136,10 @@ public class ApiPremiumResource
 		}
 	}
 	
-	/**
-	 * Creates new campaign.
-	 */
+    /// <summary>
+    /// Creates a new API campaign.
+    /// </summary>
+	/// <param name="apiCampaign">The API campaign to create.</param>
 	public ApiCampaign Create(ApiCampaign apiCampaign)
 	{
 		try {
@@ -141,9 +155,10 @@ public class ApiPremiumResource
 		}
 	}
 	
-	/**
-	 * Updates campaign.
-	 */
+    /// <summary>
+    /// Updates an API campaign.
+    /// </summary>
+	/// <param name="apiCampaign">The API campaign to update.</param>
 	public ApiCampaign Update(ApiCampaign apiCampaign)
 	{
 		try {
@@ -159,9 +174,10 @@ public class ApiPremiumResource
 		}
 	}
 	
-	/**
-	 * Deletes campaign.
-	 */
+    /// <summary>
+    /// Deletes an API campaign.
+    /// </summary>
+	/// <param name="campaignId">ID of the API campaign to delete.</param>
 	public void DeleteCampaign(int campaignId)
 	{
 		try {
@@ -172,26 +188,29 @@ public class ApiPremiumResource
 		}
 	}
 	
-	/**
-	 * Gets keywords.
-	 */
+    /// <summary>
+    /// Retrieves all API MO keywords.
+    /// </summary>
 	public ApiList<ApiMoKeyWord> GetKeywords()
 	{
 		return GetKeywords(-1, -1);
 	}
 	
-	/**
-	 * Gets keywords by page and pageSize.
-	 */
+    /// <summary>
+    /// Retrieves API MO keywords by page and page size.
+    /// </summary>
+	/// <param name="page">One-based index of the page to query.</param>
+	/// <param name="pageSize">Maximum number of entries in a page.</param>
 	public ApiList<ApiMoKeyWord> GetKeywords(int page, int pageSize)
 	{
 		return ApiHelper.GetApiList<ApiMoKeyWord>
 			(this.apiHost, "/v3/keywords", page, pageSize);
 	}
 	
-	/**
-	 * Creates keyword.
-	 */
+    /// <summary>
+    /// Creates a new API MO keyword.
+    /// </summary>
+	/// <param name="apiMoKeyword">API MO keyword to create.</param>
 	public ApiMoKeyWord Create(ApiMoKeyWord apiMoKeyword)
 	{
 		try {
@@ -207,9 +226,10 @@ public class ApiPremiumResource
 		}
 	}
 	
-	/**
-	 * Updates keyword.
-	 */
+    /// <summary>
+    /// Updates an API MO keyword.
+    /// </summary>
+	/// <param name="apiMoKeyword">API MO keyword to update.</param>
 	public ApiMoKeyWord Update(ApiMoKeyWord apiMoKeyword)
 	{
 		try {
@@ -225,9 +245,10 @@ public class ApiPremiumResource
 		}
 	}
 	
-	/**
-	 * Deletes keyword.
-	 */
+    /// <summary>
+    /// Deletes an API MO keyword.
+    /// </summary>
+	/// <param name="keywordId">ID of the API MO keyword to delete</param>
 	public void DeleteKeyword(int keywordId)
 	{
 		try {
@@ -238,9 +259,11 @@ public class ApiPremiumResource
 		}
 	}
 	
-	/**
-	 * Adds keyword to campaign.
-	 */
+    /// <summary>
+    /// Adds an API MO keyword to an API campaign.
+    /// </summary>
+	/// <param name="campaignId">ID of the API campaign to add keyword to.</param>
+	/// <param name="keywordId">ID of the API MO keyword to add to campaign.</param>
 	public ApiCampaign AddKeywordToCampaign(int campaignId, int keywordId)
 	{
 		try {
@@ -252,9 +275,11 @@ public class ApiPremiumResource
 		}
 	}
 	
-	/**
-	 * Removes keyword from campaign.
-	 */
+    /// <summary>
+    /// Removes an API MO keyword from an API campaign.
+    /// </summary>
+	/// <param name="campaignId">ID of the API campaign to remove keyword from.</param>
+	/// <param name="keywordId">ID of the API MO keyword to remove from campaign.</param>
 	public void RemoveKeywordFromCampaign(int campaignId, int keywordId)
 	{
 		try {
@@ -266,26 +291,32 @@ public class ApiPremiumResource
 		}
 	}
 	
-	/**
-	 * Gets all campaign actions.
-	 */
+    /// <summary>
+    /// Retrieves all API actions on an API campaign.
+    /// </summary>
+	/// <param name="campaignId">ID of the API campaign to query its actions.</param>
 	public ApiList<ApiAction> GetActions(long campaignId)
 	{
 		return GetActions(campaignId, -1, -1);
 	}
 	
-	/**
-	 * Get campaign actions by page and pageSize.
-	 */
+    /// <summary>
+    /// Retrieves API actions on an API campaign by page and page size.
+    /// </summary>
+	/// <param name="campaignId">ID of the API campaign to query its actions</param>
+	/// <param name="page">One-based index of the page to query.</param>
+	/// <param name="pageSize">Maximum number of entries in a page.</param>
 	public ApiList<ApiAction> GetActions(long campaignId, int page, int pageSize)
 	{
 		return ApiHelper.GetApiList<ApiAction>
 			(this.apiHost, "/v3/campaigns/" + campaignId + "/actions", page, pageSize);
 	}
 	
-	/**
-	 * Adds default reply action to campaign.
-	 */
+    /// <summary>
+    /// Adds a default reply action to an API campaign.
+    /// </summary>
+	/// <param name="campaignId">ID of the API campaign.</param>
+	/// <param name="message">Message.</param>
 	public ApiCampaign AddDefaultReplyAction(long campaignId, string message)
 	{
 		try {
@@ -298,17 +329,22 @@ public class ApiPremiumResource
 		}
 	}
 	
-	/**
-	 * Adds dynamic URL action to campaign by url.
-	 */
+    /// <summary>
+    /// Adds a dynamic URL action to an API campaign with default send response.
+    /// </summary>
+	/// <param name="campaignId">ID of the API campaign.</param>
+	/// <param name="url">URL to add.</param>
 	public ApiCampaign AddDynamicUrlAction(long campaignId, string url)
 	{
 		return AddDynamicUrlAction(campaignId, url, "no");
 	}
 	
-	/**
-	 * Adds dynamic URL action to campaign by url and sendResponse.
-	 */
+    /// <summary>
+    /// Adds a dynamic URL action to an API campaign.
+    /// </summary>
+	/// <param name="campaignId">ID of the API campaign.</param>
+	/// <param name="url">URL to add.</param>
+	/// <param name="sendResponse">A <c>yes</c> or <c>no</c> send response.</param>
 	public ApiCampaign AddDynamicUrlAction(long campaignId, string url, string sendResponse)
 	{
 		try {
@@ -324,9 +360,11 @@ public class ApiPremiumResource
 		}
 	}
 	
-	/**
-	 * Adds email address action to campaign.
-	 */
+    /// <summary>
+    /// Adds an email address action to an API campaign.
+    /// </summary>
+	/// <param name="campaignId">ID of the API campaign.</param>
+	/// <param name="address">Email address to add.</param>
 	public ApiCampaign AddEmailAddressAction(long campaignId, string address)
 	{
 		try {
@@ -339,9 +377,11 @@ public class ApiPremiumResource
 		}
 	}
 	
-	/**
-	 * Adds forward to mobile action to campaign.
-	 */
+    /// <summary>
+    /// Adds a forward-to-mobile action to an API campaign.
+    /// </summary>
+	/// <param name="campaignId">ID of the API campaign.</param>
+	/// <param name="number">Phone number to add.</param>
 	public ApiCampaign AddForwardToMobileAction(long campaignId, string number)
 	{
 		try {
@@ -354,9 +394,11 @@ public class ApiPremiumResource
 		}
 	}
 	
-	/**
-	 * Adds forward to SMPP action to campaign.
-	 */
+    /// <summary>
+    /// Adds a forward-to-SMPP action to an API campaign.
+    /// </summary>
+	/// <param name="campaignId">ID of the API campaign.</param>
+	/// <param name="appId">Application ID to add.</param>
 	public ApiCampaign AddForwardToSmppAction(long campaignId, string appId)
 	{
 		try {

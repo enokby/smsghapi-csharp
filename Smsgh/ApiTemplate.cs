@@ -5,20 +5,21 @@ namespace Smsgh
 using System;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API message template.
+/// </summary>
 public class ApiTemplate
 {
-	/**
-	 * Data fields.
-	 */
+	// Data fields.
 	private string   accountId;
 	private DateTime dateCreated;
 	private long     id;
 	private string   name;
 	private string   text;
 	
-	/**
-	 * Gets accountId.
-	 */
+    /// <summary>
+    /// Gets the account ID of this API message template.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public string AccountId {
 		get {
@@ -26,9 +27,9 @@ public class ApiTemplate
 		}
 	}
 	
-	/**
-	 * Gets dateCreated.
-	 */
+    /// <summary>
+    /// Gets the created date of this API message template.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public DateTime DateCreated {
 		get {
@@ -36,9 +37,9 @@ public class ApiTemplate
 		}
 	}
 	
-	/**
-	 * Gets id.
-	 */
+    /// <summary>
+    /// Gets the ID of this API message template.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public long Id {
 		get {
@@ -46,9 +47,9 @@ public class ApiTemplate
 		}
 	}
 	
-	/**
-	 * Gets or sets name.
-	 */
+    /// <summary>
+    /// Gets or sets the name of this API message template.
+    /// </summary>
 	public string Name {
 		get {
 			return this.name;
@@ -58,9 +59,9 @@ public class ApiTemplate
 		}
 	}
 	
-	/**
-	 * Gets or sets text.
-	 */
+    /// <summary>
+    /// Gets or sets the text of this API message template.
+    /// </summary>
 	public string Text {
 		get {
 			return this.text;
@@ -70,16 +71,16 @@ public class ApiTemplate
 		}
 	}
 	
-	/**
-	 * Primary constructor.
-	 */
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ApiTemplate"/> class.
+    /// </summary>
 	public ApiTemplate()
 	{
 	}
 	
-	/**
-	 * Constructor from JSO.
-	 */
+    /// <summary>
+    /// Used internally to initialize the properties of this class.
+    /// </summary>
 	public ApiTemplate(JavaScriptObject jso)
 	{
 		foreach (string key in jso.Keys)

@@ -5,11 +5,12 @@ namespace Smsgh
 using System;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API account profile.
+/// </summary>
 public class ApiAccountProfile
 {
-	/**
-	 * Data fields.
-	 */
+	// Data fields.
 	private string   accountId;
 	private string   accountManager;
 	private long     accountNumber;
@@ -24,126 +25,126 @@ public class ApiAccountProfile
 	private string   primaryContact;
 	private double   unpostedBalance;
 	
-	/**
-	 * Get accountId.
-	 */
+    /// <summary>
+    /// Gets the ID of this account profile.
+    /// </summary>
 	public string AccountId {
 		get {
 			return this.accountId;
 		}
 	}
 	
-	/**
-	 * Get accountManager.
-	 */
+    /// <summary>
+    /// Gets the account manager of this account profile.
+    /// </summary>
 	public string AccountManager {
 		get {
 			return this.accountManager;
 		}
 	}
 	
-	/**
-	 * Get accountNumber.
-	 */
+    /// <summary>
+    /// Gets the account number of this account profile.
+    /// </summary>
 	public long AccountNumber {
 		get {
 			return this.accountNumber;
 		}
 	}
 	
-	/**
-	 * Get accountStatus;
-	 */
+    /// <summary>
+    /// Gets the account status of this account profile.
+    /// </summary>
 	public string AccountStatus {
 		get {
 			return this.accountStatus;
 		}
 	}
 	
-	/**
-	 * Get balance.
-	 */
+    /// <summary>
+    /// Gets the balance of this account profile.
+    /// </summary>
 	public double Balance {
 		get {
 			return this.balance;
 		}
 	}
 	
-	/**
-	 * Get company.
-	 */
+    /// <summary>
+    /// Gets the company of this account profile.
+    /// </summary>
 	public string Company {
 		get {
 			return this.company;
 		}
 	}
 	
-	/**
-	 * Get credit.
-	 */
+    /// <summary>
+    /// Gets the credit of this account profile.
+    /// </summary>
 	public double Credit {
 		get {
 			return this.credit;
 		}
 	}
 	
-	/**
-	 * Get emailAddress.
-	 */
+    /// <summary>
+    /// Gets the email address of this account profile.
+    /// </summary>
 	public string EmailAddress {
 		get {
 			return this.emailAddress;
 		}
 	}
 	
-	/**
-	 * Get lastAccessed.
-	 */
+    /// <summary>
+    /// Gets the last accessed date of this account profile.
+    /// </summary>
 	public DateTime LastAccessed {
 		get {
 			return this.lastAccessed;
 		}
 	}
 	
-	/**
-	 * Get mobileNumber.
-	 */
+    /// <summary>
+    /// Gets the mobile number of this account profile.
+    /// </summary>
 	public string MobileNumber {
 		get {
 			return this.mobileNumber;
 		}
 	}
 	
-	/**
-	 * Get numberOfServices.
-	 */
+    /// <summary>
+    /// Gets the number of services on this account profile.
+    /// </summary>
 	public int NumberOfServices {
 		get {
 			return this.numberOfServices;
 		}
 	}
 	
-	/**
-	 * Get primaryContact.
-	 */
+    /// <summary>
+    /// Gets the primary contact of this account profile.
+    /// </summary>
 	public string PrimaryContact {
 		get {
 			return this.primaryContact;
 		}
 	}
 	
-	/**
-	 * Get unpostedBalance.
-	 */
+    /// <summary>
+    /// Gets the unposted balance of this account profile.
+    /// </summary>
 	public double UnpostedBalance {
 		get {
 			return this.unpostedBalance;
 		}
 	}
 	
-	/**
-	 * Primary constructor.
-	 */
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ApiAccountProfile"/> class.
+    /// </summary>
 	public ApiAccountProfile(JavaScriptObject jso)
 	{
 		foreach (string key in jso.Keys) {

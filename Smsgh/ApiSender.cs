@@ -5,11 +5,12 @@ namespace Smsgh
 using System;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API sender.
+/// </summary>
 public class ApiSender
 {
-	/**
-	 * Data fields.
-	 */
+	// Data fields.
 	private string    accountId;
 	private string    address;
 	private long      id;
@@ -17,9 +18,9 @@ public class ApiSender
 	private DateTime  timeAdded;
 	private DateTime? timeDeleted;
 	
-	/**
-	 * Gets accountId.
-	 */
+    /// <summary>
+    /// Gets the account ID of this API sender.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public string AccountId {
 		get {
@@ -27,9 +28,9 @@ public class ApiSender
 		}
 	}
 	
-	/**
-	 * Gets or sets address.
-	 */
+    /// <summary>
+    /// Gets or sets the address of this API sender.
+    /// </summary>
 	public string Address {
 		get {
 			return this.address;
@@ -39,9 +40,9 @@ public class ApiSender
 		}
 	}
 	
-	/**
-	 * Gets id.
-	 */
+    /// <summary>
+    /// Gets the ID of this API sender.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public long Id {
 		get {
@@ -49,9 +50,9 @@ public class ApiSender
 		}
 	}
 	
-	/**
-	 * Gets isDeleted.
-	 */
+    /// <summary>
+    /// Indicated whether this API sender is deleted.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public bool IsDeleted {
 		get {
@@ -59,9 +60,9 @@ public class ApiSender
 		}
 	}
 	
-	/**
-	 * Gets timeAdded.
-	 */
+    /// <summary>
+    /// Gets the created date of this API sender.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public DateTime TimeAdded {
 		get {
@@ -69,9 +70,9 @@ public class ApiSender
 		}
 	}
 	
-	/**
-	 * Gets timeDeleted.
-	 */
+    /// <summary>
+    /// Gets the deleted date of this API sender.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public DateTime? TimeDeleted {
 		get {
@@ -79,16 +80,16 @@ public class ApiSender
 		}
 	}
 	
-	/**
-	 * Primary constructor.
-	 */
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ApiSender"/> class.
+    /// </summary>
 	public ApiSender()
 	{
 	}
 	
-	/**
-	 * Constructor from JSO.
-	 */
+    /// <summary>
+    /// Used internally to initialize the properties of this class.
+    /// </summary>
 	public ApiSender(JavaScriptObject jso)
 	{
 		foreach (string key in jso.Keys)

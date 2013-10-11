@@ -1,15 +1,16 @@
-// $Id$
+// $Id: ApiChildAccount.cs 0 1970-01-01 00:00:00Z mkwayisi $
 namespace Smsgh
 {
 
 using System;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API child account.
+/// </summary>
 public class ApiChildAccount
 {
-	/**
-	 * Data fields.
-	 */
+	// Data fields.
 	private long      accountNumber;
 	private double    balance;
 	private bool      canImpersonate;
@@ -23,117 +24,117 @@ public class ApiChildAccount
 	private DateTime  timeCreated;
 	private DateTime? timeRemoved;
 	
-	/**
-	 * Gets accountNumber.
-	 */
+    /// <summary>
+    /// Gets the account number of this API child account.
+    /// </summary>
 	public long AccountNumber {
 		get {
 			return this.accountNumber;
 		}
 	}
 	
-	/**
-	 * Gets balance.
-	 */
+    /// <summary>
+    /// Gets the balance of this API child account.
+    /// </summary>
 	public double Balance {
 		get {
 			return this.balance;
 		}
 	}
 	
-	/**
-	 * Gets canImpersonate.
-	 */
+    /// <summary>
+    /// Indicates whether this API child account can be impersonated.
+    /// </summary>
 	public bool CanImpersonate {
 		get {
 			return this.canImpersonate;
 		}
 	}
 	
-	/**
-	 * Gets child.
-	 */
+    /// <summary>
+    /// Gets the child of this API child account.
+    /// </summary>
 	public string Child {
 		get {
 			return this.child;
 		}
 	}
 	
-	/**
-	 * Gets credit.
-	 */
+    /// <summary>
+    /// Gets the credit of this API child account.
+    /// </summary>
 	public double Credit {
 		get {
 			return this.credit;
 		}
 	}
 	
-	/**
-	 * Gets id.
-	 */
+    /// <summary>
+    /// Gets the ID of this API child account.
+    /// </summary>
 	public long Id {
 		get {
 			return this.id;
 		}
 	}
 	
-	/**
-	 * Gets parent.
-	 */
+    /// <summary>
+    /// Gets the parent of this API child account.
+    /// </summary>
 	public string Parent {
 		get {
 			return this.parent;
 		}
 	}
 	
-	/**
-	 * Gets productId.
-	 */
+    /// <summary>
+    /// Gets the product ID of this API child account.
+    /// </summary>
 	public string ProductId {
 		get {
 			return this.productId;
 		}
 	}
 	
-	/**
-	 * Gets productName.
-	 */
+    /// <summary>
+    /// Gets the product name of this API child account.
+    /// </summary>
 	public string ProductName {
 		get {
 			return this.productName;
 		}
 	}
 	
-	/**
-	 * Gets status.
-	 */
+    /// <summary>
+    /// Gets the status of this API child account.
+    /// </summary>
 	public int Status {
 		get {
 			return this.status;
 		}
 	}
 	
-	/**
-	 * Gets timeCreated.
-	 */
+    /// <summary>
+    /// Gets the created time of this API child account.
+    /// </summary>
 	public DateTime TimeCreated {
 		get {
 			return this.timeCreated;
 		}
 	}
 	
-	/**
-	 * Gets dateTime.
-	 */
+    /// <summary>
+    /// Gets the removed time of this API child account.
+    /// </summary>
 	public DateTime? TimeRemoved {
 		get {
 			return this.timeRemoved;
 		}
 	}
 	
-	/**
-	 * Primary constructor.
-	 */
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ApiChildAccount"/> class.
+    /// </summary>
 	public ApiChildAccount(JavaScriptObject jso)
 	{
 		foreach (string key in jso.Keys)

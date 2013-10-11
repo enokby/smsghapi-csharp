@@ -8,24 +8,25 @@ using System.Collections.Generic;
 using System.Text;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API account resource.
+/// </summary>
 public class ApiAccountResource
 {
-	/**
-	 * Data fields.
-	 */
+	// Data fields.
 	private SmsghApi apiHost;
 	
-	/**
-	 * Primary constructor.
-	 */
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ApiAccountResource"/> class.
+    /// </summary>
 	public ApiAccountResource(SmsghApi apiHost)
 	{
 		this.apiHost = apiHost;
 	}
 	
-	/**
-	 * Gets account profile.
-	 */
+    /// <summary>
+    /// Retrieves account profile.
+    /// </summary>
 	public ApiAccountProfile GetProfile()
 	{
 		try {
@@ -36,9 +37,9 @@ public class ApiAccountResource
 		}
 	}
 	
-	/**
-	 * Gets primary contact.
-	 */
+    /// <summary>
+    /// Retrieves primary contact.
+    /// </summary>
 	public ApiAccountContact GetPrimaryContact()
 	{
 		try {
@@ -49,9 +50,9 @@ public class ApiAccountResource
 		}
 	}
 	
-	/**
-	 * Gets billing contact.
-	 */
+    /// <summary>
+    /// Retrieves billing contact.
+    /// </summary>
 	public ApiAccountContact GetBillingContact()
 	{
 		try {
@@ -62,9 +63,9 @@ public class ApiAccountResource
 		}
 	}
 	
-	/**
-	 * Gets technical contact.
-	 */
+    /// <summary>
+    /// Retrieves technical contact.
+    /// </summary>
 	public ApiAccountContact GetTechnicalContact()
 	{
 		try {
@@ -75,9 +76,9 @@ public class ApiAccountResource
 		}
 	}
 	
-	/**
-	 * Gets all account contacts.
-	 */
+    /// <summary>
+    /// Retrieves all account contacts.
+    /// </summary>
 	public List<ApiAccountContact> GetContacts()
 	{
 		List<ApiAccountContact> aacs = new List<ApiAccountContact>(3);
@@ -91,9 +92,10 @@ public class ApiAccountResource
 		}
 	}
 	
-	/**
-	 * Updates an account contact.
-	 */
+    /// <summary>
+    /// Updates an <see cref="ApiAccountContact"/>.
+    /// </summary>
+	/// <param name="apiAccountContact">API account contact to update</param>
 	public void Update(ApiAccountContact apiAccountContact)
 	{
 		try {
@@ -110,19 +112,28 @@ public class ApiAccountResource
 		}
 	}
 	
-	/**
-	 * Gets account services.
-	 */
-	public ApiList<ApiService> GetServices() { return GetServices(-1, -1); }
+    /// <summary>
+    /// Retrieves all account services.
+    /// </summary>
+	public ApiList<ApiService> GetServices()
+	{
+		return GetServices(-1, -1);
+	}
+	
+    /// <summary>
+    /// Retrieves account services by page and page size.
+    /// </summary>
+	/// <param name="page">One-based index of page</param>
+	/// <param name="pageSize">Maxium number of entries in a page</param>
 	public ApiList<ApiService> GetServices(int page, int pageSize)
 	{
 		return ApiHelper.GetApiList<ApiService>
 			(this.apiHost, "/v3/account/services", page, pageSize);
 	}
 	
-	/**
-	 * Gets account settings.
-	 */
+    /// <summary>
+    /// Retrieves account settings.
+    /// </summary>
 	public ApiSettings GetSettings()
 	{
 		try {
@@ -133,9 +144,10 @@ public class ApiAccountResource
 		}
 	}
 	
-	/**
-	 * Updates account settings.
-	 */
+    /// <summary>
+    /// Updates account settings.
+    /// </summary>
+	/// <param name="apiSettings">API account settings to update.</param>
 	public ApiSettings Update(ApiSettings apiSettings)
 	{
 		try {
@@ -151,27 +163,38 @@ public class ApiAccountResource
 		}
 	}
 	
-	/**
-	 * Gets child accounts.
-	 */
-	public ApiList<ApiChildAccount> GetChildAccounts() { return GetChildAccounts(-1, -1); }
+    /// <summary>
+    /// Retrieves all child accounts.
+    /// </summary>
+	public ApiList<ApiChildAccount> GetChildAccounts()
+	{
+		return GetChildAccounts(-1, -1);
+	}
+	
+    /// <summary>
+    /// Retrieves child accounts by page and page size.
+    /// </summary>
+	/// <param name="page">One-based index of page</param>
+	/// <param name="pageSize">Maximum number of entries in a page</param>
 	public ApiList<ApiChildAccount> GetChildAccounts(int page, int pageSize)
 	{
 		return ApiHelper.GetApiList<ApiChildAccount>
 			(this.apiHost, "/v3/account/childaccounts", page, pageSize);
 	}
 	
-	/**
-	 * Gets all account invoices.
-	 */
+    /// <summary>
+    /// Retrieves all account invoices.
+    /// </summary>
 	public ApiList<ApiInvoice> GetInvoices()
 	{
 		return GetInvoices(-1, -1);
 	}
 	
-	/**
-	 * Gets account invoices by page and pageSize.
-	 */
+    /// <summary>
+    /// Retrieves account invoices by page and page size.
+    /// </summary>
+	/// <param name="page">One-based index of the page to query.</param>
+	/// <param name="pageSize">Maximum number of entries in a page.</param>
 	public ApiList<ApiInvoice> GetInvoices(int page, int pageSize)
 	{
 		return ApiHelper.GetApiList<ApiInvoice>

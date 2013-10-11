@@ -6,45 +6,46 @@ using System;
 using System.Collections.Generic;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API list.
+/// </summary>
 public class ApiList<T>
 {
-	/**
-	 * Data fields.
-	 */
+	// Data fields.
 	private long count;
 	private long totalPages;
 	private List<T> items;
 	
-	/**
-	 * Gets count.
-	 */
+    /// <summary>
+    /// Gets the count of this API list.
+    /// </summary>
 	public long Count {
 		get {
 			return this.count;
 		}
 	}
 	
-	/**
-	 * Gets totalPages.
-	 */
+    /// <summary>
+    /// Gets the total pages of this API list.
+    /// </summary>
 	public long TotalPages {
 		get {
 			return this.totalPages;
 		}
 	}
 	
-	/**
-	 * Gets items.
-	 */
+    /// <summary>
+    /// Gets the items in this API list.
+    /// </summary>
 	public List<T> Items {
 		get {
 			return this.items;
 		}
 	}
 	
-	/**
-	 * Primary constructor.
-	 */
+    /// <summary>
+    /// Used internally to initialize the properties of this class.
+    /// </summary>
 	public ApiList(JavaScriptObject jso)
 	{
 		this.items = new List<T>();
@@ -131,9 +132,9 @@ public class ApiList<T>
 		}
 	}
 	
-	/**
-	 * GetEnumerator.
-	 */
+    /// <summary>
+    /// Returns the enumerator of this API list.
+    /// </summary>
 	public List<T>.Enumerator GetEnumerator()
 	{
 		return this.items.GetEnumerator();

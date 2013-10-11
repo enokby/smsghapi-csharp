@@ -6,11 +6,12 @@ using System;
 using System.Collections.Generic;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API campaign.
+/// </summary>
 public class ApiCampaign
 {
-	/**
-	 * Data fields.
-	 */
+	// Data fields.
 	private string             accountId;
 	private List<ApiAction>    actions;
 	private string             brief;
@@ -23,9 +24,9 @@ public class ApiCampaign
 	private List<ApiMoKeyWord> moKeywords;
 	private bool               pendingApproval;
 	
-	/**
-	 * Gets accountId.
-	 */
+    /// <summary>
+    /// Gets the account ID of this API campaign.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public string AccountId {
 		get {
@@ -33,9 +34,9 @@ public class ApiCampaign
 		}
 	}
 	
-	/**
-	 * Gets actions.
-	 */
+    /// <summary>
+    /// Gets the API actions of this API campaign.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public List<ApiAction> Actions {
 		get {
@@ -43,9 +44,9 @@ public class ApiCampaign
 		}
 	}
 	
-	/**
-	 * Gets or sets brief.
-	 */
+    /// <summary>
+    /// Gets or sets the brief of this API campaign.
+    /// </summary>
 	public string Brief {
 		get {
 			return this.brief;
@@ -55,9 +56,9 @@ public class ApiCampaign
 		}
 	}
 	
-	/**
-	 * Gets campaignId.
-	 */
+    /// <summary>
+    /// Gets the ID of this API campaign.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public long CampaignId {
 		get {
@@ -65,9 +66,9 @@ public class ApiCampaign
 		}
 	}
 	
-	/**
-	 * Gets or sets dateCreated.
-	 */
+    /// <summary>
+    /// Gets or sets the created date of this API campaign.
+    /// </summary>
 	public DateTime DateCreated {
 		get {
 			return this.dateCreated;
@@ -77,9 +78,9 @@ public class ApiCampaign
 		}
 	}
 	
-	/**
-	 * Gets or sets dateEnded
-	 */
+    /// <summary>
+    /// Gets or sets the end date of this API campaign.
+    /// </summary>
 	public DateTime DateEnded {
 		get {
 			return this.dateEnded;
@@ -89,9 +90,9 @@ public class ApiCampaign
 		}
 	}
 	
-	/**
-	 * Gets or sets description.
-	 */
+    /// <summary>
+    /// Gets or sets the description of this API campaign.
+    /// </summary>
 	public string Description {
 		get {
 			return this.description;
@@ -101,9 +102,9 @@ public class ApiCampaign
 		}
 	}
 	
-	/**
-	 * Gets enabled.
-	 */
+    /// <summary>
+    /// Indicates whether this API campaign is enabled.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public bool Enabled {
 		get {
@@ -111,9 +112,9 @@ public class ApiCampaign
 		}
 	}
 	
-	/**
-	 * Gets isDefault.
-	 */
+    /// <summary>
+    /// Indicated whether this API campaign is default.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public bool IsDefault {
 		get {
@@ -121,9 +122,9 @@ public class ApiCampaign
 		}
 	}
 	
-	/**
-	 * Gets moKeywords.
-	 */
+    /// <summary>
+    /// Gets the API MO keywords of this API campaign.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public List<ApiMoKeyWord> MoKeywords {
 		get {
@@ -131,9 +132,9 @@ public class ApiCampaign
 		}
 	}
 	
-	/**
-	 * Gets pendingApproval.
-	 */
+    /// <summary>
+    /// Indicates whether this API campaign is pending approval.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public bool PendingApproval {
 		get {
@@ -141,16 +142,17 @@ public class ApiCampaign
 		}
 	}
 	
-	/**
-	 * Primary constructor.
-	 */
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ApiCampaign"/> class.
+    /// </summary>
 	public ApiCampaign()
 	{
 	}
 	
-	/**
-	 * Constructor from JSO.
-	 */
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ApiCampaign"/>
+	/// from a <see cref="Smsgh.Json.JavaScriptObject"/> instance.
+    /// </summary>
 	public ApiCampaign(JavaScriptObject jso)
 	{
 		this.actions = new List<ApiAction>();

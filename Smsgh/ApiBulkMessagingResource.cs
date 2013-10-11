@@ -7,50 +7,54 @@ using System.IO;
 using System.Text;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API bulk messaging resource.
+/// </summary>
 public class ApiBulkMessagingResource
 {
-	/**
-	 * Data fields.
-	 */
 	private SmsghApi apiHost;
 	
-	/**
-	 * Primary constructor.
-	 */
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ApiBulkMessagingResource"/> class.
+    /// </summary>
 	public ApiBulkMessagingResource(SmsghApi apiHost)
 	{
 		this.apiHost = apiHost;
 	}
 	
-	/**
-	 * Gets all senders.
-	 */
+    /// <summary>
+    /// Retrieves all API senders.
+    /// </summary>
 	public ApiList<ApiSender> GetSenders()
 	{
 		return GetSenders(-1, -1);
 	}
 	
-	/**
-	 * Gets senders by page and pageSize.
-	 */
+    /// <summary>
+    /// Retrieves API senders by page and pageSize.
+    /// </summary>
+	/// <param name="page">One-based index of the page to query.</param>
+	/// <param name="pageSize">Maximum number of entries in page.</param>
 	public ApiList<ApiSender> GetSenders(int page, int pageSize)
 	{
 		return ApiHelper.GetApiList<ApiSender>
 			(this.apiHost, "/v3/senders", page, pageSize);
 	}
 	
-	/**
-	 * Gets sender by ID.
-	 */
+    /// <summary>
+    /// Retrieves an API sender by ID.
+    /// </summary>
+	/// <param name="senderId">ID of the sender to retrieve.</param>
 	public ApiSender GetSender(long senderId)
 	{
 		return new ApiSender(ApiHelper.GetJson<JavaScriptObject>
 			(this.apiHost, "GET", "/v3/senders/" + senderId, null));
 	}
 	
-	/**
-	 * Creates new sender.
-	 */
+    /// <summary>
+    /// Creates a new API sender.
+    /// </summary>
+	/// <param name="apiSender">API sender to create.</param>
 	public ApiSender Create(ApiSender apiSender)
 	{
 		try {
@@ -66,9 +70,10 @@ public class ApiBulkMessagingResource
 		}
 	}
 	
-	/**
-	 * Updates sender.
-	 */
+    /// <summary>
+    /// Updates an API sender.
+    /// </summary>
+	/// <param name="apiSender">API sender to update.</param>
 	public ApiSender Update(ApiSender apiSender)
 	{
 		try {
@@ -84,9 +89,10 @@ public class ApiBulkMessagingResource
 		}
 	}
 	
-	/**
-	 * Deletes sender by ID.
-	 */
+    /// <summary>
+    /// Deletes an API sender by ID.
+    /// </summary>
+	/// <param name="senderId">ID of the API sender to delete.</param>
 	public void DeleteSender(long senderId)
 	{
 		try {
@@ -97,26 +103,29 @@ public class ApiBulkMessagingResource
 		}
 	}
 	
-	/**
-	 * Gets all message templates.
-	 */
+    /// <summary>
+    /// Retrieves all API message templates.
+    /// </summary>
 	public ApiList<ApiTemplate> GetTemplates()
 	{
 		return GetTemplates(-1, -1);
 	}
 	
-	/**
-	 * Gets message templates by page and pageSize.
-	 */
+    /// <summary>
+    /// Retrieves API message templates by page and page size.
+    /// </summary>
+	/// <param name="page">One-based index of the page to query.</param>
+	/// <param name="pageSize">Maximum number of entries in a page.</param>
 	public ApiList<ApiTemplate> GetTemplates(int page, int pageSize)
 	{
 		return ApiHelper.GetApiList<ApiTemplate>
 			(this.apiHost, "/v3/templates", page, pageSize);
 	}
 	
-	/**
-	 * Gets message template by ID.
-	 */
+    /// <summary>
+    /// Retrieves an API message template by ID.
+    /// </summary>
+	/// <param name="templateId">ID of the API message template to query.</param>
 	public ApiTemplate GetTemplate(long templateId)
 	{
 		try {
@@ -127,9 +136,10 @@ public class ApiBulkMessagingResource
 		}
 	}
 	
-	/**
-	 * Creates message template.
-	 */
+    /// <summary>
+    /// Creates a new API message template.
+    /// </summary>
+	/// <param name="apiTemplate">API message template to create.</param>
 	public ApiTemplate Create(ApiTemplate apiTemplate)
 	{
 		try {
@@ -145,9 +155,10 @@ public class ApiBulkMessagingResource
 		}
 	}
 	
-	/**
-	 * Updates message template.
-	 */
+    /// <summary>
+    /// Updates an API message template.
+    /// </summary>
+	/// <param name="apiTemplate">API message template to update.</param>
 	public ApiTemplate Update(ApiTemplate apiTemplate)
 	{
 		try {
@@ -163,9 +174,10 @@ public class ApiBulkMessagingResource
 		}
 	}
 	
-	/**
-	 * Deletes message template.
-	 */
+    /// <summary>
+    /// Deletes an API message template by ID.
+    /// </summary>
+	/// <param name="templateId">ID of API message template to delete.</param>
 	public void DeleteTemplate(long templateId)
 	{
 		try {

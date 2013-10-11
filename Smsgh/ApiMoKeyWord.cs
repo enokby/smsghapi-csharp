@@ -5,11 +5,12 @@ namespace Smsgh
 using System;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API MO keyword.
+/// </summary>
 public class ApiMoKeyWord
 {
-	/**
-	 * Data fields.
-	 */
+	// Data fields.
 	private string alias1;
 	private string alias2;
 	private string alias3;
@@ -21,9 +22,9 @@ public class ApiMoKeyWord
 	private string keyword;
 	private long   numberPlanId;
 	
-	/**
-	 * Gets or sets alias1.
-	 */
+    /// <summary>
+    /// Gets or sets the alias 1 of this API MO keyword.
+    /// </summary>
 	public string Alias1 {
 		get {
 			return this.alias1;
@@ -33,9 +34,9 @@ public class ApiMoKeyWord
 		}
 	}
 	
-	/**
-	 * Gets or sets alias2.
-	 */
+    /// <summary>
+    /// Gets or sets the alias 2 of this API MO keyword.
+    /// </summary>
 	public string Alias2 {
 		get {
 			return this.alias2;
@@ -45,9 +46,9 @@ public class ApiMoKeyWord
 		}
 	}
 	
-	/**
-	 * Gets or sets alias3.
-	 */
+    /// <summary>
+    /// Gets or sets the alias 3 of this API MO keyword.
+    /// </summary>
 	public string Alias3 {
 		get {
 			return this.alias3;
@@ -57,9 +58,9 @@ public class ApiMoKeyWord
 		}
 	}
 	
-	/**
-	 * Gets or sets alias4.
-	 */
+    /// <summary>
+    /// Gets or sets the alias 4 of this API MO keyword.
+    /// </summary>
 	public string Alias4 {
 		get {
 			return this.alias4;
@@ -69,9 +70,9 @@ public class ApiMoKeyWord
 		}
 	}
 	
-	/**
-	 * Gets or sets alias5.
-	 */
+    /// <summary>
+    /// Gets or sets the alias 5 of this API MO keyword.
+    /// </summary>
 	public string Alias5 {
 		get {
 			return this.alias5;
@@ -81,9 +82,9 @@ public class ApiMoKeyWord
 		}
 	}
 	
-	/**
-	 * Gets id.
-	 */
+    /// <summary>
+    /// Gets the ID of this API MO keyword.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public long Id {
 		get {
@@ -91,9 +92,9 @@ public class ApiMoKeyWord
 		}
 	}
 	
-	/**
-	 * Gets or sets isActive.
-	 */
+    /// <summary>
+    /// Gets or sets a value indicating whether this API MO keyword is active.
+    /// </summary>
 	public bool IsActive {
 		get {
 			return this.isActive;
@@ -103,9 +104,9 @@ public class ApiMoKeyWord
 		}
 	}
 	
-	/**
-	 * Gets or sets isDefault.
-	 */
+    /// <summary>
+    /// Gets or sets a value indicating whether this API MO keyword is default.
+    /// </summary>
 	public bool IsDefault {
 		get {
 			return this.isDefault;
@@ -115,9 +116,9 @@ public class ApiMoKeyWord
 		}
 	}
 	
-	/**
-	 * Gets or sets keyword.
-	 */
+    /// <summary>
+    /// Gets or sets the keyword of this API MO keyword.
+    /// </summary>
 	public string Keyword {
 		get {
 			return this.keyword;
@@ -127,9 +128,9 @@ public class ApiMoKeyWord
 		}
 	}
 	
-	/**
-	 * Gets or sets numberPlanId.
-	 */
+    /// <summary>
+    /// Gets or sets the number plan ID of this API MO keyword.
+    /// </summary>
 	public long NumberPlanId {
 		get {
 			return this.numberPlanId;
@@ -139,16 +140,16 @@ public class ApiMoKeyWord
 		}
 	}
 	
-	/**
-	 * Primary constructor.
-	 */
+    /// <summary>
+    /// Initializes a new instance of this API MO keyword class.
+    /// </summary>
 	public ApiMoKeyWord()
 	{
 	}
 	
-	/**
-	 * Constructor from JSO.
-	 */
+    /// <summary>
+    /// Used internally to initialize the properties of this class.
+    /// </summary>
 	public ApiMoKeyWord(JavaScriptObject jso)
 	{
 		foreach (string key in jso.Keys)

@@ -5,11 +5,12 @@ namespace Smsgh
 using System;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API contact.
+/// </summary>
 public class ApiContact
 {
-	/**
-	 * Data fields.
-	 */
+	// Data fields.
 	private long   contactId;
 	private string custom1;
 	private string custom2;
@@ -22,9 +23,9 @@ public class ApiContact
 	private string surname;
 	private string title;
 	
-	/**
-	 * Gets contactId.
-	 */
+    /// <summary>
+    /// Gets the ID of this API contact.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public long ContactId {
 		get {
@@ -32,9 +33,9 @@ public class ApiContact
 		}
 	}
 	
-	/**
-	 * Gets or sets custom1.
-	 */
+    /// <summary>
+    /// Gets or sets the custom 1 of this API contact.
+    /// </summary>
 	public string Custom1 {
 		get {
 			return this.custom1;
@@ -44,9 +45,9 @@ public class ApiContact
 		}
 	}
 	
-	/**
-	 * Gets or sets custom2.
-	 */
+    /// <summary>
+    /// Gets or sets the custom 2 of this API contact.
+    /// </summary>
 	public string Custom2 {
 		get {
 			return this.custom2;
@@ -56,9 +57,9 @@ public class ApiContact
 		}
 	}
 	
-	/**
-	 * Gets or sets custom3.
-	 */
+    /// <summary>
+    /// Gets or sets the custom 3 of this API contact.
+    /// </summary>
 	public string Custom3 {
 		get {
 			return this.custom3;
@@ -68,9 +69,9 @@ public class ApiContact
 		}
 	}
 	
-	/**
-	 * Gets or sets firstName.
-	 */
+    /// <summary>
+    /// Gets or sets the first name of this API contact.
+    /// </summary>
 	public string FirstName {
 		get {
 			return this.firstName;
@@ -80,9 +81,9 @@ public class ApiContact
 		}
 	}
 	
-	/**
-	 * Gets or sets groupId.
-	 */
+    /// <summary>
+    /// Gets or sets the group ID of this API contact.
+    /// </summary>
 	public long GroupId {
 		get {
 			return this.groupId;
@@ -92,9 +93,9 @@ public class ApiContact
 		}
 	}
 	
-	/**
-	 * Gets groupName.
-	 */
+    /// <summary>
+    /// Gets the group name of this API contact.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public string GroupName {
 		get {
@@ -102,9 +103,9 @@ public class ApiContact
 		}
 	}
 	
-	/**
-	 * Gets or sets mobileNumber.
-	 */
+    /// <summary>
+    /// Gets or sets the mobile number of this API contact.
+    /// </summary>
 	public string MobileNumber {
 		get {
 			return this.mobileNumber;
@@ -114,9 +115,9 @@ public class ApiContact
 		}
 	}
 	
-	/**
-	 * Gets owner.
-	 */
+    /// <summary>
+    /// Gets the owner of this API contact.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public string Owner {
 		get {
@@ -124,9 +125,9 @@ public class ApiContact
 		}
 	}
 	
-	/**
-	 * Gets or sets surname.
-	 */
+    /// <summary>
+    /// Gets or sets the surname of this API contact.
+    /// </summary>
 	public string Surname {
 		get {
 			return this.surname;
@@ -136,9 +137,9 @@ public class ApiContact
 		}
 	}
 	
-	/**
-	 * Gets or sets title.
-	 */
+    /// <summary>
+    /// Gets or sets the title of this API contact.
+    /// </summary>
 	public string Title {
 		get {
 			return this.title;
@@ -148,16 +149,16 @@ public class ApiContact
 		}
 	}
 	
-	/**
-	 * Primary constructor.
-	 */
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ApiContact"/> class.
+    /// </summary>
 	public ApiContact()
 	{
 	}
 	
-	/**
-	 * Constructor from a JSO.
-	 */
+    /// <summary>
+    /// Used internally to initialize the instance of this class.
+    /// </summary>
 	public ApiContact(JavaScriptObject jso)
 	{
 		foreach (string key in jso.Keys)

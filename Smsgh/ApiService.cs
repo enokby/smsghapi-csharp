@@ -1,15 +1,16 @@
-// $Id$
+// $Id: ApiService.cs 0 1970-01-01 00:00:00Z mkwayisi $
 namespace Smsgh
 {
 
 using System;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API service.
+/// </summary>
 public class ApiService
 {
-	/**
-	 * Data fields.
-	 */
+	// Data fields.
 	private string   accountId;
 	private DateTime billDate;
 	private long     billingCycleId;
@@ -22,108 +23,108 @@ public class ApiService
 	private long     serviceStatusTypeId;
 	private long     serviceTypeId;
 	
-	/**
-	 * Gets accountId.
-	 */
+    /// <summary>
+    /// Gets the account ID of this API service.
+    /// </summary>
 	public string AccountId {
 		get {
 			return this.accountId;
 		}
 	}
 	
-	/**
-	 * Gets billDate.
-	 */
+    /// <summary>
+    /// Gets the bill date of this API service.
+    /// </summary>
 	public DateTime BillDate {
 		get {
 			return this.billDate;
 		}
 	}
 	
-	/**
-	 * Gets billingCycleId.
-	 */
+    /// <summary>
+    /// Gets the billing cycle ID of this API service.
+    /// </summary>
 	public long BillingCycleId {
 		get {
 			return this.billingCycleId;
 		}
 	}
 	
-	/**
-	 * Gets dateCreated.
-	 */
+    /// <summary>
+    /// Gets the created date of this API service.
+    /// </summary>
 	public DateTime DateCreated {
 		get {
 			return this.dateCreated;
 		}
 	}
 	
-	/**
-	 * Gets description.
-	 */
+    /// <summary>
+    /// Gets the description of this API service.
+    /// </summary>
 	public string Description {
 		get {
 			return this.description;
 		}
 	}
 	
-	/**
-	 * Gets isCreditBased.
-	 */
+    /// <summary>
+    /// Indicates whether this API service is credit based.
+    /// </summary>
 	public bool IsCreditBased {
 		get {
 			return this.isCreditBased;
 		}
 	}
 	
-	/**
-	 * Gets isPrepaid.
-	 */
+    /// <summary>
+    /// Indicated whether this API service is prepaid.
+    /// </summary>
 	public bool IsPrepaid {
 		get {
 			return this.isPrepaid;
 		}
 	}
 	
-	/**
-	 * Gets rate.
-	 */
+    /// <summary>
+    /// Gets the rate of this API service.
+    /// </summary>
 	public double Rate {
 		get {
 			return this.rate;
 		}
 	}
 	
-	/**
-	 * Gets serviceId.
-	 */
+    /// <summary>
+    /// Gets the ID of this API service.
+    /// </summary>
 	public long ServiceId {
 		get {
 			return this.serviceId;
 		}
 	}
 	
-	/**
-	 * Gets serviceStatusTypeId.
-	 */
+    /// <summary>
+    /// Gets the status type ID of this API service.
+    /// </summary>
 	public long ServiceStatusTypeId {
 		get {
 			return this.serviceStatusTypeId;
 		}
 	}
 	
-	/**
-	 * Gets serviceTypeId.
-	 */
+    /// <summary>
+    /// Gets the type ID of this API service.
+    /// </summary>
 	public long ServiceTypeId {
 		get {
 			return this.serviceTypeId;
 		}
 	}
 	
-	/**
-	 * Primary constructor.
-	 */
+    /// <summary>
+    /// Used internally to initialize the properties of this class.
+    /// </summary>
 	public ApiService(JavaScriptObject jso)
 	{
 		foreach (string key in jso.Keys)

@@ -6,11 +6,12 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 
+/// <summary>
+/// Represents an SMSGH API host.
+/// </summary>
 public class SmsghApi
 {
-	/**
-	 * Data fields.
-	 */
+	// Data fields.
 	private string clientId;
 	private string clientSecret;
 	private string hostname;
@@ -23,9 +24,9 @@ public class SmsghApi
 	private ApiPremiumResource premiumResource;
 	private ApiBulkMessagingResource bulkMessagingResource;
 	
-	/**
-	 * Gets or sets clientId.
-	 */
+    /// <summary>
+    /// Gets or sets the client ID of this SMSGH API host.
+    /// </summary>
 	public string ClientId {
 		get {
 			return this.clientId;
@@ -35,9 +36,9 @@ public class SmsghApi
 		}
 	}
 	
-	/**
-	 * Gets or sets clientSecret.
-	 */
+    /// <summary>
+    /// Gets or sets the client secret of this SMSGH API host.
+    /// </summary>
 	public string ClientSecret {
 		get {
 			return this.clientSecret;
@@ -47,9 +48,9 @@ public class SmsghApi
 		}
 	}
 	
-	/**
-	 * Gets or sets hostname.
-	 */
+    /// <summary>
+    /// Gets or sets the hostname of this SMSGH API host.
+    /// </summary>
 	public string Hostname {
 		get {
 			return this.hostname;
@@ -59,9 +60,9 @@ public class SmsghApi
 		}
 	}
 	
-	/**
-	 * Gets or sets port.
-	 */
+    /// <summary>
+    /// Gets or sets the port of this SMSGH API host.
+    /// </summary>
 	public int Port {
 		get {
 			return this.port;
@@ -71,9 +72,9 @@ public class SmsghApi
 		}
 	}
 	
-	/**
-	 * Gets or sets Https.
-	 */
+    /// <summary>
+    /// Indicates whether this SMSGH API host should use secured connection.
+    /// </summary>
 	public bool Https {
 		get {
 			return this.https;
@@ -83,9 +84,9 @@ public class SmsghApi
 		}
 	}
 	
-	/**
-	 * Gets or sets timeout.
-	 */
+    /// <summary>
+    /// Gets or sets the timeout of this SMSGH API host.
+    /// </summary>
 	public int Timeout {
 		get {
 			return this.timeout;
@@ -95,54 +96,54 @@ public class SmsghApi
 		}
 	}
 	
-	/**
-	 * Gets accountResource.
-	 */
+    /// <summary>
+    /// Gets the API account resource of this SMSGH API host.
+    /// </summary>
 	public ApiAccountResource Account {
 		get {
 			return this.accountResource;
 		}
 	}
 	
-	/**
-	 * Gets messagesResource.
-	 */
+    /// <summary>
+    /// Gets the API messages resource of this SMSGH API host.
+    /// </summary>
 	public ApiMessagesResource Messages {
 		get {
 			return this.messagesResource;
 		}
 	}
 	
-	/**
-	 * Gets contactsResource.
-	 */
+    /// <summary>
+    /// Gets the API contacts resource of this SMSGH API host.
+    /// </summary>
 	public ApiContactsResource Contacts {
 		get {
 			return this.contactsResource;
 		}
 	}
 	
-	/**
-	 * Gets premiumResource.
-	 */
+    /// <summary>
+    /// Gets the API premium resource of this SMSGH API host.
+    /// </summary>
 	public ApiPremiumResource Premium {
 		get {
 			return this.premiumResource;
 		}
 	}
 	
-	/**
-	 * Gets bulkMessagingResource.
-	 */
+    /// <summary>
+    /// Gets the API bulk messaging resource of this SMSGH API host.
+    /// </summary>
 	public ApiBulkMessagingResource BulkMessaging {
 		get {
 			return this.bulkMessagingResource;
 		}
 	}
 	
-	/**
-	 * Primary constructor.
-	 */
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SmsghApi"/> class.
+    /// </summary>
 	public SmsghApi() {
 		this.hostname = "api.smsgh.com";
 		this.port = 443;
@@ -157,17 +158,18 @@ public class SmsghApi
 		ServicePointManager.ServerCertificateValidationCallback = CertChecker;
 	}
 	
-	/**
-	 * Constructor with client id and secret.
-	 */
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SmsghApi"/> class
+	/// by setting a default client ID and secret.
+    /// </summary>
 	public SmsghApi(string clientId, string clientSecret) : this() {
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
 	}
 	
-	/**
-	 * CertChecker
-	 */
+    /// <summary>
+    /// CertChecker.
+    /// </summary>
 	private static bool CertChecker(object s, X509Certificate cert,
 		X509Chain chain, SslPolicyErrors errs) {
 		return true;

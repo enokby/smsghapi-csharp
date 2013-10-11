@@ -1,15 +1,16 @@
-// $Id$
+// $Id: ApiAccountContact.cs 0 1970-01-01 00:00:00Z mkwayisi $
 namespace Smsgh
 {
 
 using System;
 using Smsgh.Json;
 
+/// <summary>
+/// Represents an API account contact.
+/// </summary>
 public class ApiAccountContact
 {
-	/**
-	 * Data fields.
-	 */
+	// Data fields.
 	private long   accountContactId;
 	private string address1;
 	private string address2;
@@ -26,9 +27,9 @@ public class ApiAccountContact
 	private string secondaryEmail;
 	private string secondaryPhone;
 	
-	/**
-	 * Get accountContactId.
-	 */
+    /// <summary>
+    /// Gets the ID of this account contact.
+    /// </summary>
 	[JsonIgnoreAttribute]
 	public long AccountContactId {
 		get {
@@ -36,9 +37,9 @@ public class ApiAccountContact
 		}
 	}
 	
-	/**
-	 * Gets or sets address1.
-	 */
+    /// <summary>
+    /// Gets or sets the address 1 of this account contact.
+    /// </summary>
 	public string Address1 {
 		get {
 			return this.address1;
@@ -48,9 +49,9 @@ public class ApiAccountContact
 		}
 	}
 	
-	/**
-	 * Gets or sets address2.
-	 */
+    /// <summary>
+    /// Gets or sets the address 2 of this account contact.
+    /// </summary>
 	public string Address2 {
 		get {
 			return this.address2;
@@ -60,9 +61,9 @@ public class ApiAccountContact
 		}
 	}
 	
-	/**
-	 * Gets or sets city.
-	 */
+    /// <summary>
+    /// Gets or sets the city of this account contact.
+    /// </summary>
 	public string City {
 		get {
 			return this.city;
@@ -72,9 +73,9 @@ public class ApiAccountContact
 		}
 	}
 	
-	/**
-	 * Gets or set country.
-	 */
+    /// <summary>
+    /// Gets or sets the country of this account contact.
+    /// </summary>
 	public string Country {
 		get {
 			return this.country;
@@ -84,9 +85,9 @@ public class ApiAccountContact
 		}
 	}
 	
-	/**
-	 * Gets or sets firstName.
-	 */
+    /// <summary>
+    /// Gets or sets the first name of this account contact.
+    /// </summary>
 	public string FirstName {
 		get {
 			return this.firstName;
@@ -96,9 +97,9 @@ public class ApiAccountContact
 		}
 	}
 	
-	/**
-	 * Gets or sets lastName.
-	 */
+    /// <summary>
+    /// Gets or sets the last name of this account contact.
+    /// </summary>
 	public string LastName {
 		get {
 			return this.lastName;
@@ -108,9 +109,9 @@ public class ApiAccountContact
 		}
 	}
 	
-	/**
-	 * Gets or sets province.
-	 */
+    /// <summary>
+    /// Gets or sets the province of this account contact.
+    /// </summary>
 	public string Province {
 		get {
 			return this.province;
@@ -120,9 +121,9 @@ public class ApiAccountContact
 		}
 	}
 	
-	/**
-	 * Gets or sets postalCode.
-	 */
+    /// <summary>
+    /// Gets or sets the postal code of this account contact.
+    /// </summary>
 	public string PostalCode {
 		get {
 			return this.postalCode;
@@ -132,9 +133,9 @@ public class ApiAccountContact
 		}
 	}
 	
-	/**
-	 * Gets or sets primaryEmail.
-	 */
+    /// <summary>
+    /// Gets or sets the primary email of this account contact.
+    /// </summary>
 	public string PrimaryEmail {
 		get {
 			return this.primaryEmail;
@@ -144,9 +145,9 @@ public class ApiAccountContact
 		}
 	}
 	
-	/**
-	 * Gets or sets primaryPhone.
-	 */
+    /// <summary>
+    /// Gets or sets the primary phone number of this account contact.
+    /// </summary>
 	public string PrimaryPhone {
 		get {
 			return this.primaryPhone;
@@ -156,9 +157,9 @@ public class ApiAccountContact
 		}
 	}
 	
-	/**
-	 * Gets or sets privateNote.
-	 */
+    /// <summary>
+    /// Gets or sets the private note of this account contact.
+    /// </summary>
 	public string PrivateNote {
 		get {
 			return this.privateNote;
@@ -168,9 +169,9 @@ public class ApiAccountContact
 		}
 	}
 	
-	/**
-	 * Gets or sets publicNote.
-	 */
+    /// <summary>
+    /// Gets or sets the public note of this account contact.
+    /// </summary>
 	public string PublicNote {
 		get {
 			return this.publicNote;
@@ -180,9 +181,9 @@ public class ApiAccountContact
 		}
 	}
 	
-	/**
-	 * Gets or sets secondaryEmail.
-	 */
+    /// <summary>
+    /// Gets or sets the secondary email of this account contact.
+    /// </summary>
 	public string SecondaryEmail {
 		get {
 			return this.secondaryEmail;
@@ -192,9 +193,9 @@ public class ApiAccountContact
 		}
 	}
 	
-	/**
-	 * Gets or sets secondaryPhone.
-	 */
+    /// <summary>
+    /// Gets or sets the secondary phone of this account contact.
+    /// </summary>
 	public string SecondaryPhone {
 		get {
 			return this.secondaryPhone;
@@ -204,9 +205,9 @@ public class ApiAccountContact
 		}
 	}
 	
-	/**
-	 * Primary Constructor.
-	 */
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ApiAccountContact"/> class.
+    /// </summary>
 	public ApiAccountContact(JavaScriptObject jso)
 	{
 		foreach (string key in jso.Keys) {

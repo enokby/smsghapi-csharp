@@ -15,15 +15,15 @@ public class ApiAccountProfile
 	private string   accountManager;
 	private long     accountNumber;
 	private string   accountStatus;
-	private double   balance;
+	private decimal  balance;
 	private string   company;
-	private double   credit;
+	private decimal  credit;
 	private string   emailAddress;
 	private DateTime lastAccessed;
 	private string   mobileNumber;
 	private int      numberOfServices;
 	private string   primaryContact;
-	private double   unpostedBalance;
+	private decimal  unpostedBalance;
 	
     /// <summary>
     /// Gets the ID of this account profile.
@@ -64,7 +64,7 @@ public class ApiAccountProfile
     /// <summary>
     /// Gets the balance of this account profile.
     /// </summary>
-	public double Balance {
+	public decimal Balance {
 		get {
 			return this.balance;
 		}
@@ -82,7 +82,7 @@ public class ApiAccountProfile
     /// <summary>
     /// Gets the credit of this account profile.
     /// </summary>
-	public double Credit {
+	public decimal Credit {
 		get {
 			return this.credit;
 		}
@@ -136,7 +136,7 @@ public class ApiAccountProfile
     /// <summary>
     /// Gets the unposted balance of this account profile.
     /// </summary>
-	public double UnpostedBalance {
+	public decimal UnpostedBalance {
 		get {
 			return this.unpostedBalance;
 		}
@@ -162,13 +162,13 @@ public class ApiAccountProfile
 					this.accountStatus = Convert.ToString(jso[key]);
 					break;
 				case "balance":
-					this.balance = Convert.ToDouble(jso[key]);
+					this.balance = Convert.ToDecimal(jso[key]);
 					break;
 				case "company":
 					this.company = Convert.ToString(jso[key]);
 					break;
 				case "credit":
-					this.credit = Convert.ToDouble(jso[key]);
+					this.credit = Convert.ToDecimal(jso[key]);
 					break;
 				case "emailaddress":
 					this.emailAddress = Convert.ToString(jso[key]);
@@ -187,7 +187,7 @@ public class ApiAccountProfile
 					this.primaryContact = Convert.ToString(jso[key]);
 					break;
 				case "unpostedbalance":
-					this.unpostedBalance = Convert.ToDouble(jso[key]);
+					this.unpostedBalance = Convert.ToDecimal(jso[key]);
 					break;
 			}
 		}

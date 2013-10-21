@@ -1,4 +1,3 @@
-// $Id: ApiService.cs 0 1970-01-01 00:00:00Z mkwayisi $
 namespace Smsgh
 {
 
@@ -18,7 +17,7 @@ public class ApiService
 	private string   description;
 	private bool     isCreditBased;
 	private bool     isPrepaid;
-	private double   rate;
+	private decimal  rate;
 	private long     serviceId;
 	private long     serviceStatusTypeId;
 	private long     serviceTypeId;
@@ -89,7 +88,7 @@ public class ApiService
     /// <summary>
     /// Gets the rate of this API service.
     /// </summary>
-	public double Rate {
+	public decimal Rate {
 		get {
 			return this.rate;
 		}
@@ -153,7 +152,7 @@ public class ApiService
 				this.isPrepaid = Convert.ToBoolean(jso[key]);
 				break;
 			case "rate":
-				this.rate = Convert.ToDouble(jso[key]);
+				this.rate = Convert.ToDecimal(jso[key]);
 				break;
 			case "serviceid":
 				this.serviceId = Convert.ToInt64(jso[key]);

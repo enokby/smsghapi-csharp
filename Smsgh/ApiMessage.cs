@@ -1,4 +1,3 @@
-// $Id: ApiMessage.cs 0 1970-01-01 00:00:00Z mkwayisi $
 namespace Smsgh
 {
 
@@ -13,7 +12,7 @@ using Smsgh.Json;
 public class ApiMessage
 {
 	// Data fields.
-	private int       apiMessageType = -1;
+	private int       apiMessageType;
 	private string    clientReference;
 	private string    content;
 	private string    direction;

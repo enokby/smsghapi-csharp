@@ -410,5 +410,21 @@ public class ApiPremiumResource
 			throw new ApiException(ex.Message);
 		}
 	}
+	
+    /// <summary>
+    /// Removes an action from an API campaign.
+    /// </summary>
+	/// <param name="campaignId">ID of the API campaign.</param>
+	/// <param name="actionId">ID of the action to remove.</param>
+	public ApiCampaign RemoveActionFromCampaign(long campaignId, long actionId)
+	{
+		try {
+			return new ApiCampaign(ApiHelper.GetJson<JavaScriptObject>
+				(this.apiHost, "DELETE", "/v3/campaigns/" + campaignId
+					+ "/actions/" + actionId, null));
+		} catch (Exception ex) {
+			throw new ApiException(ex.Message);
+		}
+	}
 }
 }

@@ -1,4 +1,3 @@
-
 using Smsgh;
 
 public class Demo
@@ -8,15 +7,17 @@ public class Demo
      */
     public static void Main()
     {
-        ApiHost apiHost = new ApiHost();
+        SmsghApiHost apiHost = new SmsghApiHost();
         apiHost.ClientId = "user123";
         apiHost.ClientSecret = "secret";
+        apiHost.ContextPath = "v3";
+        apiHost.Hostname = "api.smsgh.com"
         
         try {
             /**
              * Sending a quick message.
              */
-            apiHost.MessagesResource
+            apiHost.Messages
                 .Send("SMSGH", "+233248183783", "Hello world!");
                 
             /**
@@ -27,7 +28,7 @@ public class Demo
             apiMessage.To = "+233248183783";
             apiMessage.Content = "Hello world!";
             apiMessage.IsRegisteredDelivery = true;
-            apiHost.MessagesResource.Send(apiMessage);
+            apiHost.Messages.Send(apiMessage);
             
             /**
              * Scheduling a message.
@@ -37,7 +38,7 @@ public class Demo
             apiMessage.From = "SMSGH";
             apiMessage.To = "+233248183783";
             apiMessage.Content = "Hello world!";
-            apiHost.MessagesResource
+            apiHost.Messages
                 .Schedule(apiMessage, System.DateTime.Now.AddDays(1));
         } catch (ApiException ex) {
             System.Console.WriteLine("Exception: {0}", ex.Message);

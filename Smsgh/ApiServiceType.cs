@@ -1,103 +1,96 @@
-// $Id: ApiServiceType.cs 0 1970-01-01 00:00:00Z mkwayisi $
-namespace Smsgh
-{
 
 using System;
-using Smsgh.Json;
 
-/// <summary>
-/// Represents an API service type.
-/// </summary>
-public class ApiServiceType
+namespace SmsghApi.Sdk.Smsgh
 {
-	// Data fields.
-	private string descriptor;
-	private bool   isCreditBased;
-	private bool   isPrepaid;
-	private string name;
-	private double rate;
-	private bool   requiresActivation;
-	
     /// <summary>
-    /// Gets the descriptor of this API service type.
+    ///     Represents an API service type.
     /// </summary>
-	public string Descriptor {
-		get {
-			return this.descriptor;
-		}
-	}
-	
-    /// <summary>
-    /// Indicated whether this API service type is credit based.
-    /// </summary>
-	public bool IsCreditBased {
-		get {
-			return this.isCreditBased;
-		}
-	}
-	
-    /// <summary>
-    /// Indicated whether this API service type is prepaid.
-    /// </summary>
-	public bool IsPrepaid {
-		get {
-			return this.isPrepaid;
-		}
-	}
-	
-    /// <summary>
-    /// Gets the name of this API service type.
-    /// </summary>
-	public string Name {
-		get {
-			return this.name;
-		}
-	}
-	
-    /// <summary>
-    /// Gets the rate of this API service type.
-    /// </summary>
-	public double Rate {
-		get {
-			return this.rate;
-		}
-	}
-	
-    /// <summary>
-    /// Indicated whether this API service type requires activation.
-    /// </summary>
-	public bool RequiresActivation {
-		get {
-			return this.requiresActivation;
-		}
-	}
-	
-    /// <summary>
-    /// Used internally to initialize the properties of this class.
-    /// </summary>
-	public ApiServiceType(JavaScriptObject jso)
-	{
-		foreach (string key in jso.Keys)
-		switch (key.ToLower()) {
-			case "descriptor":
-				this.descriptor = Convert.ToString(jso[key]);
-				break;
-			case "iscreditbased":
-				this.isCreditBased = Convert.ToBoolean(jso[key]);
-				break;
-			case "isprepaid":
-				this.isPrepaid = Convert.ToBoolean(jso[key]);
-				break;
-			case "name":
-				this.name = Convert.ToString(jso[key]);
-				break;
-			case "rate":
-				this.rate = Convert.ToDouble(jso[key]);
-				break;
-			case "requiresactivation":
-				this.requiresActivation = Convert.ToBoolean(jso[key]);
-				break;
-		}
-	}
-}
+    public class ApiServiceType
+    {
+        // Data fields.
+        private readonly string _descriptor;
+        private readonly bool _isCreditBased;
+        private readonly bool _isPrepaid;
+        private readonly string _name;
+        private readonly double _rate;
+        private readonly bool _requiresActivation;
+
+        /// <summary>
+        ///     Used internally to initialize the properties of this class.
+        /// </summary>
+        public ApiServiceType(ApiDictionary jso)
+        {
+            foreach (string key in jso.Keys)
+                switch (key.ToLower())
+                {
+                    case "descriptor":
+                        _descriptor = Convert.ToString(jso[key]);
+                        break;
+                    case "iscreditbased":
+                        _isCreditBased = Convert.ToBoolean(jso[key]);
+                        break;
+                    case "isprepaid":
+                        _isPrepaid = Convert.ToBoolean(jso[key]);
+                        break;
+                    case "name":
+                        _name = Convert.ToString(jso[key]);
+                        break;
+                    case "rate":
+                        _rate = Convert.ToDouble(jso[key]);
+                        break;
+                    case "requiresactivation":
+                        _requiresActivation = Convert.ToBoolean(jso[key]);
+                        break;
+                }
+        }
+
+        /// <summary>
+        ///     Gets the descriptor of this API service type.
+        /// </summary>
+        public string Descriptor
+        {
+            get { return _descriptor; }
+        }
+
+        /// <summary>
+        ///     Indicated whether this API service type is credit based.
+        /// </summary>
+        public bool IsCreditBased
+        {
+            get { return _isCreditBased; }
+        }
+
+        /// <summary>
+        ///     Indicated whether this API service type is prepaid.
+        /// </summary>
+        public bool IsPrepaid
+        {
+            get { return _isPrepaid; }
+        }
+
+        /// <summary>
+        ///     Gets the name of this API service type.
+        /// </summary>
+        public string Name
+        {
+            get { return _name; }
+        }
+
+        /// <summary>
+        ///     Gets the rate of this API service type.
+        /// </summary>
+        public double Rate
+        {
+            get { return _rate; }
+        }
+
+        /// <summary>
+        ///     Indicated whether this API service type requires activation.
+        /// </summary>
+        public bool RequiresActivation
+        {
+            get { return _requiresActivation; }
+        }
+    }
 }

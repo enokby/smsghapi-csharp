@@ -1,113 +1,108 @@
 // $Id: ApiMessageResponse.cs 0 1970-01-01 00:00:00Z mkwayisi $
-namespace Smsgh
-{
 
 using System;
 using System.Collections.Generic;
-using Smsgh.Json;
 
-/// <summary>
-/// Represents an API message response.
-/// </summary>
-public class ApiMessageResponse
+namespace SmsghApi.Sdk.Smsgh
 {
-	// Data fields.
-	private string clientReference;
-	private Dictionary<string,string> detail;
-	private Guid   messageId;
-	private string networkId;
-	private double rate;
-	private int    status;
-	
     /// <summary>
-    /// Gets the status of this API message response.
+    ///     Represents an API message response.
     /// </summary>
-	public int Status {
-		get {
-			return this.status;
-		}
-	}
-	
-    /// <summary>
-    /// Gets the message ID of this API message response.
-    /// </summary>
-	public Guid MessageId {
-		get {
-			return this.messageId;
-		}
-	}
-	
-    /// <summary>
-    /// Gets the rate of this API message response.
-    /// </summary>
-	public double Rate {
-		get {
-			return this.rate;
-		}
-	}
-	
-    /// <summary>
-    /// Gets the network ID of this API message response.
-    /// </summary>
-	public string NetworkId {
-		get {
-			return this.networkId;
-		}
-	}
-	
-    /// <summary>
-    /// Gets the client reference of this API message response.
-    /// </summary>
-	public string ClientReference {
-		get {
-			return this.clientReference;
-		}
-	}
-	
-    /// <summary>
-    /// Gets the detail of this API message response.
-    /// </summary>
-	public Dictionary<string, string> Detail {
-		get {
-			return this.detail;
-		}
-	}
-	
-    /// <summary>
-    /// Initializes a new instance of this API message response.
-    /// </summary>
-	public ApiMessageResponse()
-	{
-	}
-	
-    /// <summary>
-    /// Used internally to initialize the properties of this class.
-    /// </summary>
-	public ApiMessageResponse(JavaScriptObject jso)
-	{
-		foreach (string key in jso.Keys) {
-			switch (key.ToLower()) {
-				case "clientreference":
-					this.clientReference = Convert.ToString(jso[key]);
-					break;
-				case "detail":
-					// ???
-					this.detail = null;  // Suppress compiler warning.
-					break;
-				case "messageid":
-					this.messageId = new Guid(Convert.ToString(jso[key]));
-					break;
-				case "networkid":
-					this.networkId = Convert.ToString(jso[key]);
-					break;
-				case "rate":
-					this.rate = Convert.ToDouble(jso[key]);
-					break;
-				case "status":
-					this.status = Convert.ToInt32(jso[key]);
-					break;
-			}
-		}
-	}
-}
+    public class ApiMessageResponse
+    {
+        // Data fields.
+        private readonly string _clientReference;
+        private readonly Dictionary<string, string> _detail;
+        private readonly Guid _messageId;
+        private readonly string _networkId;
+        private readonly double _rate;
+        private readonly int _status;
+
+        /// <summary>
+        ///     Initializes a new instance of this API message response.
+        /// </summary>
+        public ApiMessageResponse()
+        {
+        }
+
+        /// <summary>
+        ///     Used internally to initialize the properties of this class.
+        /// </summary>
+        public ApiMessageResponse(ApiDictionary jso)
+        {
+            foreach (string key in jso.Keys)
+            {
+                switch (key.ToLower())
+                {
+                    case "clientreference":
+                        _clientReference = Convert.ToString(jso[key]);
+                        break;
+                    case "detail":
+                        // ???
+                        _detail = null; // Suppress compiler warning.
+                        break;
+                    case "messageid":
+                        _messageId = new Guid(Convert.ToString(jso[key]));
+                        break;
+                    case "networkid":
+                        _networkId = Convert.ToString(jso[key]);
+                        break;
+                    case "rate":
+                        _rate = Convert.ToDouble(jso[key]);
+                        break;
+                    case "status":
+                        _status = Convert.ToInt32(jso[key]);
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        ///     Gets the status of this API message response.
+        /// </summary>
+        public int Status
+        {
+            get { return _status; }
+        }
+
+        /// <summary>
+        ///     Gets the message ID of this API message response.
+        /// </summary>
+        public Guid MessageId
+        {
+            get { return _messageId; }
+        }
+
+        /// <summary>
+        ///     Gets the rate of this API message response.
+        /// </summary>
+        public double Rate
+        {
+            get { return _rate; }
+        }
+
+        /// <summary>
+        ///     Gets the network ID of this API message response.
+        /// </summary>
+        public string NetworkId
+        {
+            get { return _networkId; }
+        }
+
+        /// <summary>
+        ///     Gets the client reference of this API message response.
+        /// </summary>
+        public string ClientReference
+        {
+            get { return _clientReference; }
+        }
+
+        /// <summary>
+        ///     Gets the detail of this API message response.
+        /// </summary>
+        public Dictionary<string, string> Detail
+        {
+            get { return _detail; }
+        }
+    }
 }

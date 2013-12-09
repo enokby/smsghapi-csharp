@@ -1,28 +1,27 @@
 // $Id: ApiAction.cs 0 1970-01-01 00:00:00Z mkwayisi $
-namespace Smsgh
-{
 
 using System;
-using Smsgh.Json;
 
-/// <summary>
+namespace SmsghApi.Sdk.Smsgh
+{
+    /// <summary>
 /// Represents an API action.
 /// </summary>
 public class ApiAction
 {
 	// Data fields.
-	private string actionMeta;
-	private long   actionTypeId;
-	private long   campaignId;
-	private long   id;
-	private bool   isActive;
+	private readonly string _actionMeta;
+	private readonly long   _actionTypeId;
+	private readonly long   _campaignId;
+	private readonly long   _id;
+	private readonly bool   _isActive;
 	
     /// <summary>
     /// Gets the action meta of this API action.
     /// </summary>
 	public string ActionMeta {
 		get {
-			return this.actionMeta;
+			return this._actionMeta;
 		}
 	}
 	
@@ -31,7 +30,7 @@ public class ApiAction
     /// </summary>
 	public long ActionTypeId {
 		get {
-			return this.actionTypeId;
+			return this._actionTypeId;
 		}
 	}
 	
@@ -40,7 +39,7 @@ public class ApiAction
     /// </summary>
 	public long CampaignId {
 		get {
-			return this.campaignId;
+			return this._campaignId;
 		}
 	}
 	
@@ -49,7 +48,7 @@ public class ApiAction
     /// </summary>
 	public long Id {
 		get {
-			return this.id;
+			return this._id;
 		}
 	}
 	
@@ -58,31 +57,31 @@ public class ApiAction
     /// </summary>
 	public bool IsActive {
 		get {
-			return this.isActive;
+			return this._isActive;
 		}
 	}
 	
     /// <summary>
     /// Initializes a new instance of the <see cref="ApiAction"/> class.
     /// </summary>
-	public ApiAction(JavaScriptObject jso)
+	public ApiAction(ApiDictionary jso)
 	{
 		foreach (string key in jso.Keys)
 		switch (key.ToLower()) {
 			case "actionmeta":
-				this.actionMeta = Convert.ToString(jso[key]);
+				this._actionMeta = Convert.ToString(jso[key]);
 				break;
 			case "actiontypeid":
-				this.actionTypeId = Convert.ToInt64(jso[key]);
+				this._actionTypeId = Convert.ToInt64(jso[key]);
 				break;
 			case "campaignid":
-				this.campaignId = Convert.ToInt64(jso[key]);
+				this._campaignId = Convert.ToInt64(jso[key]);
 				break;
 			case "id":
-				this.id = Convert.ToInt64(jso[key]);
+				this._id = Convert.ToInt64(jso[key]);
 				break;
 			case "isactive":
-				this.isActive = Convert.ToBoolean(jso[key]);
+				this._isActive = Convert.ToBoolean(jso[key]);
 				break;
 		}
 	}

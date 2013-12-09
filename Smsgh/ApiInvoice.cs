@@ -1,131 +1,137 @@
-// $Id: ApiInvoice.cs 0 1970-01-01 00:00:00Z mkwayisi $
-namespace Smsgh
-{
-
 using System;
-using Smsgh.Json;
+using System.Globalization;
 
-/// <summary>
-/// Represents an API invoice.
-/// </summary>
-public class ApiInvoice
+namespace SmsghApi.Sdk.Smsgh
 {
-	// Data fields.
-	private double amount;
-	private DateTime created;
-	private string description;
-	private DateTime dueDate;
-	private double ending;
-	private long id;
-	private bool isPaid;
-	private string type;
-	
     /// <summary>
-    /// Gets the amount of this API invoice.
+    ///     Represents an API invoice.
     /// </summary>
-	public double Amount {
-		get {
-			return this.amount;
-		}
-	}
-	
-    /// <summary>
-    /// Gets the created date of this API invoice.
-    /// </summary>
-	public DateTime Created {
-		get {
-			return this.created;
-		}
-	}
-	
-    /// <summary>
-    /// Gets the description of this API invoice.
-    /// </summary>
-	public string Description {
-		get {
-			return this.description;
-		}
-	}
-	
-    /// <summary>
-    /// Gets the due date of this API invoice.
-    /// </summary>
-	public DateTime DueDate {
-		get {
-			return this.dueDate;
-		}
-	}
-	
-    /// <summary>
-    /// Gets the ending of this API invoice.
-    /// </summary>
-	public double Ending {
-		get {
-			return this.ending;
-		}
-	}
-	
-    /// <summary>
-    /// Gets the ID of this API invoice.
-    /// </summary>
-	public long Id {
-		get {
-			return this.id;
-		}
-	}
-	
-    /// <summary>
-    /// Indicates whether this API invoice is paid.
-    /// </summary>
-	public bool IsPaid {
-		get {
-			return this.isPaid;
-		}
-	}
-	
-    /// <summary>
-    /// Gets the type of this API invoice.
-    /// </summary>
-	public string Type {
-		get {
-			return this.type;
-		}
-	}
-	
-    /// <summary>
-    /// Used internally to initialize the properties of this class.
-    /// </summary>
-	public ApiInvoice(JavaScriptObject jso)
-	{
-		foreach (string key in jso.Keys)
-		switch (key.ToLower()) {
-			case "amount":
-				this.amount = Convert.ToDouble(jso[key]);
-				break;
-			case "created":
-				if (jso[key].ToString() != "")
-					this.created = Convert.ToDateTime(jso[key]);
-				break;
-			case "description":
-				this.description = Convert.ToString(jso[key]);
-				break;
-			case "duedate":
-				if (jso[key].ToString() != "")
-					this.dueDate = Convert.ToDateTime(jso[key]);
-				break;
-			case "ending":
-				this.ending = Convert.ToDouble(jso[key]);
-				break;
-			case "id":
-				this.id = Convert.ToInt64(jso[key]);
-				break;
-			case "ispaid":
-				this.isPaid = Convert.ToBoolean(jso[key]);
-				break;
-			case "type":
-				this.type = Convert.ToString(jso[key]);
-				break;
-		}
-	}
-}
+    public class ApiInvoice
+    {
+        // Data fields.
+        private readonly double _amount;
+        private readonly DateTime? _created;
+        private readonly string _description;
+        private readonly DateTime? _dueDate;
+        private readonly double _ending;
+        private readonly long _id;
+        private readonly bool _isPaid;
+        private readonly string _type;
+
+        /// <summary>
+        ///     Used internally to initialize the properties of this class.
+        /// </summary>
+        public ApiInvoice(ApiDictionary jso)
+        {
+            foreach (string key in jso.Keys)
+                switch (key.ToLower())
+                {
+                    case "amount":
+                        _amount = Convert.ToDouble(jso[key]);
+                        break;
+                    case "created":
+                        DateTime dateCreated;
+                        if (jso[key].ToString() != "")
+                            _created = DateTime.TryParseExact(jso[key].ToString(), "yyyy-dd-MM hh:mm:ss",
+                                CultureInfo.InvariantCulture, DateTimeStyles.None, out dateCreated)
+                                ? dateCreated
+                                : (DateTime?) null;
+
+                        break;
+                    case "description":
+                        _description = Convert.ToString(jso[key]);
+                        break;
+                    case "duedate":
+                        if (jso[key].ToString() != "")
+                            _dueDate = DateTime.TryParseExact(jso[key].ToString(), "yyyy-dd-MM hh:mm:ss",
+                                CultureInfo.InvariantCulture, DateTimeStyles.None, out dateCreated)
+                                ? dateCreated
+                                : (DateTime?)null;
+
+                        break;
+                    case "ending":
+                        _ending = Convert.ToDouble(jso[key]);
+                        break;
+                    case "id":
+                        _id = Convert.ToInt64(jso[key]);
+                        break;
+                    case "ispaid":
+                        _isPaid = Convert.ToBoolean(jso[key]);
+                        break;
+                    case "type":
+                        _type = Convert.ToString(jso[key]);
+                        break;
+                }
+        }
+
+        /// <summary>
+        ///     Gets the amount of this API invoice.
+        /// </summary>
+        public double Amount
+        {
+            get { return _amount; }
+        }
+
+        /// <summary>
+        ///     Gets the created date of this API invoice.
+        /// </summary>
+        public DateTime? Created
+        {
+            get
+            {
+                return _created;
+            }
+        }
+
+        /// <summary>
+        ///     Gets the description of this API invoice.
+        /// </summary>
+        public string Description
+        {
+            get { return _description; }
+        }
+
+        /// <summary>
+        ///     Gets the due date of this API invoice.
+        /// </summary>
+        public DateTime? DueDate
+        {
+            get
+            {
+                return _dueDate;
+            }
+        }
+
+        /// <summary>
+        ///     Gets the ending of this API invoice.
+        /// </summary>
+        public double Ending
+        {
+            get { return _ending; }
+        }
+
+        /// <summary>
+        ///     Gets the ID of this API invoice.
+        /// </summary>
+        public long Id
+        {
+            get { return _id; }
+        }
+
+        /// <summary>
+        ///     Indicates whether this API invoice is paid.
+        /// </summary>
+        public bool IsPaid
+        {
+            get { return _isPaid; }
+        }
+
+        /// <summary>
+        ///     Gets the type of this API invoice.
+        /// </summary>
+        public string Type
+        {
+            get { return _type; }
+        }
+    }
 }

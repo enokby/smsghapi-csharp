@@ -62,7 +62,7 @@ namespace SmsghApi.Sdk.Smsgh
                         _rate = Convert.ToDouble(jso[key]);
                         break;
                     case "registereddelivery":
-                        IsRegisteredDelivery = Convert.ToBoolean(jso[key]);
+                        RegisteredDelivery = Convert.ToBoolean(jso[key]);
                         break;
                     case "status":
                         _status = Convert.ToString(jso[key]);
@@ -166,7 +166,7 @@ namespace SmsghApi.Sdk.Smsgh
         /// <summary>
         ///     Gets or sets a value indicating whether this API message is registered delivery.
         /// </summary>
-        public bool IsRegisteredDelivery { get; set; }
+        public bool RegisteredDelivery { get; set; }
 
         /// <summary>
         ///     Gets the status of this API message.

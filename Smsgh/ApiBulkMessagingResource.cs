@@ -19,7 +19,7 @@ namespace SmsghApi.Sdk.Smsgh
         /// </summary>
         public ApiBulkMessagingResource(SmsghApiHost apiHostHost)
         {
-            this._apiHostHost = apiHostHost;
+            _apiHostHost = apiHostHost;
         }
 
         /// <summary>
@@ -90,8 +90,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -119,8 +120,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -143,7 +145,7 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
         }
 
@@ -193,8 +195,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -222,8 +225,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -251,8 +255,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -275,7 +280,7 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
         }
     }

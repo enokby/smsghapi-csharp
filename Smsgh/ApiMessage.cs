@@ -34,8 +34,8 @@ namespace SmsghApi.Sdk.Smsgh
             {
                 switch (key.ToLower())
                 {
-                    case "apimessagetype":
-                        ApiMessageType = Convert.ToInt32(jso[key]);
+                    case "type":
+                        Type = Convert.ToInt32(jso[key]);
                         break;
                     case "clientreference":
                         ClientReference = Convert.ToString(jso[key]);
@@ -47,7 +47,7 @@ namespace SmsghApi.Sdk.Smsgh
                         _direction = Convert.ToString(jso[key]);
                         break;
                     case "flashmessage":
-                        IsFlashMessage = Convert.ToBoolean(jso[key]);
+                        FlashMessage = Convert.ToBoolean(jso[key]);
                         break;
                     case "from":
                         From = Convert.ToString(jso[key]);
@@ -75,8 +75,6 @@ namespace SmsghApi.Sdk.Smsgh
                                 CultureInfo.InvariantCulture, DateTimeStyles.None, out time)
                                 ? time
                                 : (DateTime?) null;
-
-
                         break;
                     case "to":
                         To = Convert.ToString(jso[key]);
@@ -105,7 +103,7 @@ namespace SmsghApi.Sdk.Smsgh
         /// <summary>
         ///     Gets or sets the API message type of this API message.
         /// </summary>
-        public int ApiMessageType { get; set; }
+        public int Type { get; set; }
 
         /// <summary>
         ///     Gets or sets the client reference of this API message.
@@ -129,7 +127,7 @@ namespace SmsghApi.Sdk.Smsgh
         /// <summary>
         ///     Gets or sets a value indicating whether is this API message is flash.
         /// </summary>
-        public bool IsFlashMessage { get; set; }
+        public bool FlashMessage { get; set; }
 
         /// <summary>
         ///     Gets or sets the originator of this API message.

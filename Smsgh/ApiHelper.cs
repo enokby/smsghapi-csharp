@@ -10,10 +10,6 @@ namespace SmsghApi.Sdk.Smsgh
 {
     public static class ApiHelper
     {
-        /**
-	 * GetJson
-	 */
-
         public static T GetJson<T>(
             SmsghApiHost apiHostHost, string method, string uri, byte[] data)
         {
@@ -46,7 +42,8 @@ namespace SmsghApi.Sdk.Smsgh
             var httpStatus = (HttpStatusCode) 0;
             using (var response = request.GetResponse() as HttpWebResponse)
             {
-                if (response != null) {
+                if (response != null)
+                {
                     httpStatus = response.StatusCode;
                     using (Stream resStream = response.GetResponseStream())
                     using (resStream)
@@ -64,23 +61,17 @@ namespace SmsghApi.Sdk.Smsgh
 
 
             // In case of 204 response code response content length is 0
-            if (httpStatus != HttpStatusCode.NoContent && string.IsNullOrEmpty(responseFromServer)) throw new ApiException("Unable to Process Http request");
+            if (httpStatus != HttpStatusCode.NoContent && string.IsNullOrEmpty(responseFromServer))
+                throw new ApiException("Unable to Process Http request");
             return JsonConvert.DeserializeObject<T>(responseFromServer);
         }
 
-        /**
-	 * Gets ApiList<T>
-	 */
 
         public static ApiList<T> GetApiList<T>
             (SmsghApiHost apiHostHost, string uri, int page, int pageSize)
         {
             return GetApiList<T>(apiHostHost, uri, page, pageSize, false);
         }
-
-        /**
-	 * Gets ApiList<T> (Extended)
-	 */
 
         public static ApiList<T> GetApiList<T>
             (SmsghApiHost apiHostHost, string uri, int page, int pageSize, bool hasQ)
@@ -103,8 +94,43 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                CatchException(ex);
             }
+            return null;
+        }
+
+        public static void CatchException(Exception exception)
+        {
+            if (exception.GetType() == typeof(WebException))
+            {
+                var webException = exception as WebException;
+                string body = string.Empty;
+                if (webException != null)
+                {
+                    var apiException = new ApiException("Request Failed.")
+                    {
+                        HttpStatusCode = (int)((HttpWebResponse)webException.Response).StatusCode,
+                        Reason = ((HttpWebResponse)webException.Response).StatusDescription
+                    };
+
+                    // Let us read the response body
+                    using (Stream resStream = webException.Response.GetResponseStream())
+                    using (resStream)
+                    {
+                        if (resStream != null)
+                        {
+                            using (var reader = new StreamReader(resStream))
+                            {
+                                body = reader.ReadToEnd();
+                            }
+                        }
+                    }
+                    apiException.RawBody = body;
+                    throw apiException;
+                }
+            }
+            else throw new ApiException(exception.Message);
+            
         }
     }
 }

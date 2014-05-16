@@ -26,8 +26,8 @@ namespace SmsghApi.Sdk.Smsgh
         public SmsghApiHost()
         {
             Hostname = "api.smsgh.com";
-            Port = 443;
-            Https = true;
+            Port = 80;
+            Https = false;
             Timeout = 15;
             ContextPath = string.Empty;
             _accountResource = new ApiAccountResource(this);

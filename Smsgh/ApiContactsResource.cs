@@ -21,7 +21,7 @@ namespace SmsghApi.Sdk.Smsgh
         /// </summary>
         public ApiContactsResource(SmsghApiHost apiHostHost)
         {
-            this._apiHostHost = apiHostHost;
+            _apiHostHost = apiHostHost;
         }
 
         /// <summary>
@@ -103,37 +103,10 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
-
-        /// <summary>
-        ///     Retrieves an API contact by phone number.
-        /// </summary>
-        /// <param name="phoneNumber">Phone number of the contact to retrieve.</param>
-        //public ApiContact Get(string phoneNumber)
-        //{
-        //    string uri;
-        //    if (string.IsNullOrEmpty(_apiHostHost.ContextPath))
-        //        uri = "/contacts/";
-        //    else
-        //    {
-        //        uri = "/" + _apiHostHost.ContextPath + "/contacts/";
-        //    }
-
-        //    try
-        //    {
-        //        if (phoneNumber == null)
-        //            throw new ArgumentNullException("phoneNumber");
-        //        //phoneNumber = new Regex("[^\\d]").Replace(phoneNumber, "");
-        //        return new ApiContact(ApiHelper.GetJson<ApiDictionary>
-        //            (_apiHostHost, "GET", uri + phoneNumber.Trim(), null));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new ApiException(ex.Message);
-        //    }
-        //}
 
         /// <summary>
         ///     Creates a new API contact.
@@ -149,7 +122,6 @@ namespace SmsghApi.Sdk.Smsgh
                 uri = "/" + _apiHostHost.ContextPath + "/contacts/";
             }
 
-
             try
             {
                 if (apiContact == null)
@@ -162,8 +134,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -193,7 +166,7 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
         }
 
@@ -218,7 +191,7 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
         }
 
@@ -272,8 +245,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -303,8 +277,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -334,7 +309,7 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
         }
 
@@ -359,7 +334,7 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
         }
     }

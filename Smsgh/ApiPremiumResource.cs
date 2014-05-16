@@ -4,7 +4,6 @@ using System;
 using System.IO;
 using System.Text;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Utilities;
 
 namespace SmsghApi.Sdk.Smsgh
 {
@@ -76,24 +75,6 @@ namespace SmsghApi.Sdk.Smsgh
                 (_apiHost, uri, page, pageSize);
         }
 
-        //public ApiList<ApiNumberPlan> GetSharedNumberPlans()
-        //{
-        //    return GetSharedNumberPlans(-1, -1);
-        //}
-        //public ApiList<ApiNumberPlan> GetSharedNumberPlans(int page, int pageSize)
-        //{
-        //    return ApiHelper.GetApiList<ApiNumberPlan>
-        //        (_apiHostHost, "/v3/numberplans/shared", page, pageSize);
-        //}
-        //public ApiList<ApiNumberPlan> GetNotSharedNumberPlans()
-        //{
-        //    return GetNotSharedNumberPlans(-1, -1);
-        //}
-        //public ApiList<ApiNumberPlan> GetNotSharedNumberPlans(int page, int pageSize)
-        //{
-        //    return ApiHelper.GetApiList<ApiNumberPlan>
-        //        (_apiHostHost, "/v3/numberplans/notshared", page, pageSize);
-        //}
         /// <summary>
         ///     Retrieves all shared API number plans.
         /// </summary>
@@ -188,8 +169,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -214,8 +196,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
 
@@ -246,8 +229,9 @@ namespace SmsghApi.Sdk.Smsgh
             catch (Exception ex)
             {
                 //throw new Exception("Error", ex);
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -276,8 +260,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -301,7 +286,7 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
         }
 
@@ -358,8 +343,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -387,8 +373,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -440,8 +427,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -466,8 +454,8 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
-            }
+                ApiHelper.CatchException(ex);
+            }            
         }
 
         /// <summary>
@@ -551,8 +539,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -592,9 +581,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -620,8 +609,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -648,8 +638,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -675,8 +666,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -702,8 +694,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
     }
 }

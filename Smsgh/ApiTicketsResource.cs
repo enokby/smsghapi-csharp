@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace SmsghApi.Sdk.Smsgh
@@ -90,8 +87,9 @@ namespace SmsghApi.Sdk.Smsgh
             catch (Exception ex)
             {
                 //throw new Exception("Error", ex);
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -123,9 +121,9 @@ namespace SmsghApi.Sdk.Smsgh
             catch (Exception ex)
             {
                 //throw new Exception("Error", ex);
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
-            
+            return null;
         }
     }
 }

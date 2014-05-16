@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -44,8 +45,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -68,8 +70,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -91,8 +94,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -115,8 +119,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -136,15 +141,14 @@ namespace SmsghApi.Sdk.Smsgh
 
             try
             {
-                foreach (ApiDictionary jso in ApiHelper.GetJson<List<ApiDictionary>>
-                    (_apiHostHost, "GET", uri, null))
-                    aacs.Add(new ApiAccountContact(jso));
+                aacs.AddRange(ApiHelper.GetJson<List<ApiDictionary>>(_apiHostHost, "GET", uri, null).Select(jso => new ApiAccountContact(jso)));
                 return aacs;
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -175,7 +179,7 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
         }
 
@@ -227,8 +231,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>
@@ -258,8 +263,9 @@ namespace SmsghApi.Sdk.Smsgh
             }
             catch (Exception ex)
             {
-                throw new ApiException(ex.Message);
+                ApiHelper.CatchException(ex);
             }
+            return null;
         }
 
         /// <summary>

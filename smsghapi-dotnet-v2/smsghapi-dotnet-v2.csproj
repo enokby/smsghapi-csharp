@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C67BC006-E559-43C1-8009-2A8B233E2CAB}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>smsghapi_dotnet_v2</RootNamespace>
+    <AssemblyName>smsghapi-dotnet-v2</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Demo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Smsgh\AbstractApi.cs" />
+    <Compile Include="Smsgh\AbstractRestClient.cs" />
+    <Compile Include="Smsgh\AccountApi.cs" />
+    <Compile Include="Smsgh\AccountContact.cs" />
+    <Compile Include="Smsgh\AccountProfile.cs" />
+    <Compile Include="Smsgh\Action.cs" />
+    <Compile Include="Smsgh\ApiHost.cs" />
+    <Compile Include="Smsgh\ApiList.cs" />
+    <Compile Include="Smsgh\BasicAuth.cs" />
+    <Compile Include="Smsgh\Campaign.cs" />
+    <Compile Include="Smsgh\ChildAccount.cs" />
+    <Compile Include="Smsgh\Contact.cs" />
+    <Compile Include="Smsgh\ContactApi.cs" />
+    <Compile Include="Smsgh\ContactGroup.cs" />
+    <Compile Include="Smsgh\ApiDictionary.cs" />
+    <Compile Include="Smsgh\ApiException.cs" />
+    <Compile Include="Smsgh\ContentApi.cs" />
+    <Compile Include="Smsgh\ContentFolder.cs" />
+    <Compile Include="Smsgh\ContentLibrary.cs" />
+    <Compile Include="Smsgh\ContentMedia.cs" />
+    <Compile Include="Smsgh\ContentMediaFile.cs" />
+    <Compile Include="Smsgh\FileExtensionMimeTypeMapping.cs" />
+    <Compile Include="Smsgh\HttpUploadHelper.cs" />
+    <Compile Include="Smsgh\MediaInfo.cs" />
+    <Compile Include="Smsgh\IAuth.cs" />
+    <Compile Include="Smsgh\Invoice.cs" />
+    <Compile Include="Smsgh\Message.cs" />
+    <Compile Include="Smsgh\MessageResponse.cs" />
+    <Compile Include="Smsgh\MessagingApi.cs" />
+    <Compile Include="Smsgh\MimePart.cs" />
+    <Compile Include="Smsgh\MoKeyWord.cs" />
+    <Compile Include="Smsgh\NumberPlan.cs" />
+    <Compile Include="Smsgh\NumberPlanItem.cs" />
+    <Compile Include="Smsgh\OAuth.cs" />
+    <Compile Include="Smsgh\Sender.cs" />
+    <Compile Include="Smsgh\Service.cs" />
+    <Compile Include="Smsgh\ServiceType.cs" />
+    <Compile Include="Smsgh\Settings.cs" />
+    <Compile Include="Smsgh\MessageTemplate.cs" />
+    <Compile Include="Smsgh\StreamMimePart.cs" />
+    <Compile Include="Smsgh\StringMimePart.cs" />
+    <Compile Include="Smsgh\SupportApi.cs" />
+    <Compile Include="Smsgh\Tag.cs" />
+    <Compile Include="Smsgh\Ticket.cs" />
+    <Compile Include="Smsgh\TicketResponse.cs" />
+    <Compile Include="Smsgh\BasicRestClient.cs" />
+    <Compile Include="Smsgh\BasicRequestHandler.cs" />
+    <Compile Include="Smsgh\ConsoleRequestLogger.cs" />
+    <Compile Include="Smsgh\HttpDelete.cs" />
+    <Compile Include="Smsgh\HttpHead.cs" />
+    <Compile Include="Smsgh\HttpGet.cs" />
+    <Compile Include="Smsgh\HttpPut.cs" />
+    <Compile Include="Smsgh\HttpPost.cs" />
+    <Compile Include="Smsgh\HttpRequest.cs" />
+    <Compile Include="Smsgh\HttpRequestException.cs" />
+    <Compile Include="Smsgh\HttpResponse.cs" />
+    <Compile Include="Smsgh\IRequestHandler.cs" />
+    <Compile Include="Smsgh\IRequestLogger.cs" />
+    <Compile Include="Smsgh\ParameterMap.cs" />
+    <Compile Include="Smsgh\StringUtil.cs" />
+    <Compile Include="Smsgh\Topup.cs" />
+    <Compile Include="Smsgh\TopupLocation.cs" />
+    <Compile Include="Smsgh\UploadFile.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Readme.md" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

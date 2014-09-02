@@ -1,0 +1,16 @@
+﻿namespace smsghapi_dotnet_v2.Smsgh
+{
+    public class HttpHead : HttpRequest
+    {
+        /// <summary>
+        ///     Constructs an HTTP HEAD request
+        /// </summary>
+        /// <param name="path">Partial URL</param>
+        /// <param name="parameters">Name-value pairs to be appended to the URL</param>
+        public HttpHead(string path, ParameterMap parameters) : base(path, parameters)
+        {
+            HttpMethod = "HEAD";
+            ContentType = UrlEncoded;
+        }
+    }
+}

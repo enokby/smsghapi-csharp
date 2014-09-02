@@ -1,21 +1,24 @@
-SMSGH Unity API .NET SDK (Release 2)
+SMSGH HTTP API .NET SDK (Release 2)
 ===================================
 
 ## **Overview**
 
-The Unity API .NET SDK is a wrapper built to assist .Net-driven applications developers to interact in a more friendly way with the Unity API.
-Its goal is also to provide an easy way for those who do not have much knowledge about the whole HTTP Restful technology to interact with the Unity API.
+The SMSGH HTTP API .NET SDK is a wrapper built to assist .Net-driven applications developers to interact in a more friendly way with the HTTP API.
+Its goal is also to provide an easy way for those who do not have much knowledge about the whole HTTP Restful technology to interact with the HTTP API.
 In that direction there is no need to go and grab a knowledge about HTTP and REST technology. 
 All one needs is to have the basic knowledge about the Microsoft C# language. We mean the basics not advanced knowledge.
 
+## **Notice**
+* This is the source code for the current release.
+* The source code of the previous release can be found [here](https://github.com/smsgh/smsghapi-csharp/tree/release-1) .
 
 ## **Installation**
 
-The SDK can smoothly run on any .Net Platform if it is compiled in the right environment.
- 
-To use the SDK all you have to do is to download the **Smsgh** folder from the repository and all of its contents and add it to your project. Also you can download the source code and build it since it 
-is a Visual Studio 2013 project. 
+The SDK can smoothly run on any .Net Platform if it is compiled in the right environment. There are two ways of using the SDK
 
+* Clone the repo and run it in Visual Studio
+* Download the binaries from the **binaries** folder. The folder is organized around the various .Net Platform supported. Each folder contains the required dlls to use. Download the appropriate folder and add it to your project library path or reference path.
+ 
 
 ## **Usage**
 
@@ -43,12 +46,9 @@ The SDK currently is organized around four main classes:
         {
             const string clientId = "user233";
             const string clientSecret = "password23";
-            const string hostname = "api.smsgh.com";
-            const string contextPath = "v3";
-
 
             try {
-                var host = new ApiHost {ContextPath = contextPath, EnabledLog = true, Hostname = hostname, Auth = new BasicAuth(clientId, clientSecret)};
+                var host = new ApiHost(new BasicAuth(clientId, clientSecret));
 
                 var messageApi = new MessagingApi(host);
                 MessageResponse msg = messageApi.SendQuickMessage("Arsene", "+233247063817", "Hello Big Bro!", true);
@@ -79,12 +79,9 @@ The SDK currently is organized around four main classes:
         {
             const string clientId = "user233";
             const string clientSecret = "password23";
-            const string hostname = "api.smsgh.com";
-            const string contextPath = "v3";
-
 
             try {
-                var host = new ApiHost {ContextPath = contextPath, EnabledLog = true, Hostname = hostname, Auth = new BasicAuth(clientId, clientSecret)};
+                var host = new ApiHost(new BasicAuth(clientId, clientSecret));
 
                 var messageApi = new MessagingApi(host);
 				const string messageId = "9327e44b281049f090fcae3ebbccb883";
@@ -120,13 +117,9 @@ The SDK currently is organized around four main classes:
         {
             const string clientId = "user233";
             const string clientSecret = "password23";
-            const string hostname = "api.smsgh.com";
-            const string contextPath = "v3";
-
 
             try {
-                var host = new ApiHost {ContextPath = contextPath, EnabledLog = true, Hostname = hostname, Auth = new BasicAuth(clientId, clientSecret)};
-
+                var host = new ApiHost(new BasicAuth(clientId, clientSecret));
                 var accountApi = new AccountApi(host);
                 AccountProfile profile = accountApi.GetAccountProfile();
                 Console.WriteLine("Profile Account Id {0}", profile.AccountId);

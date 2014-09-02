@@ -19,7 +19,6 @@ The SDK can smoothly run on any .Net Platform if it is compiled in the right env
 * Clone the repo and run it in Visual Studio
 * Download the binaries from the **binaries** folder. The folder is organized around the various .Net Platform supported. Each folder contains the required dlls to use. Download the appropriate folder and add it to your project library path or reference path.
  
-
 ## **Usage**
 
 The SDK currently is organized around four main classes:
@@ -51,7 +50,7 @@ The SDK currently is organized around four main classes:
                 var host = new ApiHost(new BasicAuth(clientId, clientSecret));
 
                 var messageApi = new MessagingApi(host);
-                MessageResponse msg = messageApi.SendQuickMessage("Arsene", "+233247063817", "Hello Big Bro!", true);
+                MessageResponse msg = messageApi.SendQuickMessage("Wazza", "+233244675897", "Hello Big Bro!", true);
                 Console.WriteLine(msg.Status);
             }
             catch (Exception e) {

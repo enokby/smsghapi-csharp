@@ -294,27 +294,24 @@ namespace smsghapi_dotnet_v2.Smsgh
         {
             if (ex.Response.GetResponseStream() == null) return null;
             using (var response = ex.Response as HttpWebResponse) {
-                if (response != null) {
-                    using (Stream stream = ex.Response.GetResponseStream()) {
-                        if (stream != null) {
-                            var buffer = new byte[response.ContentLength];
-                            int bytesRead = 0;
-                            int totalBytesRead = bytesRead;
-                            while (totalBytesRead < buffer.Length) {
-                                bytesRead = stream.Read(buffer, bytesRead, buffer.Length - bytesRead);
-                                totalBytesRead += bytesRead;
-                            }
-                            byte[] responseBody = buffer;
-
-                            int status = Convert.ToInt32(response.StatusCode);
-                            string url = response.ResponseUri.AbsoluteUri;
-                            WebHeaderCollection headers = response.Headers;
-                            return new HttpResponse(url, headers, status, responseBody);
-                        }
+                if (response == null) return null;
+                using (Stream stream = ex.Response.GetResponseStream()) {
+                    if (stream == null) return null;
+                    var buffer = new byte[response.ContentLength];
+                    int bytesRead = 0;
+                    int totalBytesRead = bytesRead;
+                    while (totalBytesRead < buffer.Length) {
+                        bytesRead = stream.Read(buffer, bytesRead, buffer.Length - bytesRead);
+                        totalBytesRead += bytesRead;
                     }
+                    byte[] responseBody = buffer;
+
+                    int status = Convert.ToInt32(response.StatusCode);
+                    string url = response.ResponseUri.AbsoluteUri;
+                    WebHeaderCollection headers = response.Headers;
+                    return new HttpResponse(url, headers, status, responseBody);
                 }
             }
-            return null;
         }
 
         /// <summary>

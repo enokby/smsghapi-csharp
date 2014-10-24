@@ -17,7 +17,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <param name="page">The Page Number</param>
         /// <param name="pageSize">The Number of items on a page</param>
         /// <returns>ApiList of ContentLibrary</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public ApiList<ContentLibrary> GetContentLibraries(uint page, uint pageSize)
         {
             const string resource = "/libraries/";
@@ -27,10 +27,10 @@ namespace smsghapi_dotnet_v2.Smsgh
 
             if (page == 0 && pageSize == 0) parameterMap = null;
             HttpResponse response = RestClient.Get(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
-                return new ApiList<ContentLibrary>(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new ApiList<ContentLibrary>(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
@@ -47,17 +47,17 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         /// <param name="libraryId">Content Library Id</param>
         /// <returns>ContentLibrary</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         /// <exception cref="Exception"></exception>
         public ContentLibrary GetContentLibrary(Guid libraryId)
         {
             string resource = "/libraries/";
             resource += libraryId.ToString().Replace("-", "");
             HttpResponse response = RestClient.Get(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
-                return new ContentLibrary(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new ContentLibrary(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public ContentLibrary GetContentLibrary(string libraryId)
@@ -71,7 +71,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         /// <param name="library">Content Library to create</param>
         /// <returns>ContentLibrary</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         /// <exception cref="Exception"></exception>
         public ContentLibrary AddContentLibrary(ContentLibrary library)
         {
@@ -82,10 +82,10 @@ namespace smsghapi_dotnet_v2.Smsgh
             new JsonSerializer().Serialize(stringWriter, library);
 
             HttpResponse response = RestClient.Post(resource, contentType, Encoding.UTF8.GetBytes(stringWriter.ToString()));
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.Created)) {
-                return new ContentLibrary(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.Created)) return new ContentLibrary(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
@@ -94,19 +94,19 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <param name="name">Content Library Name</param>
         /// <param name="shortName">Content Library ShortName</param>
         /// <returns>ContentLibrary</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public ContentLibrary AddContentLibrary(string name, string shortName)
         {
             const string resource = "/libraries/";
-            if (name == null || name.IsEmpty() || shortName == null || shortName.IsEmpty()) throw new HttpRequestException(new Exception("Parameter 'name' and 'shortName' cannot be null."));
-            if (!name.IsValidFileName(true) || !shortName.IsValidFileName(true)) throw new HttpRequestException(new Exception("Parameter 'name' and 'shortName' must be valid folder name."));
+            if (name == null || name.IsEmpty() || shortName == null || shortName.IsEmpty()) throw new Exception("Parameter 'name' and 'shortName' cannot be null.");
+            if (!name.IsValidFileName(true) || !shortName.IsValidFileName(true)) throw new Exception("Parameter 'name' and 'shortName' must be valid folder name.");
             ParameterMap parameterMap = RestClient.NewParams();
             parameterMap.Set("Name", name).Set("ShortName", shortName);
             HttpResponse response = RestClient.Post(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.Created)) {
-                return new ContentLibrary(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.Created)) return new ContentLibrary(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
@@ -121,17 +121,17 @@ namespace smsghapi_dotnet_v2.Smsgh
         ///     "Wallpapers").Set("ShortName", "Wallpapers");
         /// </example>
         /// <returns>ContentLibrary</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         /// <exception cref="Exception"></exception>
         public ContentLibrary AddContentLibrary(ParameterMap parameterMap)
         {
             const string resource = "/libraries/";
-            if (parameterMap == null) throw new HttpRequestException(new Exception("Parameter 'parameterMap' cannot be null"));
+            if (parameterMap == null) throw new Exception("Parameter 'parameterMap' cannot be null");
             HttpResponse response = RestClient.Post(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.Created)) {
-                return new ContentLibrary(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.Created)) return new ContentLibrary(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
@@ -147,23 +147,24 @@ namespace smsghapi_dotnet_v2.Smsgh
         ///     "Wallpapers").Set("ShortName", "Wallpapers");
         /// </example>
         /// <returns>ContentLibrary</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         /// <exception cref="Exception"></exception>
         public ContentLibrary UpdateContentLibrary(Guid libraryId, ParameterMap parameterMap)
         {
             string resource = "/libraries/";
-            if (parameterMap == null) throw new HttpRequestException(new Exception("Parameter 'parameterMap' cannot be null"));
+            if (parameterMap == null) throw new Exception("Parameter 'parameterMap' cannot be null");
             resource += libraryId.ToString().Replace("-", "");
             HttpResponse response = RestClient.Put(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK))
-                return new ContentLibrary(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new ContentLibrary(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public ContentLibrary UpdateContentLibrary(string libraryId, ParameterMap parameterMap)
         {
-            if (!libraryId.IsGuid()) throw new HttpRequestException(new Exception("libraryId must not be null and be a valid UUID"));
-            if (parameterMap == null) throw new HttpRequestException(new Exception("Parameter 'parameterMap' cannot be null"));
+            if (!libraryId.IsGuid()) throw new Exception("libraryId must not be null and be a valid UUID");
+            if (parameterMap == null) throw new Exception("Parameter 'parameterMap' cannot be null");
             return UpdateContentLibrary(new Guid(libraryId), parameterMap);
         }
 
@@ -174,31 +175,32 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <param name="name">The Library Name</param>
         /// <param name="shortName">The Library ShortName</param>
         /// <returns>ContentLibrary</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         /// <exception cref="Exception"></exception>
         public ContentLibrary UpdateContentLibrary(Guid libraryId, string name = null, string shortName = null)
         {
             string resource = "/libraries/";
             ParameterMap parameterMap = RestClient.NewParams();
             if (name != null && !name.IsEmpty()) {
-                if (!name.IsValidFileName(true)) throw new HttpRequestException(new Exception("Parameter 'name' and 'shortName' must be valid folder name."));
+                if (!name.IsValidFileName(true)) throw new Exception("Parameter 'name' and 'shortName' must be valid folder name.");
                 parameterMap.Set("Name", name);
             }
 
             if (shortName != null && !shortName.IsEmpty()) {
-                if (!shortName.IsValidFileName(true)) throw new HttpRequestException(new Exception("Parameter 'name' and 'shortName' must be valid folder name."));
+                if (!shortName.IsValidFileName(true)) throw new Exception("Parameter 'name' and 'shortName' must be valid folder name.");
                 parameterMap.Set("ShortName", shortName);
             }
             resource += libraryId.ToString().Replace("-", "");
             HttpResponse response = RestClient.Put(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK))
-                return new ContentLibrary(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new ContentLibrary(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public ContentLibrary UpdateContentLibrary(string libraryId, string name = null, string shortName = null)
         {
-            if (!libraryId.IsGuid()) throw new HttpRequestException(new Exception("libraryId must not be null and be a valid UUID"));
+            if (!libraryId.IsGuid()) throw new Exception("libraryId must not be null and be a valid UUID");
             return UpdateContentLibrary(new Guid(libraryId), name, shortName);
         }
 
@@ -207,16 +209,16 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         /// <param name="libraryId">The content library Id</param>
         /// <returns>true or false.</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public bool DeleteContentLibrary(Guid libraryId)
         {
             string resource = "/libraries/";
             resource += libraryId.ToString().Replace("-", "");
             HttpResponse response = RestClient.Delete(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.NoContent)) {
-                return true;
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.NoContent)) return true;
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public bool DeleteContentLibrary(string libraryId)
@@ -225,10 +227,10 @@ namespace smsghapi_dotnet_v2.Smsgh
             if (!libraryId.IsGuid()) throw new HttpRequestException(new Exception("libraryId must not be null and be a valid UUID"));
             resource += libraryId.Replace("-", "");
             HttpResponse response = RestClient.Delete(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.NoContent)) {
-                return true;
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.NoContent)) return true;
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
@@ -237,7 +239,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <param name="page">The page number</param>
         /// <param name="pageSize">The Number of item per page</param>
         /// <returns>ApiList of ContentFolder</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public ApiList<ContentFolder> GetContentFolders(uint page, uint pageSize)
         {
             const string resource = "/folders/";
@@ -247,17 +249,17 @@ namespace smsghapi_dotnet_v2.Smsgh
 
             if (page == 0 && pageSize == 0) parameterMap = null;
             HttpResponse response = RestClient.Get(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
-                return new ApiList<ContentFolder>(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new ApiList<ContentFolder>(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
         ///     Fecthes the list of all content folders for a given account.
         /// </summary>
         /// <returns>ApiList of ContentFolder</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public ApiList<ContentFolder> GetContentFolders()
         {
             return GetContentFolders(0, 0);
@@ -268,15 +270,15 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         /// <param name="folderId">The Content Folder Id</param>
         /// <returns>ContentFolder</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public ContentFolder GetContentFolder(ulong folderId)
         {
             string resource = "/folders/" + folderId;
             HttpResponse response = RestClient.Get(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
-                return new ContentFolder(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new ContentFolder(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
@@ -286,46 +288,44 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <param name="libraryId">The Content library Id</param>
         /// <param name="parentFolder">The parent folder Id or Name if it is a sub folder</param>
         /// <returns>ContentFolder</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public ContentFolder AddContentFolder(string folderName, Guid libraryId, string parentFolder = null)
         {
             const string resource = "/folders/";
-            if (folderName == null || (folderName != null && folderName.IsEmpty())) throw new HttpRequestException(new Exception("Parameter 'folderName' cannot be null."));
-            if (folderName != null && !folderName.IsValidFileName(true)) throw new HttpRequestException(new Exception("Parameter 'folderName' must be valid folder name."));
+            if (folderName == null || (folderName != null && folderName.IsEmpty())) throw new Exception("Parameter 'folderName' cannot be null.");
+            if (folderName != null && !folderName.IsValidFileName(true)) throw new Exception("Parameter 'folderName' must be valid folder name.");
 
-            if (parentFolder != null && !parentFolder.IsEmpty()) {
-                if (!parentFolder.IsNumeric() && !parentFolder.IsValidFileName(true)) throw new HttpRequestException(new Exception("Parameter 'parentFolder' must be valid folder name."));
-            }
+            if (parentFolder != null && !parentFolder.IsEmpty())
+                if (!parentFolder.IsNumeric() && !parentFolder.IsValidFileName(true)) throw new Exception("Parameter 'parentFolder' must be valid folder name.");
 
             ParameterMap parameterMap = RestClient.NewParams();
             parameterMap.Set("FolderName", folderName).Set("LibraryId", libraryId.ToString()).Set("Parent", parentFolder);
             HttpResponse response = RestClient.Post(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.Created)) {
-                return new ContentFolder(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.Created)) return new ContentFolder(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public ContentFolder AddContentFolder(string folderName, String libraryId, string parentFolder = null)
         {
             const string resource = "/folders/";
-            if (folderName == null) throw new HttpRequestException(new Exception("Parameter 'folderName' cannot be null."));
-            if (folderName != null && !folderName.IsValidFileName(true)) throw new HttpRequestException(new Exception("Parameter 'folderName' must be valid folder name."));
+            if (folderName == null) throw new Exception("Parameter 'folderName' cannot be null.");
+            if (folderName != null && !folderName.IsValidFileName(true)) throw new Exception("Parameter 'folderName' must be valid folder name.");
 
-            if (libraryId == null) throw new HttpRequestException(new Exception("Parameter 'libaryId' cannot be null."));
-            if (!libraryId.IsGuid()) throw new HttpRequestException(new Exception("Parameter 'libaryId' must be a valid UUID."));
+            if (libraryId == null) throw new Exception("Parameter 'libaryId' cannot be null.");
+            if (!libraryId.IsGuid()) throw new Exception("Parameter 'libaryId' must be a valid UUID.");
 
-            if (parentFolder != null && !parentFolder.IsEmpty()) {
-                if (!parentFolder.IsNumeric() && !parentFolder.IsValidFileName(true)) throw new HttpRequestException(new Exception("Parameter 'parentFolder' must be valid folder name."));
-            }
+            if (parentFolder != null && !parentFolder.IsEmpty())
+                if (!parentFolder.IsNumeric() && !parentFolder.IsValidFileName(true)) throw new Exception("Parameter 'parentFolder' must be valid folder name.");
 
             ParameterMap parameterMap = RestClient.NewParams();
             parameterMap.Set("FolderName", folderName).Set("LibraryId", libraryId).Set("Parent", parentFolder);
             HttpResponse response = RestClient.Post(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.Created)) {
-                return new ContentFolder(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.Created)) return new ContentFolder(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
 
@@ -337,23 +337,23 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <param name="libraryId">Library Id</param>
         /// <param name="parentFolder">Parent folder Id or Name</param>
         /// <returns>ContentFolder</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public ContentFolder UpdateContentFolder(ulong folderId, string folderName = null, Guid? libraryId = null, string parentFolder = null)
         {
             string resource = "/folders/" + folderId;
-            if (folderName != null && folderName.IsEmpty()) throw new HttpRequestException(new Exception("Parameter 'folderName' cannot be null."));
-            if (folderName != null && !folderName.IsValidFileName(true)) throw new HttpRequestException(new Exception("Parameter 'folderName' must be valid folder name."));
+            if (folderName != null && folderName.IsEmpty()) throw new Exception("Parameter 'folderName' cannot be null.");
+            if (folderName != null && !folderName.IsValidFileName(true)) throw new Exception("Parameter 'folderName' must be valid folder name.");
 
-            if (parentFolder != null && !parentFolder.IsEmpty()) {
-                if (!parentFolder.IsNumeric() && !parentFolder.IsValidFileName(true)) throw new HttpRequestException(new Exception("Parameter 'parentFolder' must be valid folder name."));
-            }
+            if (parentFolder != null && !parentFolder.IsEmpty())
+                if (!parentFolder.IsNumeric() && !parentFolder.IsValidFileName(true)) throw new Exception("Parameter 'parentFolder' must be valid folder name.");
 
             ParameterMap parameterMap = RestClient.NewParams();
             parameterMap.Set("FolderName", folderName).Set("LibraryId", libraryId.ToString()).Set("Parent", parentFolder);
             HttpResponse response = RestClient.Put(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK))
-                return new ContentFolder(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new ContentFolder(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
@@ -361,15 +361,15 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         /// <param name="folderId">The content folder id</param>
         /// <returns>true or errors</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public bool DeleteContentFolder(ulong folderId)
         {
             string resource = "/folders/" + folderId;
             HttpResponse response = RestClient.Delete(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.NoContent)) {
-                return true;
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.NoContent)) return true;
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
@@ -386,25 +386,21 @@ namespace smsghapi_dotnet_v2.Smsgh
             ParameterMap parameterMap = RestClient.NewParams();
             if (page > 0) parameterMap.Set("Page", Convert.ToString(page));
             if (pageSize > 0) parameterMap.Set("PageSize", Convert.ToString(pageSize));
-            if (filters != null && filters.Count > 0) {
-                foreach (var filter in filters) {
-                    parameterMap.Set(filter.Key, filter.Value);
-                }
-            }
+            if (filters != null && filters.Count > 0) foreach (var filter in filters) parameterMap.Set(filter.Key, filter.Value);
 
             if (page == 0 && pageSize == 0 && filters == null) parameterMap = null;
             HttpResponse response = RestClient.Get(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
-                return new ApiList<ContentMedia>(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new ApiList<ContentMedia>(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
         ///     Fetches the list of all content medias
         /// </summary>
         /// <returns>ApiList of ContentMedia</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public ApiList<ContentMedia> GetContentMedias()
         {
             return GetContentMedias(0, 0);
@@ -415,7 +411,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         /// <param name="filters">Filters</param>
         /// <returns>ApiList of ContentMedia</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public ApiList<ContentMedia> GetContentMedias(Dictionary<string, string> filters)
         {
             return GetContentMedias(0, 0, filters);
@@ -426,28 +422,28 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         /// <param name="contentMediaId">The Content Media Id</param>
         /// <returns>ContentMedia</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public ContentMedia GetContentMedia(Guid contentMediaId)
         {
             string resource = "/media/";
             resource += contentMediaId.ToString().Replace("-", "");
             HttpResponse response = RestClient.Get(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
-                return new ContentMedia(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new ContentMedia(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public ContentMedia GetContentMedia(string contentMediaId)
         {
             string resource = "/media/";
-            if (!contentMediaId.IsGuid()) throw new HttpRequestException(new Exception("contentMediaId must not be null and be a valid UUID"));
+            if (!contentMediaId.IsGuid()) throw new Exception("contentMediaId must not be null and be a valid UUID");
             resource += contentMediaId.Replace("-", "");
             HttpResponse response = RestClient.Get(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
-                return new ContentMedia(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new ContentMedia(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
@@ -456,12 +452,12 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <param name="filePath">Content Media file</param>
         /// <param name="mediaInfo">Content Media Info</param>
         /// <returns>ContentMedia</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         /// <exception cref="Exception"></exception>
         public ContentMedia AddContentMedia(string filePath, MediaInfo mediaInfo)
         {
             const string resource = "/media/";
-            if (mediaInfo == null) throw new HttpRequestException(new Exception("Parameter 'mediaInfo' cannot be null."));
+            if (mediaInfo == null) throw new Exception("Parameter 'mediaInfo' cannot be null.");
             ParameterMap parameterMap = RestClient.NewParams();
             parameterMap.Set("ContentName", mediaInfo.ContentName)
                 .Set("LibraryId", mediaInfo.LibraryId.ToString())
@@ -479,16 +475,16 @@ namespace smsghapi_dotnet_v2.Smsgh
             var mediaFile = new UploadFile(filePath, "MediaFile", FileExtensionMimeTypeMapping.GetMimeType(Path.GetExtension(filePath)));
             UploadFile[] files = {mediaFile};
             HttpResponse response = RestClient.PostFiles(resource, files, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.Created)) {
-                return new ContentMedia(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.Created)) return new ContentMedia(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public ContentMedia AddContentMedia(MediaInfo mediaInfo)
         {
             const string resource = "/media/";
-            if (mediaInfo == null) throw new HttpRequestException(new Exception("Parameter 'mediaRequest' cannot be null."));
+            if (mediaInfo == null) throw new Exception("Parameter 'mediaRequest' cannot be null.");
             ParameterMap parameterMap = RestClient.NewParams();
             parameterMap.Set("ContentName", mediaInfo.ContentName)
                 .Set("LibraryId", mediaInfo.LibraryId.ToString())
@@ -499,10 +495,10 @@ namespace smsghapi_dotnet_v2.Smsgh
                 .Set("Tags", mediaInfo.Tags != null && mediaInfo.Tags.Count > 0 ? JsonConvert.SerializeObject(mediaInfo.Tags) : string.Empty);
 
             HttpResponse response = RestClient.Post(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.Created)) {
-                return new ContentMedia(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.Created)) return new ContentMedia(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
@@ -510,29 +506,29 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         /// <param name="contentMediaId">The Content Media Id</param>
         /// <returns>true when successful</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         /// <exception cref="Exception"></exception>
         public bool DeleteContentMedia(Guid contentMediaId)
         {
             string resource = "/media/";
             resource += contentMediaId.ToString().Replace("-", "");
             HttpResponse response = RestClient.Delete(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.NoContent)) {
-                return true;
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.NoContent)) return true;
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public bool DeleteContentMedia(string contentMediaId)
         {
             string resource = "/media/";
-            if (!contentMediaId.IsGuid()) throw new HttpRequestException(new Exception("contentMediaId must not be null and be a valid UUID"));
+            if (!contentMediaId.IsGuid()) throw new Exception("contentMediaId must not be null and be a valid UUID");
             resource += contentMediaId.Replace("-", "");
             HttpResponse response = RestClient.Delete(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.NoContent)) {
-                return true;
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.NoContent)) return true;
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
@@ -541,7 +537,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <param name="contentMediaId">The Content Media ID</param>
         /// <param name="mediaInfo">Content Media Info</param>
         /// <returns>Content Media</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         /// <exception cref="Exception"></exception>
         public ContentMedia UpdateContentMedia(Guid contentMediaId, MediaInfo mediaInfo)
         {
@@ -557,9 +553,10 @@ namespace smsghapi_dotnet_v2.Smsgh
                 .Set("DrmProtect", mediaInfo.DrmProtect ? "true" : "false")
                 .Set("Tags", mediaInfo.Tags != null && mediaInfo.Tags.Count > 0 ? JsonConvert.SerializeObject(mediaInfo.Tags) : string.Empty);
             HttpResponse response = RestClient.Put(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK))
-                return new ContentMedia(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new ContentMedia(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public ContentMedia UpdateContentMedia(string contentMediaId, MediaInfo mediaInfo)
@@ -577,9 +574,10 @@ namespace smsghapi_dotnet_v2.Smsgh
                 .Set("DrmProtect", mediaInfo.DrmProtect ? "true" : "false")
                 .Set("Tags", mediaInfo.Tags != null && mediaInfo.Tags.Count > 0 ? JsonConvert.SerializeObject(mediaInfo.Tags) : string.Empty);
             HttpResponse response = RestClient.Put(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK))
-                return new ContentMedia(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new ContentMedia(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
     }
 }

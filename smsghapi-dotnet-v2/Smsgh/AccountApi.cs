@@ -21,9 +21,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         {
             const string resource = "/account/profile/";
             HttpResponse response = RestClient.Get(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
-                return new AccountProfile(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
+            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new AccountProfile(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
             throw new HttpRequestException(new Exception("Request Failed"), response);
         }
 
@@ -31,64 +29,68 @@ namespace smsghapi_dotnet_v2.Smsgh
         ///     Returns the Primary Account Contact
         /// </summary>
         /// <returns>AccountContact object</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public AccountContact GetPrimaryContact()
         {
             const string resource = "/account/primary_contact/";
             HttpResponse response = RestClient.Get(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK))
                 return new AccountContact(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            var errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
         ///     Returns the Billing Contact
         /// </summary>
         /// <returns>AccountContact object</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public AccountContact GetBillingContact()
         {
             const string resource = "/account/billing_contact/";
             HttpResponse response = RestClient.Get(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK))
                 return new AccountContact(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            var errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
         ///     Returns the Technical Contact
         /// </summary>
         /// <returns>AccountContact object</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public AccountContact GetTechnicalContact()
         {
             const string resource = "/account/technical_contact/";
             HttpResponse response = RestClient.Get(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK))
                 return new AccountContact(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            var errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
         ///     Get the Account Contacts List
         /// </summary>
         /// <returns>List of AccountContact Object</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public List<AccountContact> GetContacts()
         {
             const string resource = "/account/contacts/";
             var contacts = new List<AccountContact>();
             HttpResponse response = RestClient.Get(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
                 var list = JsonConvert.DeserializeObject<List<ApiDictionary>>(response.GetBodyAsString());
                 contacts.AddRange(list.Select(jso => new AccountContact(jso)));
-
                 return contacts;
             }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
@@ -97,15 +99,17 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <param name="accountContactId">Account Contact Id</param>
         /// <param name="data">Account Contact Data to update</param>
         /// <returns>true when successful</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public bool UpdateAccountContact(uint accountContactId, ParameterMap data)
         {
             string resource = "/account/contacts/";
             if (data == null) throw new Exception("Parameter 'data' cannot be null");
             resource += accountContactId;
             HttpResponse response = RestClient.Put(resource, data);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) return true;
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return true;
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
@@ -114,7 +118,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <param name="page">Page index</param>
         /// <param name="pageSize">Page size</param>
         /// <returns>ApiList of Service </returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public ApiList<Service> GetServices(uint page, uint pageSize)
         {
             const string resource = "/account/services/";
@@ -124,17 +128,20 @@ namespace smsghapi_dotnet_v2.Smsgh
 
             if (page == 0 && pageSize == 0) parameterMap = null;
             HttpResponse response = RestClient.Get(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
-                return new ApiList<Service>(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            if (response != null) {
+                if (response.Status == Convert.ToInt32(HttpStatusCode.OK))
+                    return new ApiList<Service>(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+                string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+                throw new Exception("Request Failed : " + errorMessage);
             }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            throw new Exception("Request Failed. Unable to get server response");
         }
 
         /// <summary>
         ///     Gets the overall list of services associated with the account
         /// </summary>
         /// <returns>ApiList of Service</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public ApiList<Service> GetServices()
         {
             return GetServices(0, 0);
@@ -144,15 +151,16 @@ namespace smsghapi_dotnet_v2.Smsgh
         ///     Gets the Account Settings or Preference
         /// </summary>
         /// <returns>Settings object</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public Settings GetSettings()
         {
             const string resource = "/account/settings/";
             HttpResponse response = RestClient.Get(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK))
                 return new Settings(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
@@ -161,16 +169,18 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <param name="settingId">The Account Setting ID</param>
         /// <param name="data">The setting data to update</param>
         /// <returns>Settings object</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public Settings UpdateAccountSettings(uint settingId, ParameterMap data)
         {
             string resource = "/account/settings/";
             if (data == null) throw new Exception("Parameter 'data' cannot be null");
             resource += settingId;
             HttpResponse response = RestClient.Put(resource, data);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK))
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK))
                 return new Settings(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            var errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
@@ -179,7 +189,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <param name="page">The Page index</param>
         /// <param name="pageSize">The Page size</param>
         /// <returns>ApiList of Invoice</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public ApiList<Invoice> GetInvoices(uint page, uint pageSize)
         {
             const string resource = "/account/invoices/";
@@ -189,17 +199,18 @@ namespace smsghapi_dotnet_v2.Smsgh
 
             if (page == 0 && pageSize == 0) parameterMap = null;
             HttpResponse response = RestClient.Get(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK))
                 return new ApiList<Invoice>(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            var errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
         ///     Gets the overall list of invoices associated with the account
         /// </summary>
         /// <returns>ApiList of Invoice</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public ApiList<Invoice> GetInvoices()
         {
             return GetInvoices(0, 0);
@@ -211,7 +222,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <param name="longitude"></param>
         /// <param name="latitude"></param>
         /// <returns>List of TopupLocation object</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public List<TopupLocation> GetTopupLocations(double longitude, double latitude)
         {
             const string resource = "/topup/voucher/vendors/";
@@ -220,16 +231,21 @@ namespace smsghapi_dotnet_v2.Smsgh
             parameterMap.Set("Longitude", Convert.ToString(longitude)).Set("Latitude", Convert.ToString(latitude));
 
             HttpResponse response = RestClient.Get(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            string errorMessage;
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
                 var rst = JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString());
-                if (!rst.ContainsKey("Locations"))
-                    throw new HttpRequestException(new Exception("Request Failed"), response);
+                if (!rst.ContainsKey("Locations")) {
+                    errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+                    throw new Exception("Malformed Server Response : " + errorMessage);
+                }
                 var apiArray = rst["Locations"] as IEnumerable;
                 if (apiArray != null)
                     locations.AddRange(from JObject o in apiArray select (TopupLocation) Convert.ChangeType(new TopupLocation(o.ToObject<ApiDictionary>()), typeof (TopupLocation)));
                 return locations;
             }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         /// <summary>
@@ -237,17 +253,18 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         /// <param name="voucherNumber">Voucher Number</param>
         /// <returns>Topup object</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <exception cref="Exception"></exception>
         public Topup GetVoucher(string voucherNumber)
         {
             string resource = "/topup/voucher/";
             if (voucherNumber.IsEmpty()) throw new HttpRequestException(new Exception("Voucher number is required"));
             resource += voucherNumber.Trim();
             HttpResponse response = RestClient.Get(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK))
                 return new Topup(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            var errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
     }
 }

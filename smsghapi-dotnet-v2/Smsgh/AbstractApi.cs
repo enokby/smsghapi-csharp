@@ -14,7 +14,7 @@
             if (Host.Port > 0) baseUrl += ":" + Host.Port;
             if (!Host.ContextPath.IsEmpty()) baseUrl += "/" + Host.ContextPath;
 
-            RestClient = new BasicRestClient(baseUrl, Host.EnabledLog);
+            RestClient = new BasicRestClient(baseUrl, Host.EnabledConsoleLog);
 
             // Add additional headers to process requests
             RestClient.RequestHeaders.Add("Authorization", Host.Auth.GetCredentials());

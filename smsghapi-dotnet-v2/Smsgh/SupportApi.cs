@@ -19,10 +19,10 @@ namespace smsghapi_dotnet_v2.Smsgh
 
             if (page == 0 && pageSize == 0) parameterMap = null;
             HttpResponse response = RestClient.Get(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
-                return new ApiList<Ticket>(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new ApiList<Ticket>(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public ApiList<Ticket> GetSupportTickets()
@@ -34,39 +34,39 @@ namespace smsghapi_dotnet_v2.Smsgh
         {
             string resource = "/tickets/" + ticketId;
             HttpResponse response = RestClient.Get(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
-                return new Ticket(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new Ticket(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public Ticket AddSupportTicket(Ticket ticket)
         {
             const string resource = "/tickets/";
             const string contentType = "application/json";
-            if (ticket == null) throw new HttpRequestException(new Exception("Parameter 'ticket' cannot be null"));
+            if (ticket == null) throw new Exception("Parameter 'ticket' cannot be null");
             var stringWriter = new StringWriter();
             new JsonSerializer().Serialize(stringWriter, ticket);
 
             HttpResponse response = RestClient.Post(resource, contentType, Encoding.UTF8.GetBytes(stringWriter.ToString()));
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
-                return new Ticket(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new Ticket(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public Ticket UpdateSupportTicket(ulong ticketId, TicketResponse reply)
         {
             string resource = "/tickets/" + ticketId;
             const string contentType = "application/json";
-            if (reply == null) throw new HttpRequestException(new Exception("Parameter 'reply' cannot be null"));
+            if (reply == null) throw new Exception("Parameter 'reply' cannot be null");
             var stringWriter = new StringWriter();
             new JsonSerializer().Serialize(stringWriter, reply);
             HttpResponse response = RestClient.Put(resource, contentType, Encoding.UTF8.GetBytes(stringWriter.ToString()));
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
-                return new Ticket(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new Ticket(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
     }
 }

@@ -20,11 +20,11 @@ namespace smsghapi_dotnet_v2.Smsgh
             if (!filter.IsEmpty()) parameterMap.Set("Search", filter.Trim());
 
             if (page == 0 && pageSize == 0 && groupId == 0 && filter.IsEmpty()) parameterMap = null;
-            HttpResponse response = RestClient.Get(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
-                return new ApiList<Contact>(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            var response = RestClient.Get(resource, parameterMap);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new ApiList<Contact>(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            var errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public ApiList<Contact> GetContacts(uint page, uint pageSize)
@@ -66,10 +66,10 @@ namespace smsghapi_dotnet_v2.Smsgh
         {
             string resource = "/contacts/" + contactId;
             HttpResponse response = RestClient.Get(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
-                return new Contact(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new Contact(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public Contact AddContact(ParameterMap data)
@@ -77,10 +77,10 @@ namespace smsghapi_dotnet_v2.Smsgh
             const string resource = "/contacts/";
             if (data == null) throw new HttpRequestException(new Exception("Parameter 'data' cannot be null"));
             HttpResponse response = RestClient.Post(resource, data);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.Created)) {
-                return new Contact(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.Created)) return new Contact(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public Contact AddContact(Contact contact)
@@ -92,10 +92,10 @@ namespace smsghapi_dotnet_v2.Smsgh
             new JsonSerializer().Serialize(stringWriter, contact);
 
             HttpResponse response = RestClient.Post(resource, contentType, Encoding.UTF8.GetBytes(stringWriter.ToString()));
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.Created)) {
-                return new Contact(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.Created)) return new Contact(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public bool UpdateContact(ulong contactId, ParameterMap data)
@@ -104,9 +104,10 @@ namespace smsghapi_dotnet_v2.Smsgh
             if (data == null) throw new Exception("Parameter 'data' cannot be null");
             resource += contactId;
             HttpResponse response = RestClient.Put(resource, data);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK))
-                return true;
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return true;
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public bool UpdateContact(ulong contactId, Contact data)
@@ -118,9 +119,10 @@ namespace smsghapi_dotnet_v2.Smsgh
             var stringWriter = new StringWriter();
             new JsonSerializer().Serialize(stringWriter, data);
             HttpResponse response = RestClient.Put(resource, contentType, Encoding.UTF8.GetBytes(stringWriter.ToString()));
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK))
-                return true;
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return true;
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public bool UpdateContact(Contact data)
@@ -132,19 +134,20 @@ namespace smsghapi_dotnet_v2.Smsgh
             var stringWriter = new StringWriter();
             new JsonSerializer().Serialize(stringWriter, data);
             HttpResponse response = RestClient.Put(resource, contentType, Encoding.UTF8.GetBytes(stringWriter.ToString()));
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK))
-                return true;
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return true;
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public bool DeleteContact(ulong contactId)
         {
             string resource = "/contacts/" + contactId;
             HttpResponse response = RestClient.Delete(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
-                return true;
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return true;
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public ApiList<ContactGroup> GetContactGroups(uint page, uint pageSize)
@@ -156,10 +159,10 @@ namespace smsghapi_dotnet_v2.Smsgh
 
             if (page == 0 && pageSize == 0) parameterMap = null;
             HttpResponse response = RestClient.Get(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
-                return new ApiList<ContactGroup>(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new ApiList<ContactGroup>(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public ApiList<ContactGroup> GetContactGroups()
@@ -171,10 +174,10 @@ namespace smsghapi_dotnet_v2.Smsgh
         {
             string resource = "/contacts/groups/" + groupId;
             HttpResponse response = RestClient.Get(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
-                return new ContactGroup(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new ContactGroup(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public ContactGroup AddContactGroup(ContactGroup group)
@@ -185,10 +188,10 @@ namespace smsghapi_dotnet_v2.Smsgh
             var stringWriter = new StringWriter();
             new JsonSerializer().Serialize(stringWriter, group);
             HttpResponse response = RestClient.Post(resource, contentType, Encoding.UTF8.GetBytes(stringWriter.ToString()));
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.Created)) {
-                return new ContactGroup(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.Created)) return new ContactGroup(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public ContactGroup AddContactGroup(string groupName)
@@ -199,10 +202,10 @@ namespace smsghapi_dotnet_v2.Smsgh
             ParameterMap parameterMap = RestClient.NewParams();
             parameterMap.Set("Name", groupName);
             HttpResponse response = RestClient.Post(resource, parameterMap);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.Created)) {
-                return new ContactGroup(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.Created)) return new ContactGroup(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public ContactGroup AddContactGroup(ParameterMap data)
@@ -210,10 +213,10 @@ namespace smsghapi_dotnet_v2.Smsgh
             const string resource = "/contacts/groups/";
             if (data == null) throw new HttpRequestException(new Exception("Parameter 'data' cannot be null"));
             HttpResponse response = RestClient.Post(resource, data);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.Created)) {
-                return new ContactGroup(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.Created)) return new ContactGroup(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public bool UpdateContactGroup(ulong groupId, ParameterMap data)
@@ -222,9 +225,10 @@ namespace smsghapi_dotnet_v2.Smsgh
             if (data == null) throw new Exception("Parameter 'data' cannot be null");
             resource += groupId;
             HttpResponse response = RestClient.Put(resource, data);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK))
-                return true;
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return true;
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public bool UpdateContactGroup(ulong groupId, ContactGroup data)
@@ -236,9 +240,10 @@ namespace smsghapi_dotnet_v2.Smsgh
             var stringWriter = new StringWriter();
             new JsonSerializer().Serialize(stringWriter, data);
             HttpResponse response = RestClient.Put(resource, contentType, Encoding.UTF8.GetBytes(stringWriter.ToString()));
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK))
-                return true;
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return true;
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public bool UpdateContactGroup(ContactGroup data)
@@ -250,9 +255,10 @@ namespace smsghapi_dotnet_v2.Smsgh
             var stringWriter = new StringWriter();
             new JsonSerializer().Serialize(stringWriter, data);
             HttpResponse response = RestClient.Put(resource, contentType, Encoding.UTF8.GetBytes(stringWriter.ToString()));
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK))
-                return true;
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return true;
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public bool UpdateContactGroup(ulong groupId, string groupName)
@@ -263,19 +269,20 @@ namespace smsghapi_dotnet_v2.Smsgh
             ParameterMap parameter = RestClient.NewParams();
             parameter.Set("Name", groupName);
             HttpResponse response = RestClient.Put(resource, parameter);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK))
-                return true;
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return true;
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
 
         public bool DeleteContactGroup(ulong groupId)
         {
             string resource = "/contacts/groups/" + groupId;
             HttpResponse response = RestClient.Delete(resource);
-            if (response != null && response.Status == Convert.ToInt32(HttpStatusCode.OK)) {
-                return true;
-            }
-            throw new HttpRequestException(new Exception("Request Failed"), response);
+            if (response == null) throw new Exception("Request Failed. Unable to get server response");
+            if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return true;
+            string errorMessage = String.Format("Status Code={0}, Message={1}", response.Status, response.GetBodyAsString());
+            throw new Exception("Request Failed : " + errorMessage);
         }
     }
 }

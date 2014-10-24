@@ -8,7 +8,7 @@
             Port = -1;
             ContextPath = "v3";
             Timeout = 5000;
-            EnabledLog = true;
+            EnabledConsoleLog = true;
             SecuredConnection = false;
             Auth = null;
         }
@@ -23,7 +23,7 @@
         public int Port { set; get; }
         public string ContextPath { set; get; }
         public int Timeout { set; get; }
-        public bool EnabledLog { set; get; }
+        public bool EnabledConsoleLog { set; get; }
         public IAuth Auth { set; get; }
 
         public bool SecuredConnection { set; get; }

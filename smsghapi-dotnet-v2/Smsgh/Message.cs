@@ -182,6 +182,8 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         public string Udh { get; set; }
 
+        public string BillingInfo { get; set; }
+
         /// <summary>
         ///     Gets the units of this API message.
         /// </summary>

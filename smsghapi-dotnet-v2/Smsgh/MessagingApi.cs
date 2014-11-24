@@ -25,9 +25,9 @@ namespace smsghapi_dotnet_v2.Smsgh
             throw new Exception("Request Failed : " + errorMessage);
         }
 
-        public MessageResponse SendQuickMessage(string from, string to, string content, bool registeredDelivery)
+        public MessageResponse SendQuickMessage(string from, string to, string content, bool registeredDelivery, string billingInfo = null)
         {
-            var mesg = new Message {From = @from, Content = content, To = to, RegisteredDelivery = registeredDelivery};
+            var mesg = new Message {From = @from, Content = content, To = to, RegisteredDelivery = registeredDelivery, BillingInfo = billingInfo};
             return SendMessage(mesg);
         }
 

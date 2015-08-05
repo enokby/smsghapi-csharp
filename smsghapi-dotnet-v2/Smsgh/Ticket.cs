@@ -7,6 +7,9 @@ using Newtonsoft.Json.Linq;
 
 namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    ///     Support Ticket
+    /// </summary>
     public class Ticket
     {
         private readonly string _accountId;
@@ -22,8 +25,15 @@ namespace smsghapi_dotnet_v2.Smsgh
         private readonly DateTime? _timeAssigned;
         private readonly DateTime? _timeClosed;
 
+        /// <summary>
+        ///     Default constructor
+        /// </summary>
         public Ticket() {}
 
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="jso"></param>
         public Ticket(ApiDictionary jso)
         {
             _responses = new List<TicketResponse>();
@@ -106,9 +116,10 @@ namespace smsghapi_dotnet_v2.Smsgh
                         break;
                     case "responses":
                         var os = jso[key] as IEnumerable;
-                        if (os != null)
+                        if (os != null) {
                             foreach (JObject o in os)
                                 _responses.Add(new TicketResponse(o.ToObject<ApiDictionary>()));
+                        }
                         break;
                 }
             }
@@ -120,75 +131,129 @@ namespace smsghapi_dotnet_v2.Smsgh
             get { return _id; }
         }
 
+        /// <summary>
+        ///     Account Id
+        /// </summary>
         [JsonIgnore]
         public string AccountId
         {
             get { return _accountId; }
         }
 
+        /// <summary>
+        ///     Department Id
+        /// </summary>
         public int? SupportDepartmentId { get; set; }
+
+        /// <summary>
+        ///     Category Id
+        /// </summary>
         public int? SupportCategoryId { get; set; }
 
+        /// <summary>
+        ///     Status Id
+        /// </summary>
         [JsonIgnore]
         public int? SupportStatusId
         {
             get { return _supporStatusId; }
         }
 
+        /// <summary>
+        ///     Priority
+        /// </summary>
         public int? Priority { get; set; }
+
+        /// <summary>
+        ///     Source
+        /// </summary>
         public string Source { get; set; }
 
+        /// <summary>
+        ///     Recipients
+        /// </summary>
         [JsonIgnore]
         public string Recipients
         {
             get { return _recipients; }
         }
 
+        /// <summary>
+        ///     Added Time
+        /// </summary>
         [JsonIgnore]
         public DateTime? TimeAdded
         {
             get { return _timeAdded; }
         }
 
+        /// <summary>
+        ///     Closed Time
+        /// </summary>
         [JsonIgnore]
         public DateTime? TimeClosed
         {
             get { return _timeClosed; }
         }
 
+        /// <summary>
+        ///     Assigned Time
+        /// </summary>
         [JsonIgnore]
         public DateTime? TimeAssigned
         {
             get { return _timeAssigned; }
         }
 
+        /// <summary>
+        ///     Update Time
+        /// </summary>
         [JsonIgnore]
         public DateTime? LastUpdated
         {
             get { return _lastUpdated; }
         }
 
+        /// <summary>
+        ///     Subject
+        /// </summary>
         public string Subject { get; set; }
+
+        /// <summary>
+        ///     Content
+        /// </summary>
         public string Content { get; set; }
 
+        /// <summary>
+        ///     Attachment
+        /// </summary>
         [JsonIgnore]
         public string Attachment
         {
             get { return _attachment; }
         }
 
+        /// <summary>
+        ///     Assignee
+        /// </summary>
         [JsonIgnore]
         public string AssignedTo
         {
             get { return _assignedTo; }
         }
 
+        /// <summary>
+        ///     Rating
+        /// </summary>
         [JsonIgnore]
         public int? Rating
         {
             get { return _rating; }
         }
 
+        /// <summary>
+        ///     Response
+        /// </summary>
         [JsonIgnore]
         public List<TicketResponse> Responses
         {

@@ -19,7 +19,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         public Action(ApiDictionary jso)
         {
-            foreach (string key in jso.Keys)
+            foreach (string key in jso.Keys) {
                 switch (key.ToLower()) {
                     case "actionmeta":
                         _actionMeta = Convert.ToString(jso[key]);
@@ -37,6 +37,7 @@ namespace smsghapi_dotnet_v2.Smsgh
                         _isActive = Convert.ToBoolean(jso[key]);
                         break;
                 }
+            }
         }
 
         /// <summary>

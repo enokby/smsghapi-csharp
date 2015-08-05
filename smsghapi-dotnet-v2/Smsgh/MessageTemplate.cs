@@ -22,17 +22,18 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         public MessageTemplate(ApiDictionary jso)
         {
-            foreach (string key in jso.Keys)
+            foreach (string key in jso.Keys) {
                 switch (key.ToLower()) {
                     case "accountid":
                         AccountId = Convert.ToString(jso[key]);
                         break;
                     case "datecreated":
-                        DateTime dateCreated;
-                        if (jso[key].ToString() != "")
+                        if (jso[key].ToString() != "") {
+                            DateTime dateCreated;
                             _dateCreated = DateTime.TryParseExact(jso[key].ToString(), "yyyy-dd-MM hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateCreated)
                                 ? dateCreated
                                 : (DateTime?) null;
+                        }
                         break;
                     case "id":
                         Id = Convert.ToInt64(jso[key]);
@@ -44,6 +45,7 @@ namespace smsghapi_dotnet_v2.Smsgh
                         Text = Convert.ToString(jso[key]);
                         break;
                 }
+            }
         }
 
         /// <summary>

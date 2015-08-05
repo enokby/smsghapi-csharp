@@ -72,6 +72,9 @@ namespace smsghapi_dotnet_v2.Smsgh
                     case "to":
                         To = Convert.ToString(jso[key]);
                         break;
+                    case "billinginfo":
+                        BillingInfo = Convert.ToString(jso[key]);
+                        break;
                     case "udh":
                         Udh = Convert.ToString(jso[key]);
                         break;
@@ -82,10 +85,11 @@ namespace smsghapi_dotnet_v2.Smsgh
                         //_updateTime = Convert.ToDateTime(jso[key]);
 
                         DateTime dateCreated;
-                        if (jso[key].ToString() != "")
+                        if (jso[key].ToString() != "") {
                             _updateTime = DateTime.TryParseExact(jso[key].ToString(), "yyyy-dd-MM hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateCreated)
                                 ? dateCreated
                                 : (DateTime?) null;
+                        }
 
                         break;
                 }
@@ -182,6 +186,9 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         public string Udh { get; set; }
 
+        /// <summary>
+        ///     Gets or sets the BillingInfo
+        /// </summary>
         public string BillingInfo { get; set; }
 
         /// <summary>

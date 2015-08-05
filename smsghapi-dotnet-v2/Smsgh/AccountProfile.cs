@@ -56,10 +56,11 @@ namespace smsghapi_dotnet_v2.Smsgh
                         break;
                     case "lastaccessed":
                         DateTime lastAccessedDate;
-                        if (jso[key].ToString() != "")
+                        if (jso[key].ToString() != "") {
                             _lastAccessed = DateTime.TryParseExact(jso[key].ToString(), "yyyy-dd-MM hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out lastAccessedDate)
                                 ? lastAccessedDate
                                 : (DateTime?) null;
+                        }
                         break;
                     case "mobilenumber":
                         _mobileNumber = Convert.ToString(jso[key]);

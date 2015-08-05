@@ -9,10 +9,14 @@ using System.Text;
 
 namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    /// </summary>
     public class StringMimePart : MimePart
     {
         private Stream _data;
 
+        /// <summary>
+        /// </summary>
         public string StringData
         {
             set { _data = new MemoryStream(Encoding.UTF8.GetBytes(value)); }

@@ -3,8 +3,16 @@ using System.Net;
 
 namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    ///     Http Response Wrapper
+    /// </summary>
     public class HttpResponse
     {
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="urlConnection">Http Url connection</param>
+        /// <param name="body">Response raw body</param>
         public HttpResponse(HttpWebRequest urlConnection, byte[] body)
         {
             using (var response = urlConnection.GetResponse() as HttpWebResponse) {
@@ -16,6 +24,13 @@ namespace smsghapi_dotnet_v2.Smsgh
         }
 
 
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="url">Url</param>
+        /// <param name="headers">Http headers</param>
+        /// <param name="status">Response status code</param>
+        /// <param name="body">Response raw body</param>
         public HttpResponse(string url, WebHeaderCollection headers, int status, byte[] body)
         {
             Url = url;
@@ -24,12 +39,24 @@ namespace smsghapi_dotnet_v2.Smsgh
             Body = body;
         }
 
+        /// <summary>
+        ///     Response Status code
+        /// </summary>
         public int Status { private set; get; }
 
+        /// <summary>
+        ///     Url
+        /// </summary>
         public string Url { private set; get; }
 
+        /// <summary>
+        ///     Http Response headers
+        /// </summary>
         public WebHeaderCollection Headers { private set; get; }
 
+        /// <summary>
+        ///     Raw Http Response
+        /// </summary>
         public byte[] Body { private set; get; }
 
         /// <summary>
@@ -38,9 +65,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <returns></returns>
         public string GetBodyAsString()
         {
-            if (Body != null) {
-                return Body.GetString();
-            }
+            if (Body != null) return Body.GetString();
             return string.Empty;
         }
     }

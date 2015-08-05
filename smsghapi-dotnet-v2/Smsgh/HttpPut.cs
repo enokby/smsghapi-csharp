@@ -1,5 +1,8 @@
 ﻿namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    ///     HTTP Put
+    /// </summary>
     public class HttpPut : HttpRequest
     {
         /// <summary>

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    ///     File Extension MimeType
+    /// </summary>
     public class FileExtensionMimeTypeMapping
     {
         private static readonly Dictionary<string, string> MimeTypes = new Dictionary<string, string> {
@@ -567,15 +570,17 @@ namespace smsghapi_dotnet_v2.Smsgh
             {".zip", "application/x-zip-compressed"},
         };
 
+        /// <summary>
+        ///     Get Mime Type
+        /// </summary>
+        /// <param name="extension">file extension</param>
+        /// <returns>Mime Type</returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public static string GetMimeType(string extension)
         {
-            if (extension == null) {
-                throw new ArgumentNullException("extension");
-            }
+            if (extension == null) throw new ArgumentNullException("extension");
 
-            if (!extension.StartsWith(".")) {
-                extension = "." + extension;
-            }
+            if (!extension.StartsWith(".")) extension = "." + extension;
 
             string mime;
 

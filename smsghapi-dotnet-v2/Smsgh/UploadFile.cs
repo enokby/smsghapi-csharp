@@ -8,8 +8,16 @@ using System.IO;
 
 namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    /// </summary>
     public class UploadFile
     {
+        /// <summary>
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="fieldName"></param>
+        /// <param name="fileName"></param>
+        /// <param name="contentType"></param>
         public UploadFile(Stream data, string fieldName, string fileName, string contentType)
         {
             Data = data;
@@ -18,17 +26,38 @@ namespace smsghapi_dotnet_v2.Smsgh
             ContentType = contentType;
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="fieldName"></param>
+        /// <param name="contentType"></param>
         public UploadFile(string fileName, string fieldName, string contentType) : this(File.OpenRead(fileName), fieldName, Path.GetFileName(fileName), contentType) {}
 
+        /// <summary>
+        /// </summary>
+        /// <param name="fileName"></param>
         public UploadFile(string fileName) : this(fileName, null, "application/octet-stream") {}
 
+        /// <summary>
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="fieldName"></param>
         public UploadFile(string fileName, string fieldName) : this(fileName, fieldName, "application/octet-stream") {}
+
+        /// <summary>
+        /// </summary>
         public Stream Data { get; set; }
 
+        /// <summary>
+        /// </summary>
         public string FieldName { get; set; }
 
+        /// <summary>
+        /// </summary>
         public string FileName { get; set; }
 
+        /// <summary>
+        /// </summary>
         public string ContentType { get; set; }
     }
 }

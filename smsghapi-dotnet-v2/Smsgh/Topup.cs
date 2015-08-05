@@ -2,10 +2,17 @@
 
 namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    /// </summary>
     public class Topup
     {
+        /// <summary>
+        /// </summary>
         public Topup() {}
 
+        /// <summary>
+        /// </summary>
+        /// <param name="dix"></param>
         public Topup(ApiDictionary dix)
         {
             foreach (string key in dix.Keys) {
@@ -20,7 +27,12 @@ namespace smsghapi_dotnet_v2.Smsgh
             }
         }
 
+        /// <summary>
+        /// </summary>
         public long PurchasedCredit { set; get; }
+
+        /// <summary>
+        /// </summary>
         public double ActualCredit { set; get; }
     }
 }

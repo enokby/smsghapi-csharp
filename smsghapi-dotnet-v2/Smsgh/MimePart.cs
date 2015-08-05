@@ -10,23 +10,39 @@ using System.Text;
 
 namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    ///     MimePart
+    /// </summary>
     public abstract class MimePart
     {
         private readonly NameValueCollection _headers = new NameValueCollection();
         private byte[] _header;
 
+        /// <summary>
+        ///     Http Headers collections
+        /// </summary>
         public NameValueCollection Headers
         {
             get { return _headers; }
         }
 
+        /// <summary>
+        ///     Http Headers Array
+        /// </summary>
         public byte[] Header
         {
             get { return _header; }
         }
 
+        /// <summary>
+        ///     Data Stream
+        /// </summary>
         public abstract Stream Data { get; }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="boundary"></param>
+        /// <returns></returns>
         public long GenerateHeaderFooterData(string boundary)
         {
             var sb = new StringBuilder();

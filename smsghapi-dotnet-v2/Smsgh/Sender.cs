@@ -24,7 +24,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         public Sender(ApiDictionary jso)
         {
-            foreach (string key in jso.Keys)
+            foreach (string key in jso.Keys) {
                 switch (key.ToLower()) {
                     case "accountid":
                         AccountId = Convert.ToString(jso[key]);
@@ -39,11 +39,12 @@ namespace smsghapi_dotnet_v2.Smsgh
                         _isDeleted = Convert.ToBoolean(jso[key]);
                         break;
                     case "timeadded":
-                        DateTime dateCreated;
-                        if (jso[key].ToString() != "")
+                        if (jso[key].ToString() != "") {
+                            DateTime dateCreated;
                             _timeAdded = DateTime.TryParseExact(jso[key].ToString(), "yyyy-dd-MM hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateCreated)
                                 ? dateCreated
                                 : (DateTime?) null;
+                        }
                         break;
                     case "timedeleted":
                         DateTime td;
@@ -51,6 +52,7 @@ namespace smsghapi_dotnet_v2.Smsgh
                             _timeDeleted = DateTime.TryParseExact(jso[key].ToString(), "yyyy-dd-MM hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out td) ? td : (DateTime?) null;
                         break;
                 }
+            }
         }
 
         /// <summary>

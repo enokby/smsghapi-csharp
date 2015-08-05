@@ -34,41 +34,43 @@ namespace smsghapi_dotnet_v2.Smsgh
             _moKeywords = new List<MoKeyWord>();
             _numberPlanItems = new List<NumberPlanItem>();
 
-            foreach (string key in jso.Keys)
+            foreach (string key in jso.Keys) {
                 switch (key.ToLower()) {
                     case "accountid":
                         AccountId = Convert.ToString(jso[key]);
                         break;
                     case "dateactivated":
-                        DateTime dateActivated;
-                        if (jso[key].ToString() != "")
-
+                        if (jso[key].ToString() != "") {
+                            DateTime dateActivated;
                             _dateActivated = DateTime.TryParseExact(jso[key].ToString(), "yyyy-dd-MM hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateActivated)
                                 ? dateActivated
                                 : (DateTime?) null;
+                        }
 
                         break;
                     case "datecreated":
-                        DateTime dateCreated;
-                        if (jso[key].ToString() != "")
-
+                        if (jso[key].ToString() != "") {
+                            DateTime dateCreated;
                             _dateCreated = DateTime.TryParseExact(jso[key].ToString(), "yyyy-dd-MM hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateCreated)
                                 ? dateCreated
                                 : (DateTime?) null;
+                        }
                         break;
                     case "datedeactivated":
                         DateTime dateDeactivated;
-                        if (jso[key].ToString() != "")
+                        if (jso[key].ToString() != "") {
                             _dateDeactivated = DateTime.TryParseExact(jso[key].ToString(), "yyyy-dd-MM hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateDeactivated)
                                 ? dateDeactivated
                                 : (DateTime?) null;
+                        }
                         break;
                     case "dateexpiring":
                         DateTime dateExpiring;
-                        if (jso[key].ToString() != "")
+                        if (jso[key].ToString() != "") {
                             _dateExpiring = DateTime.TryParseExact(jso[key].ToString(), "yyyy-dd-MM hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateExpiring)
                                 ? dateExpiring
                                 : (DateTime?) null;
+                        }
                         break;
                     case "description":
                         Description = Convert.ToString(jso[key]);
@@ -90,18 +92,20 @@ namespace smsghapi_dotnet_v2.Smsgh
                         break;
                     case "mokeywords":
                         var mos = jso[key] as IEnumerable;
-                        if (mos != null)
+                        if (mos != null) {
                             foreach (JObject o in mos)
                                 _moKeywords.Add(new MoKeyWord(o.ToObject<ApiDictionary>()));
+                        }
                         break;
                     case "notes":
                         _notes = Convert.ToString(jso[key]);
                         break;
                     case "numberplanitems":
                         var os = jso[key] as IEnumerable;
-                        if (os != null)
+                        if (os != null) {
                             foreach (JObject o in os)
                                 _numberPlanItems.Add(new NumberPlanItem(o.ToObject<ApiDictionary>()));
+                        }
                         break;
                     case "periodiccostbasis":
                         _periodicCostBasis = Convert.ToDouble(jso[key]);
@@ -111,6 +115,7 @@ namespace smsghapi_dotnet_v2.Smsgh
                         _serviceType = new ServiceType(svc.ToObject<ApiDictionary>());
                         break;
                 }
+            }
         }
 
         /// <summary>

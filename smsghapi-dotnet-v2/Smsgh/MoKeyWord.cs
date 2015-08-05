@@ -25,7 +25,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         public MoKeyWord(ApiDictionary jso)
         {
-            foreach (string key in jso.Keys)
+            foreach (string key in jso.Keys) {
                 switch (key.ToLower()) {
                     case "alias1":
                         Alias1 = Convert.ToString(jso[key]);
@@ -58,6 +58,7 @@ namespace smsghapi_dotnet_v2.Smsgh
                         NumberPlanId = Convert.ToInt64(jso[key]);
                         break;
                 }
+            }
         }
 
         /// <summary>

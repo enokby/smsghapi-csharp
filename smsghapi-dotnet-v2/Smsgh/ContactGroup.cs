@@ -1,5 +1,3 @@
-// $Id: ApiContactGroup.cs 0 1970-01-01 00:00:00Z mkwayisi $
-
 using System;
 using Newtonsoft.Json;
 
@@ -25,7 +23,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         public ContactGroup(ApiDictionary jso)
         {
-            foreach (string key in jso.Keys)
+            foreach (string key in jso.Keys) {
                 switch (key.ToLower()) {
                     case "accountid":
                         _accountId = Convert.ToString(jso[key]);
@@ -40,6 +38,7 @@ namespace smsghapi_dotnet_v2.Smsgh
                         Name = Convert.ToString(jso[key]);
                         break;
                 }
+            }
         }
 
         /// <summary>

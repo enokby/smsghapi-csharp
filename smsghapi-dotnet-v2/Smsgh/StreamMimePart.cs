@@ -8,6 +8,8 @@ using System.IO;
 
 namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    /// </summary>
     public class StreamMimePart : MimePart
     {
         private Stream _data;
@@ -17,6 +19,9 @@ namespace smsghapi_dotnet_v2.Smsgh
             get { return _data; }
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="stream"></param>
         public void SetStream(Stream stream)
         {
             _data = stream;

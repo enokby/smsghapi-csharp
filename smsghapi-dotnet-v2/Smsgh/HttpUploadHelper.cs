@@ -14,22 +14,39 @@ using System.Text;
 
 namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    ///     Http Uploader
+    /// </summary>
     public class HttpUploadHelper
     {
         private HttpUploadHelper() {}
 
+        /// <summary>
+        ///     Upload files with additional data
+        /// </summary>
+        /// <param name="url">Url</param>
+        /// <param name="files">files</param>
+        /// <param name="form">additional data</param>
+        /// <returns></returns>
         public static string Upload(string url, UploadFile[] files, NameValueCollection form)
         {
             HttpWebResponse resp = Upload((HttpWebRequest) WebRequest.Create(url), files, form);
 
-            using (Stream s = resp.GetResponseStream())
-                if (s != null)
-                    using (var sr = new StreamReader(s)) {
-                        return sr.ReadToEnd();
-                    }
-            return null;
+            using (Stream s = resp.GetResponseStream()) {
+                if (s == null) return null;
+                using (var sr = new StreamReader(s)) return sr.ReadToEnd();
+            }
         }
 
+        /// <summary>
+        ///     Upload files with additional data
+        /// </summary>
+        /// <param name="req">Http Url connection <see cref="HttpWebRequest" /></param>
+        /// <param name="files">Http Files <see cref="UploadFile" /></param>
+        /// <param name="form">Additional form data</param>
+        /// <returns>
+        ///     <see cref="HttpWebResponse" />
+        /// </returns>
         public static HttpWebResponse Upload(HttpWebRequest req, UploadFile[] files, NameValueCollection form)
         {
             var mimeParts = new List<MimePart>();
@@ -83,9 +100,10 @@ namespace smsghapi_dotnet_v2.Smsgh
                 return (HttpWebResponse) req.GetResponse();
             }
             catch {
-                foreach (MimePart part in mimeParts)
+                foreach (MimePart part in mimeParts) {
                     if (part.Data != null)
                         part.Data.Dispose();
+                }
                 throw;
             }
         }

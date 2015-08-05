@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Net;
 using System.Text;
 using System.Web;
 
@@ -13,51 +12,95 @@ namespace smsghapi_dotnet_v2.Smsgh
     {
         private readonly Dictionary<string, string> _map = new Dictionary<string, string>();
 
+        /// <summary>
+        ///     Clear map
+        /// </summary>
         public new void Clear()
         {
             _map.Clear();
         }
 
+        /// <summary>
+        ///     Determines whether the map contains the given key.
+        /// </summary>
+        /// <param name="key">The key</param>
+        /// <returns>true or false</returns>
         public new bool ContainsKey(string key)
         {
             return _map.ContainsKey(key);
         }
 
+        /// <summary>
+        ///     Determines whether the map contains the given value.
+        /// </summary>
+        /// <param name="value">The value</param>
+        /// <returns>true or false</returns>
         public new bool ContainsValue(string value)
         {
             return _map.ContainsValue(value);
         }
 
+        /// <summary>
+        ///     Get the value of a given key
+        /// </summary>
+        /// <param name="key">the key</param>
+        /// <returns>the value</returns>
         public string Get(string key)
         {
             return _map[key];
         }
 
+        /// <summary>
+        ///     Checks whether the map is empty or not.
+        /// </summary>
+        /// <returns>true or false</returns>
         public bool IsEmpty()
         {
             return _map.Count != 0;
         }
 
+        /// <summary>
+        ///     Get the keys collection of the map.
+        /// </summary>
+        /// <returns>Map key collections </returns>
         public KeyCollection KeySet()
         {
             return _map.Keys;
         }
 
+        /// <summary>
+        ///     Add a new item to the map
+        /// </summary>
+        /// <param name="key">the key</param>
+        /// <param name="val">the value</param>
         public new void Add(string key, string val)
         {
             _map.Add(key, val);
         }
 
+        /// <summary>
+        ///     Remove an item from the map based upon the key.
+        /// </summary>
+        /// <param name="key">the key</param>
+        /// <returns>true or false</returns>
         public new bool Remove(string key)
         {
             return _map.Remove(key);
         }
 
+        /// <summary>
+        ///     Returns the number of items in the map.
+        /// </summary>
+        /// <returns></returns>
         public new int Count()
         {
             return _map.Count;
         }
 
+        /// <summary>
+        ///     Returns the values collection of the map.
+        /// </summary>
+        /// <returns>the collection of the values in the map</returns>
         public new ValueCollection Values()
         {
             return _map.Values;
@@ -68,7 +111,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         /// <param name="key">Key</param>
         /// <param name="val">Value </param>
-        /// <returns></returns>
+        /// <returns>The map</returns>
         public ParameterMap Set(string key, string val)
         {
             _map.Add(key, val);
@@ -95,6 +138,10 @@ namespace smsghapi_dotnet_v2.Smsgh
             return sb.ToString();
         }
 
+        /// <summary>
+        ///     Convert the map to NameValueCollection <see cref="NameValueCollection" />
+        /// </summary>
+        /// <returns></returns>
         public NameValueCollection ToNameValueCollection()
         {
             var form = new NameValueCollection();

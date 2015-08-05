@@ -1,10 +1,18 @@
 ﻿namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    ///     Abstract class that helps boostraps some of the work needed by the APIss
+    /// </summary>
     public abstract class AbstractApi
     {
         protected static BasicRestClient RestClient;
         protected static ApiHost Host;
 
+        /// <summary>
+        /// </summary>
+        /// <param name="host">
+        ///     <see cref="ApiHost" />
+        /// </param>
         protected AbstractApi(ApiHost host)
         {
             Host = host;

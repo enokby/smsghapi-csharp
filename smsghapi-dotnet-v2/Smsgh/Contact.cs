@@ -1,5 +1,3 @@
-// $Id: ApiContact.cs 0 1970-01-01 00:00:00Z mkwayisi $
-
 using System;
 using Newtonsoft.Json;
 
@@ -25,7 +23,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         public Contact(ApiDictionary jso)
         {
-            foreach (string key in jso.Keys)
+            foreach (string key in jso.Keys) {
                 switch (key.ToLower()) {
                     case "contactid":
                         _contactId = Convert.ToInt64(jso[key]);
@@ -61,6 +59,7 @@ namespace smsghapi_dotnet_v2.Smsgh
                         Title = Convert.ToString(jso[key]);
                         break;
                 }
+            }
         }
 
         /// <summary>

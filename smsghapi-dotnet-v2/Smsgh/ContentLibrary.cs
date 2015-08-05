@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 
 namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    ///     Content Library
+    /// </summary>
     public class ContentLibrary
     {
         /// <summary>
@@ -18,11 +21,18 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         private readonly Guid _libraryId;
 
+        /// <summary>
+        ///     Default Constructor
+        /// </summary>
         public ContentLibrary() {}
 
+        /// <summary>
+        ///     Used internally to initialize the properties of this class.
+        /// </summary>
+        /// <param name="jso"></param>
         public ContentLibrary(ApiDictionary jso)
         {
-            foreach (string key in jso.Keys)
+            foreach (string key in jso.Keys) {
                 switch (key.ToLower()) {
                     case "libraryid":
                         _libraryId = new Guid(Convert.ToString(jso[key]));
@@ -37,23 +47,26 @@ namespace smsghapi_dotnet_v2.Smsgh
                         ShortName = Convert.ToString(jso[key]);
                         break;
                     case "datecreated":
-                        DateTime dateCreated;
-                        if (jso[key].ToString() != "")
+                        if (jso[key].ToString() != "") {
+                            DateTime dateCreated;
                             DateCreated = DateTime.TryParseExact(jso[key].ToString(), "yyyy-dd-MM hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateCreated)
                                 ? dateCreated
                                 : (DateTime?) null;
+                        }
                         break;
                     case "datemodified":
-                        DateTime dateModified;
-                        if (jso[key].ToString() != "")
+                        if (jso[key].ToString() != "") {
+                            DateTime dateModified;
                             DateModified = DateTime.TryParseExact(jso[key].ToString(), "yyyy-dd-MM hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateModified)
                                 ? dateModified
                                 : (DateTime?) null;
+                        }
                         break;
                     case "folderid":
                         _folderId = Convert.ToInt64(jso[key]);
                         break;
                 }
+            }
         }
 
         /// <summary>
@@ -76,18 +89,27 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         public DateTime? DateModified { get; set; }
 
+        /// <summary>
+        ///     Library ID
+        /// </summary>
         [JsonIgnore]
         public Guid LibraryId
         {
             get { return _libraryId; }
         }
 
+        /// <summary>
+        ///     Account ID
+        /// </summary>
         [JsonIgnore]
         public string AccountId
         {
             get { return _accountId; }
         }
 
+        /// <summary>
+        ///     Folder ID
+        /// </summary>
         [JsonIgnore]
         public long FolderId
         {

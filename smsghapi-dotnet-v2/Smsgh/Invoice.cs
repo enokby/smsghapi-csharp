@@ -23,27 +23,29 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         public Invoice(ApiDictionary jso)
         {
-            foreach (string key in jso.Keys)
+            foreach (string key in jso.Keys) {
                 switch (key.ToLower()) {
                     case "amount":
                         _amount = Convert.ToDouble(jso[key]);
                         break;
                     case "created":
                         DateTime dateCreated;
-                        if (jso[key].ToString() != "")
+                        if (jso[key].ToString() != "") {
                             _created = DateTime.TryParseExact(jso[key].ToString(), "yyyy-dd-MM hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateCreated)
                                 ? dateCreated
                                 : (DateTime?) null;
+                        }
 
                         break;
                     case "description":
                         _description = Convert.ToString(jso[key]);
                         break;
                     case "duedate":
-                        if (jso[key].ToString() != "")
+                        if (jso[key].ToString() != "") {
                             _dueDate = DateTime.TryParseExact(jso[key].ToString(), "yyyy-dd-MM hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateCreated)
                                 ? dateCreated
                                 : (DateTime?) null;
+                        }
 
                         break;
                     case "ending":
@@ -59,6 +61,7 @@ namespace smsghapi_dotnet_v2.Smsgh
                         _type = Convert.ToString(jso[key]);
                         break;
                 }
+            }
         }
 
         /// <summary>

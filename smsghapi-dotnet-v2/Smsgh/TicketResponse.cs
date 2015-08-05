@@ -4,14 +4,24 @@ using Newtonsoft.Json;
 
 namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    ///     TicketResponse
+    /// </summary>
     public class TicketResponse
     {
         private readonly string _attachment;
         private readonly long _id;
 
 
+        /// <summary>
+        ///     default constructor
+        /// </summary>
         public TicketResponse() {}
 
+        /// <summary>
+        ///     initializer
+        /// </summary>
+        /// <param name="json">Data dictionary</param>
         public TicketResponse(ApiDictionary json) : this()
         {
             foreach (string key in json.Keys) {
@@ -36,17 +46,29 @@ namespace smsghapi_dotnet_v2.Smsgh
             }
         }
 
+        /// <summary>
+        ///     Time
+        /// </summary>
         [JsonIgnore]
         public DateTime? Time { get; private set; }
 
+        /// <summary>
+        ///     Response Content
+        /// </summary>
         public string Content { get; set; }
 
+        /// <summary>
+        ///     Response Id
+        /// </summary>
         [JsonIgnore]
         public long Id
         {
             get { return _id; }
         }
 
+        /// <summary>
+        ///     Response Attachment
+        /// </summary>
         [JsonIgnore]
         public string Attachment
         {

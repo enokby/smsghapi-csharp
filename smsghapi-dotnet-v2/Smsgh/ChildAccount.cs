@@ -1,5 +1,3 @@
-// $Id: ApiChildAccount.cs 0 1970-01-01 00:00:00Z mkwayisi $
-
 using System;
 using System.Globalization;
 
@@ -29,7 +27,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         public ChildAccount(ApiDictionary jso)
         {
-            foreach (string key in jso.Keys)
+            foreach (string key in jso.Keys) {
                 switch (key.ToLower()) {
                     case "accountnumber":
                         _accountNumber = Convert.ToInt64(jso[key]);
@@ -63,10 +61,11 @@ namespace smsghapi_dotnet_v2.Smsgh
                         break;
                     case "timecreated":
                         DateTime dateCreated;
-                        if (jso[key].ToString() != "")
+                        if (jso[key].ToString() != "") {
                             _timeCreated = DateTime.TryParseExact(jso[key].ToString(), "yyyy-dd-MM hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateCreated)
                                 ? dateCreated
                                 : (DateTime?) null;
+                        }
 
                         break;
                     case "timeremoved":
@@ -76,6 +75,7 @@ namespace smsghapi_dotnet_v2.Smsgh
 
                         break;
                 }
+            }
         }
 
         /// <summary>

@@ -1,9 +1,10 @@
-// $Id: ApiException.cs 0 1970-01-01 00:00:00Z mkwayisi $
-
 using System;
 
 namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    ///     Custom Api Exception
+    /// </summary>
     public class ApiException : Exception
     {
         /// <summary>
@@ -17,9 +18,24 @@ namespace smsghapi_dotnet_v2.Smsgh
             RawBody = string.Empty;
         }
 
+        /// <summary>
+        ///     The HTTP Status code
+        /// </summary>
         public int HttpStatusCode { set; get; }
+
+        /// <summary>
+        ///     The Exception reason
+        /// </summary>
         public string Reason { set; get; }
+
+        /// <summary>
+        ///     The description
+        /// </summary>
         public string Description { set; get; }
+
+        /// <summary>
+        ///     The Http raw error response
+        /// </summary>
         public string RawBody { set; get; }
     }
 }

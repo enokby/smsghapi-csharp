@@ -4,9 +4,12 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Web;
 
 namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    /// </summary>
     public abstract class AbstractRestClient
     {
         protected static string UrlEncoded = "application/x-www-form-urlencoded;charset=UTF-8";
@@ -14,6 +17,11 @@ namespace smsghapi_dotnet_v2.Smsgh
         protected static string Accept = "application/json";
         protected bool Connected;
 
+        /// <summary>
+        /// </summary>
+        /// <param name="baseUrl"></param>
+        /// <param name="requestHandler"></param>
+        /// <param name="requestLogger"></param>
         protected AbstractRestClient(string baseUrl, IRequestHandler requestHandler, IRequestLogger requestLogger)
         {
             RequestLogger = requestLogger;
@@ -68,7 +76,7 @@ namespace smsghapi_dotnet_v2.Smsgh
                 PrepareConnection(urlConnection, httpMethod, contentType, accept);
                 AppendRequestHeaders(urlConnection);
                 Connected = true;
-                if (RequestLogger.IsLoggingEnabled()) RequestLogger.LogRequest(urlConnection, content);
+                if (RequestLogger.IsLoggingEnabled()) RequestLogger.LogRequest(urlConnection, HttpUtility.HtmlDecode(Encoding.UTF8.GetString(content)));
 
                 // Write the request
                 if (content != null) {
@@ -93,9 +101,7 @@ namespace smsghapi_dotnet_v2.Smsgh
                                     }
                                     response = new HttpResponse(urlConnection.Address.AbsoluteUri, urlConnection.Headers, Convert.ToInt32(serverResponse.StatusCode), buffer);
                                 }
-                                else {
-                                    response = new HttpResponse(urlConnection.Address.AbsoluteUri, urlConnection.Headers, Convert.ToInt32(serverResponse.StatusCode), null);
-                                }
+                                else response = new HttpResponse(urlConnection.Address.AbsoluteUri, urlConnection.Headers, Convert.ToInt32(serverResponse.StatusCode), null);
                             }
                         }
                     }
@@ -105,15 +111,14 @@ namespace smsghapi_dotnet_v2.Smsgh
             catch (Exception e) {
                 if (e.GetType() == typeof (WebException)) {
                     var ex = e as WebException;
-                    try {
-                        response = ReadStreamError(ex);
-                    }
+                    try { response = ReadStreamError(ex); }
                     catch (Exception ee) {
                         // Must catch IOException, but swallow to show first cause only
                         RequestLogger.Log(ee.StackTrace);
                     }
                     finally {
-                        if (response == null || response.Status <= 0)
+                        if (response == null
+                            || response.Status <= 0)
                             throw new HttpRequestException(e, response);
                     }
                 }
@@ -125,9 +130,7 @@ namespace smsghapi_dotnet_v2.Smsgh
             }
             finally {
                 // Here we log the Http Response
-                if (RequestLogger.IsLoggingEnabled()) {
-                    RequestLogger.LogResponse(response);
-                }
+                if (RequestLogger.IsLoggingEnabled()) RequestLogger.LogResponse(response);
             }
             return response;
         }
@@ -184,15 +187,14 @@ namespace smsghapi_dotnet_v2.Smsgh
             catch (Exception e) {
                 if (e.GetType() == typeof (WebException)) {
                     var ex = e as WebException;
-                    try {
-                        response = ReadStreamError(ex);
-                    }
+                    try { response = ReadStreamError(ex); }
                     catch (Exception ee) {
                         // Must catch IOException, but swallow to show first cause only
                         RequestLogger.Log(ee.StackTrace);
                     }
                     finally {
-                        if (response == null || response.Status <= 0)
+                        if (response == null
+                            || response.Status <= 0)
                             throw new HttpRequestException(e, response);
                     }
                 }
@@ -204,9 +206,7 @@ namespace smsghapi_dotnet_v2.Smsgh
             }
             finally {
                 // Here we log the Http Response
-                if (RequestLogger.IsLoggingEnabled()) {
-                    RequestLogger.LogResponse(response);
-                }
+                if (RequestLogger.IsLoggingEnabled()) RequestLogger.LogResponse(response);
             }
             return response;
         }
@@ -221,9 +221,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         public HttpResponse Execute(HttpRequest httpRequest)
         {
             HttpResponse httpResponse = null;
-            try {
-                httpResponse = DoHttpMethod(httpRequest.Path, httpRequest.HttpMethod, httpRequest.ContentType, Accept, httpRequest.Content);
-            }
+            try { httpResponse = DoHttpMethod(httpRequest.Path, httpRequest.HttpMethod, httpRequest.ContentType, Accept, httpRequest.Content); }
             catch (HttpRequestException hre) {
                 RequestHandler.OnError(hre);
             }
@@ -245,9 +243,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         protected HttpWebRequest OpenConnection(string path)
         {
             string requestUrl = BaseUrl + path;
-            try {
-                var uri = new Uri(requestUrl);
-            }
+            try { var uri = new Uri(requestUrl); }
             catch (UriFormatException e) {
                 throw new ArgumentException(requestUrl + " is not a valid URL", e);
             }
@@ -272,9 +268,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <param name="urlConnection">HttpWebrequest instance</param>
         private void AppendRequestHeaders(HttpWebRequest urlConnection)
         {
-            foreach (var requestHeader in RequestHeaders) {
-                urlConnection.Headers.Add(requestHeader.Key, requestHeader.Value);
-            }
+            foreach (var requestHeader in RequestHeaders) urlConnection.Headers.Add(requestHeader.Key, requestHeader.Value);
         }
 
         /// <summary>
@@ -476,12 +470,34 @@ namespace smsghapi_dotnet_v2.Smsgh
 
         #region AbstractHttpClient Properties
 
+        /// <summary>
+        ///     The Base Url
+        /// </summary>
         protected string BaseUrl { private set; get; }
+
+        /// <summary>
+        ///     The Http Request Handler
+        /// </summary>
         public IRequestHandler RequestHandler { private set; get; }
+
+        /// <summary>
+        ///     The Http Request Logger
+        /// </summary>
         public IRequestLogger RequestLogger { set; get; }
 
+        /// <summary>
+        ///     Http Request Headers
+        /// </summary>
         public Dictionary<string, string> RequestHeaders { set; get; }
+
+        /// <summary>
+        ///     Http Connection Timeout
+        /// </summary>
         public int ConnectionTimeout { set; get; }
+
+        /// <summary>
+        ///     Http Connection Read Timeout
+        /// </summary>
         public int ReadWriteTimeout { set; get; }
 
         #endregion

@@ -6,6 +6,9 @@ using System.Text.RegularExpressions;
 
 namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    ///     StringUtil
+    /// </summary>
     public static class StringUtil
     {
         private const string Safe = ":~!@#$%^&*()-_+=/\\,.[]{}|?<>";
@@ -89,21 +92,16 @@ namespace smsghapi_dotnet_v2.Smsgh
         public static string StripQuotes(this string string0)
         {
             // if the string is not null nor empty
-            if (!string0.IsEmpty() && string0.Length == 0) {
-                return string0;
-            }
+            if (!string0.IsEmpty()
+                && string0.Length == 0) return string0;
 
             // if the first and the last characters are quoted, just do 1 substring
             char[] stringToArray = string0.ToCharArray();
-            if (string0.Length > 1 && stringToArray[0].Equals('"') && stringToArray[string0.Length - 1].Equals('"')) {
-                return string0.Substring(1, string0.Length - 1);
-            }
-            if (stringToArray[0].Equals('"')) {
-                string0 = string0.Substring(1);
-            }
-            else if (stringToArray[string0.Length - 1].Equals('"')) {
-                string0 = string0.Substring(0, string0.Length - 1);
-            }
+            if (string0.Length > 1
+                && stringToArray[0].Equals('"')
+                && stringToArray[string0.Length - 1].Equals('"')) return string0.Substring(1, string0.Length - 1);
+            if (stringToArray[0].Equals('"')) string0 = string0.Substring(1);
+            else if (stringToArray[string0.Length - 1].Equals('"')) string0 = string0.Substring(0, string0.Length - 1);
             return string0;
         }
 
@@ -115,9 +113,12 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <returns>bool. True when it is safe and false on the contrary</returns>
         public static bool IsSafeChar(this char ch)
         {
-            if (ch.CompareTo('a') == 1 && ch.CompareTo('z') == -1) return true;
-            if (ch.CompareTo('A') == 1 && ch.CompareTo('Z') == -1) return true;
-            if (ch.CompareTo('0') == 1 && ch.CompareTo('9') == -1) return true;
+            if (ch.CompareTo('a') == 1
+                && ch.CompareTo('z') == -1) return true;
+            if (ch.CompareTo('A') == 1
+                && ch.CompareTo('Z') == -1) return true;
+            if (ch.CompareTo('0') == 1
+                && ch.CompareTo('9') == -1) return true;
 
             // loop through the SAFE string 
             // When the character matches one of the character in that SAFE string we exit
@@ -141,9 +142,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         {
             // convert the string into characters array and loop through the array
             char[] stringArray = string0.ToCharArray();
-            for (int i = 0; i < stringArray.Length; i++) {
-                if (!stringArray[i].IsSafeChar()) return false;
-            }
+            for (int i = 0; i < stringArray.Length; i++) if (!stringArray[i].IsSafeChar()) return false;
             return true;
         }
 
@@ -183,7 +182,8 @@ namespace smsghapi_dotnet_v2.Smsgh
             if (!string0.IsEmpty()) {
                 const string moneyRegex = "(?!0,?\\d)(?:\\d{1,3}(?:([,\\.])\\d{3})?(?:\\1\\d{3})*|(?:\\d+))((?!\\1)[,\\.]\\d{2})?";
                 string regex = "^(?!\\x{00a2})\\p{Sc}?" + moneyRegex + "$";
-                if (IsEmpty(currencyPosition) && currencyPosition.Equals("right"))
+                if (IsEmpty(currencyPosition)
+                    && currencyPosition.Equals("right"))
                     regex = "^" + moneyRegex + "(?<!\\x{00a2})\\p{Sc}?$";
                 return new Regex(regex).IsMatch(string0.Trim());
             }
@@ -205,9 +205,7 @@ namespace smsghapi_dotnet_v2.Smsgh
             if (email.IsEmpty()) return false;
             const string strRegex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" + @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" + @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
             var re = new Regex(strRegex);
-            if (re.IsMatch(email)) {
-                return true;
-            }
+            if (re.IsMatch(email)) return true;
             return false;
         }
 
@@ -264,10 +262,9 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <returns>bool. True when it has the given minimum length and false on the contrary</returns>
         public static bool HasMiniLength(this string string0, int miniLength)
         {
-            if (string0.IsEmpty() && miniLength != 0) return false;
-            if (!string0.IsEmpty()) {
-                return (string0.Trim().Length >= miniLength);
-            }
+            if (string0.IsEmpty()
+                && miniLength != 0) return false;
+            if (!string0.IsEmpty()) return (string0.Trim().Length >= miniLength);
 
             return false;
         }
@@ -280,11 +277,13 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <returns>bool. True when it has the given maximum length and false on the contrary</returns>
         public static bool HasMaxLength(this string string0, int maxLength)
         {
-            if (string0.IsEmpty() && maxLength != 0 && maxLength > 0) return true;
-            if (string0.IsEmpty() && maxLength != 0 && maxLength < 0) return false;
-            if (!string0.IsEmpty()) {
-                return (string0.Trim().Length <= maxLength);
-            }
+            if (string0.IsEmpty()
+                && maxLength != 0
+                && maxLength > 0) return true;
+            if (string0.IsEmpty()
+                && maxLength != 0
+                && maxLength < 0) return false;
+            if (!string0.IsEmpty()) return (string0.Trim().Length <= maxLength);
 
             return false;
         }
@@ -317,13 +316,17 @@ namespace smsghapi_dotnet_v2.Smsgh
         public static bool IsPhoneNumber(this string string0, string standard)
         {
             const string standardFormat = "^\\+(?:[0-9] ?){6,14}[0-9]$"; //ITU-T E.164 standard
-            if (!IsEmpty(standard) && standard.Equals("EPP")) {
-                return new Regex("^\\+[0-9]{1,3}\\.[0-9]{4,14}(?:x\\.+)?$").IsMatch(string0);
-            }
+            if (!IsEmpty(standard)
+                && standard.Equals("EPP")) return new Regex("^\\+[0-9]{1,3}\\.[0-9]{4,14}(?:x\\.+)?$").IsMatch(string0);
             return new Regex(standardFormat).IsMatch(string0);
         }
 
 
+        /// <summary>
+        ///     Check whether a string is a valid phone number
+        /// </summary>
+        /// <param name="string0">the string to check</param>
+        /// <returns>true or false</returns>
         public static bool IsPhoneNumber(this string string0)
         {
             const string standardFormat = "^\\+(?:[0-9] ?){6,14}[0-9]$";
@@ -361,21 +364,26 @@ namespace smsghapi_dotnet_v2.Smsgh
                 if (!string0.IsEmpty()) {
                     // Based upon the format given the check will be done accordingly
                     string regex = "";
-                    if (string.Equals(format.Trim(), "dmy"))
+                    if (string.Equals(format.Trim(), "dmy")) {
                         regex =
                             "^(?:(?:31(\\/|-|\\.|\\x20)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.|\\x20)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.|\\x20)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.|\\x20)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$";
-                    if (string.Equals(format.Trim(), "mdy"))
+                    }
+                    if (string.Equals(format.Trim(), "mdy")) {
                         regex =
                             "^(?:(?:(?:0?[13578]|1[02])(\\/|-|\\.|\\x20)31)\\1|(?:(?:0?[13-9]|1[0-2])(\\/|-|\\.|\\x20)(?:29|30)\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:0?2(\\/|-|\\.|\\x20)29\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:(?:0?[1-9])|(?:1[0-2]))(\\/|-|\\.|\\x20)(?:0?[1-9]|1\\d|2[0-8])\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$";
-                    if (string.Equals(format.Trim(), "ymd"))
+                    }
+                    if (string.Equals(format.Trim(), "ymd")) {
                         regex =
                             "^(?:(?:(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00)))(\\/|-|\\.|\\x20)(?:0?2\\1(?:29)))|(?:(?:(?:1[6-9]|[2-9]\\d)?\\d{2})(\\/|-|\\.|\\x20)(?:(?:(?:0?[13578]|1[02])\\2(?:31))|(?:(?:0?[1,3-9]|1[0-2])\\2(29|30))|(?:(?:0?[1-9])|(?:1[0-2]))\\2(?:0?[1-9]|1\\d|2[0-8]))))$";
-                    if (string.Equals(format.Trim(), "dMy"))
+                    }
+                    if (string.Equals(format.Trim(), "dMy")) {
                         regex =
                             "^((31(?!\\ (Feb(ruary)?|Apr(il)?|June?|(Sep(?=\\b|t)t?|Nov)(ember)?)))|((30|29)(?!\\ Feb(ruary)?))|(29(?=\\ Feb(ruary)?\\ (((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00)))))|(0?[1-9])|1\\d|2[0-8])\\ (Jan(uary)?|Feb(ruary)?|Ma(r(ch)?|y)|Apr(il)?|Ju((ly?)|(ne?))|Aug(ust)?|Oct(ober)?|(Sep(?=\\b|t)t?|Nov|Dec)(ember)?)\\ ((1[6-9]|[2-9]\\d)\\d{2})$";
-                    if (string.Equals(format.Trim(), "Mdy"))
+                    }
+                    if (string.Equals(format.Trim(), "Mdy")) {
                         regex =
                             "^(?:(((Jan(uary)?|Ma(r(ch)?|y)|Jul(y)?|Aug(ust)?|Oct(ober)?|Dec(ember)?)\\ 31)|((Jan(uary)?|Ma(r(ch)?|y)|Apr(il)?|Ju((ly?)|(ne?))|Aug(ust)?|Oct(ober)?|(Sep)(tember)?|(Nov|Dec)(ember)?)\\ (0?[1-9]|([12]\\d)|30))|(Feb(ruary)?\\ (0?[1-9]|1\\d|2[0-8]|(29(?=,?\\ ((1[6-9]|[2-9]\\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00)))))))\\,?\\ ((1[6-9]|[2-9]\\d)\\d{2}))$";
+                    }
                     if (string.Equals(format.Trim(), "My"))
                         regex = "^(Jan(uary)?|Feb(ruary)?|Ma(r(ch)?|y)|Apr(il)?|Ju((ly?)|(ne?))|Aug(ust)?|Oct(ober)?|(Sep(?=\\b|t)t?|Nov|Dec)(ember)?)[ /]((1[6-9]|[2-9]\\d)\\d{2})$";
                     if (string.Equals(format.Trim(), "my"))
@@ -463,9 +471,12 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <returns>bool</returns>
         public static bool IsEqual(this string string0, string string1, bool caseSensitive)
         {
-            if (string0 == null && string1 == null) return true;
-            if (string0 == null && !string.IsNullOrEmpty(string1)) return false;
-            if (!string.IsNullOrEmpty(string0) && string1 == null) return false;
+            if (string0 == null
+                && string1 == null) return true;
+            if (string0 == null
+                && !string.IsNullOrEmpty(string1)) return false;
+            if (!string.IsNullOrEmpty(string0)
+                && string1 == null) return false;
 
             if (caseSensitive) return string.Equals(string0, string1);
             return false;
@@ -507,6 +518,11 @@ namespace smsghapi_dotnet_v2.Smsgh
             return Encoding.ASCII.GetString(input);
         }
 
+        /// <summary>
+        ///     Get string value of an array byte
+        /// </summary>
+        /// <param name="input">Byte array whose string value is needed</param>
+        /// <returns>string</returns>
         public static string GetString(this byte[] input)
         {
             return Encoding.UTF8.GetString(input);
@@ -560,24 +576,28 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <summary>
         ///     Cheks whether a string is a valid UUID or GUID
         /// </summary>
-        /// <param name="check"></param>
-        /// <returns></returns>
+        /// <param name="check">the string to check</param>
+        /// <returns>true or false</returns>
         public static bool IsGuid(this string check)
-        {           
+        {
             //Guid guid;
             //return Guid.TryParse(check, out guid);
             try {
                 var guid = new Guid(check);
-                return true;
+                return true && guid != Guid.Empty;
             }
-            catch (Exception) {
-            }
+            catch (Exception) {}
             return false;
         }
 
+        /// <summary>
+        ///     Checks whether a given string is a UUID
+        /// </summary>
+        /// <param name="check">the string to check</param>
+        /// <returns>true or false</returns>
         public static bool IsUuid(this string check)
         {
-            return new Regex("/^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[0-5][a-fA-F0-9]{3}-[089aAbB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}$/").IsMatch(check); 
+            return new Regex("/^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[0-5][a-fA-F0-9]{3}-[089aAbB][a-fA-F0-9]{3}-[a-fA-F0-9]{12}$/").IsMatch(check);
         }
 
         #region Private Routines

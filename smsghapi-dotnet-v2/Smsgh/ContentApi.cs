@@ -7,8 +7,20 @@ using Newtonsoft.Json;
 
 namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    ///     The content API. Please refer to http://developers.smsgh.com for further information on how to set
+    ///     some parameters
+    /// </summary>
+    /// <remarks>
+    ///     All Exceptions thrown in this class contains the actual message of what has happened. Just by reading the
+    ///     error message helps the developer to fix the issue.
+    /// </remarks>
     public class ContentApi : AbstractApi
     {
+        /// <summary>
+        ///     Default constructor. Use this constructor whenever this class is going to be referenced.
+        /// </summary>
+        /// <param name="host"><see cref="ApiHost" /> The Api Host object.</param>
         public ContentApi(ApiHost host) : base(host) {}
 
         /// <summary>
@@ -16,8 +28,11 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         /// <param name="page">The Page Number</param>
         /// <param name="pageSize">The Number of items on a page</param>
-        /// <returns>ApiList of ContentLibrary</returns>
-        /// <exception cref="Exception"></exception>
+        /// <returns>
+        ///     Custom List of <see cref="ContentLibrary" />.
+        ///     <seealso cref="ApiList{T}" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate message. </exception>
         public ApiList<ContentLibrary> GetContentLibraries(uint page, uint pageSize)
         {
             const string resource = "/libraries/";
@@ -25,7 +40,8 @@ namespace smsghapi_dotnet_v2.Smsgh
             if (page > 0) parameterMap.Set("Page", Convert.ToString(page));
             if (pageSize > 0) parameterMap.Set("PageSize", Convert.ToString(pageSize));
 
-            if (page == 0 && pageSize == 0) parameterMap = null;
+            if (page == 0
+                && pageSize == 0) parameterMap = null;
             HttpResponse response = RestClient.Get(resource, parameterMap);
             if (response == null) throw new Exception("Request Failed. Unable to get server response");
             if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new ApiList<ContentLibrary>(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
@@ -36,7 +52,11 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <summary>
         ///     Fetches all the content libraries related to a particular account.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        ///     Custom List of <see cref="ContentLibrary" />.
+        ///     <seealso cref="ApiList{T}" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate message. </exception>
         public ApiList<ContentLibrary> GetContentLibraries()
         {
             return GetContentLibraries(0, 0);
@@ -46,9 +66,10 @@ namespace smsghapi_dotnet_v2.Smsgh
         ///     Fetches the metadata of a content library.
         /// </summary>
         /// <param name="libraryId">Content Library Id</param>
-        /// <returns>ContentLibrary</returns>
-        /// <exception cref="Exception"></exception>
-        /// <exception cref="Exception"></exception>
+        /// <returns>
+        ///     <see cref="ContentLibrary" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate message.</exception>
         public ContentLibrary GetContentLibrary(Guid libraryId)
         {
             string resource = "/libraries/";
@@ -60,6 +81,14 @@ namespace smsghapi_dotnet_v2.Smsgh
             throw new Exception("Request Failed : " + errorMessage);
         }
 
+        /// <summary>
+        ///     Get a content library based upon the id.
+        /// </summary>
+        /// <param name="libraryId">The content library Id</param>
+        /// <returns>
+        ///     <see cref="ContentLibrary" />
+        /// </returns>
+        /// <exception cref="HttpRequestException"></exception>
         public ContentLibrary GetContentLibrary(string libraryId)
         {
             if (!libraryId.IsGuid()) throw new HttpRequestException(new Exception("libraryId must not be null and be a valid UUID"));
@@ -69,10 +98,11 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <summary>
         ///     Creates a new content library and returns the created content metadata.
         /// </summary>
-        /// <param name="library">Content Library to create</param>
-        /// <returns>ContentLibrary</returns>
-        /// <exception cref="Exception"></exception>
-        /// <exception cref="Exception"></exception>
+        /// <param name="library">Content Library object to create</param>
+        /// <returns>
+        ///     <see cref="ContentLibrary" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate message</exception>
         public ContentLibrary AddContentLibrary(ContentLibrary library)
         {
             const string resource = "/libraries/";
@@ -93,13 +123,19 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         /// <param name="name">Content Library Name</param>
         /// <param name="shortName">Content Library ShortName</param>
-        /// <returns>ContentLibrary</returns>
-        /// <exception cref="Exception"></exception>
+        /// <returns>
+        ///     <see cref="ContentLibrary" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate message.</exception>
         public ContentLibrary AddContentLibrary(string name, string shortName)
         {
             const string resource = "/libraries/";
-            if (name == null || name.IsEmpty() || shortName == null || shortName.IsEmpty()) throw new Exception("Parameter 'name' and 'shortName' cannot be null.");
-            if (!name.IsValidFileName(true) || !shortName.IsValidFileName(true)) throw new Exception("Parameter 'name' and 'shortName' must be valid folder name.");
+            if (name == null
+                || name.IsEmpty()
+                || shortName == null
+                || shortName.IsEmpty()) throw new Exception("Parameter 'name' and 'shortName' cannot be null.");
+            if (!name.IsValidFileName(true)
+                || !shortName.IsValidFileName(true)) throw new Exception("Parameter 'name' and 'shortName' must be valid folder name.");
             ParameterMap parameterMap = RestClient.NewParams();
             parameterMap.Set("Name", name).Set("ShortName", shortName);
             HttpResponse response = RestClient.Post(resource, parameterMap);
@@ -114,15 +150,16 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         /// <param name="parameterMap">
         ///     The Content Library data. The required parameters to set are Name and ShortName with their
-        ///     respective values.
+        ///     respective values. <see cref="ParameterMap" />
         /// </param>
         /// <example>
         ///     How to set Parameter: ParameterMap parameterMap = RestClient.NewParams(parameterMap.Set("Name",
         ///     "Wallpapers").Set("ShortName", "Wallpapers");
         /// </example>
-        /// <returns>ContentLibrary</returns>
-        /// <exception cref="Exception"></exception>
-        /// <exception cref="Exception"></exception>
+        /// <returns>
+        ///     <see cref="ContentLibrary" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate message.</exception>
         public ContentLibrary AddContentLibrary(ParameterMap parameterMap)
         {
             const string resource = "/libraries/";
@@ -140,15 +177,16 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <param name="libraryId">The content library Id</param>
         /// <param name="parameterMap">
         ///     The Content Library data. The required parameters to set are Name and ShortName with their
-        ///     respective values.
+        ///     respective values.<see cref="ParameterMap" />
         /// </param>
         /// <example>
         ///     How to set Parameter: ParameterMap parameterMap = RestClient.NewParams(parameterMap.Set("Name",
         ///     "Wallpapers").Set("ShortName", "Wallpapers");
         /// </example>
-        /// <returns>ContentLibrary</returns>
-        /// <exception cref="Exception"></exception>
-        /// <exception cref="Exception"></exception>
+        /// <returns>
+        ///     <see cref="ContentLibrary" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate message</exception>
         public ContentLibrary UpdateContentLibrary(Guid libraryId, ParameterMap parameterMap)
         {
             string resource = "/libraries/";
@@ -161,6 +199,17 @@ namespace smsghapi_dotnet_v2.Smsgh
             throw new Exception("Request Failed : " + errorMessage);
         }
 
+        /// <summary>
+        ///     Updates the metadata of a given library and returns the updated library.
+        /// </summary>
+        /// <param name="libraryId">The content library Id</param>
+        /// <param name="parameterMap">
+        ///     The Content Library data. A key-value pair data structure <see cref="ParameterMap" />
+        /// </param>
+        /// <returns>
+        ///     <see cref="ContentLibrary" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate message.</exception>
         public ContentLibrary UpdateContentLibrary(string libraryId, ParameterMap parameterMap)
         {
             if (!libraryId.IsGuid()) throw new Exception("libraryId must not be null and be a valid UUID");
@@ -174,19 +223,22 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <param name="libraryId">The Content Library Id</param>
         /// <param name="name">The Library Name</param>
         /// <param name="shortName">The Library ShortName</param>
-        /// <returns>ContentLibrary</returns>
-        /// <exception cref="Exception"></exception>
-        /// <exception cref="Exception"></exception>
+        /// <returns>
+        ///     <see cref="ContentLibrary" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate message.</exception>
         public ContentLibrary UpdateContentLibrary(Guid libraryId, string name = null, string shortName = null)
         {
             string resource = "/libraries/";
             ParameterMap parameterMap = RestClient.NewParams();
-            if (name != null && !name.IsEmpty()) {
+            if (name != null
+                && !name.IsEmpty()) {
                 if (!name.IsValidFileName(true)) throw new Exception("Parameter 'name' and 'shortName' must be valid folder name.");
                 parameterMap.Set("Name", name);
             }
 
-            if (shortName != null && !shortName.IsEmpty()) {
+            if (shortName != null
+                && !shortName.IsEmpty()) {
                 if (!shortName.IsValidFileName(true)) throw new Exception("Parameter 'name' and 'shortName' must be valid folder name.");
                 parameterMap.Set("ShortName", shortName);
             }
@@ -198,6 +250,16 @@ namespace smsghapi_dotnet_v2.Smsgh
             throw new Exception("Request Failed : " + errorMessage);
         }
 
+        /// <summary>
+        ///     Updates the metadata of a given library and returns the updated library.
+        /// </summary>
+        /// <param name="libraryId">The content library Id</param>
+        /// <param name="name">The library name</param>
+        /// <param name="shortName">The library short name</param>
+        /// <returns>
+        ///     <see cref="ContentLibrary" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate message.</exception>
         public ContentLibrary UpdateContentLibrary(string libraryId, string name = null, string shortName = null)
         {
             if (!libraryId.IsGuid()) throw new Exception("libraryId must not be null and be a valid UUID");
@@ -208,8 +270,8 @@ namespace smsghapi_dotnet_v2.Smsgh
         ///     Deletes a content library  and returns true when successful.
         /// </summary>
         /// <param name="libraryId">The content library Id</param>
-        /// <returns>true or false.</returns>
-        /// <exception cref="Exception"></exception>
+        /// <returns>true when successful</returns>
+        /// <exception cref="Exception">Exception with the appropriate message</exception>
         public bool DeleteContentLibrary(Guid libraryId)
         {
             string resource = "/libraries/";
@@ -221,10 +283,16 @@ namespace smsghapi_dotnet_v2.Smsgh
             throw new Exception("Request Failed : " + errorMessage);
         }
 
+        /// <summary>
+        ///     Deletes a content library.
+        /// </summary>
+        /// <param name="libraryId">The content library Id</param>
+        /// <returns>true when successful</returns>
+        /// <exception cref="Exception">Exception with the appropriate message</exception>
         public bool DeleteContentLibrary(string libraryId)
         {
             string resource = "/libraries/";
-            if (!libraryId.IsGuid()) throw new HttpRequestException(new Exception("libraryId must not be null and be a valid UUID"));
+            if (!libraryId.IsGuid()) throw new Exception("libraryId must not be null and be a valid UUID");
             resource += libraryId.Replace("-", "");
             HttpResponse response = RestClient.Delete(resource);
             if (response == null) throw new Exception("Request Failed. Unable to get server response");
@@ -238,8 +306,8 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         /// <param name="page">The page number</param>
         /// <param name="pageSize">The Number of item per page</param>
-        /// <returns>ApiList of ContentFolder</returns>
-        /// <exception cref="Exception"></exception>
+        /// <returns>Custom List of <see cref="ContentFolder" /> <seealso cref="ApiList{T}" /> </returns>
+        /// <exception cref="Exception">Exception with the appropriate message.</exception>
         public ApiList<ContentFolder> GetContentFolders(uint page, uint pageSize)
         {
             const string resource = "/folders/";
@@ -247,7 +315,8 @@ namespace smsghapi_dotnet_v2.Smsgh
             if (page > 0) parameterMap.Set("Page", Convert.ToString(page));
             if (pageSize > 0) parameterMap.Set("PageSize", Convert.ToString(pageSize));
 
-            if (page == 0 && pageSize == 0) parameterMap = null;
+            if (page == 0
+                && pageSize == 0) parameterMap = null;
             HttpResponse response = RestClient.Get(resource, parameterMap);
             if (response == null) throw new Exception("Request Failed. Unable to get server response");
             if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new ApiList<ContentFolder>(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
@@ -258,8 +327,8 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <summary>
         ///     Fecthes the list of all content folders for a given account.
         /// </summary>
-        /// <returns>ApiList of ContentFolder</returns>
-        /// <exception cref="Exception"></exception>
+        /// <returns>>Custom List of <see cref="ContentFolder" /> <seealso cref="ApiList{T}" /> </returns>
+        /// <exception cref="Exception">Exception with the appropriate message</exception>
         public ApiList<ContentFolder> GetContentFolders()
         {
             return GetContentFolders(0, 0);
@@ -269,8 +338,10 @@ namespace smsghapi_dotnet_v2.Smsgh
         ///     Fecthes the details of a content folder including content medias and sub folders attached to that content folder.
         /// </summary>
         /// <param name="folderId">The Content Folder Id</param>
-        /// <returns>ContentFolder</returns>
-        /// <exception cref="Exception"></exception>
+        /// <returns>
+        ///     <see cref="ContentFolder" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate message</exception>
         public ContentFolder GetContentFolder(ulong folderId)
         {
             string resource = "/folders/" + folderId;
@@ -287,16 +358,23 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <param name="folderName">The folder name</param>
         /// <param name="libraryId">The Content library Id</param>
         /// <param name="parentFolder">The parent folder Id or Name if it is a sub folder</param>
-        /// <returns>ContentFolder</returns>
-        /// <exception cref="Exception"></exception>
+        /// <returns>
+        ///     <see cref="ContentFolder" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate message</exception>
         public ContentFolder AddContentFolder(string folderName, Guid libraryId, string parentFolder = null)
         {
             const string resource = "/folders/";
-            if (folderName == null || (folderName != null && folderName.IsEmpty())) throw new Exception("Parameter 'folderName' cannot be null.");
-            if (folderName != null && !folderName.IsValidFileName(true)) throw new Exception("Parameter 'folderName' must be valid folder name.");
+            if (folderName == null
+                || (folderName != null && folderName.IsEmpty())) throw new Exception("Parameter 'folderName' cannot be null.");
+            if (folderName != null
+                && !folderName.IsValidFileName(true)) throw new Exception("Parameter 'folderName' must be valid folder name.");
 
-            if (parentFolder != null && !parentFolder.IsEmpty())
-                if (!parentFolder.IsNumeric() && !parentFolder.IsValidFileName(true)) throw new Exception("Parameter 'parentFolder' must be valid folder name.");
+            if (parentFolder != null
+                && !parentFolder.IsEmpty()) {
+                if (!parentFolder.IsNumeric()
+                    && !parentFolder.IsValidFileName(true)) throw new Exception("Parameter 'parentFolder' must be valid folder name.");
+            }
 
             ParameterMap parameterMap = RestClient.NewParams();
             parameterMap.Set("FolderName", folderName).Set("LibraryId", libraryId.ToString()).Set("Parent", parentFolder);
@@ -307,17 +385,31 @@ namespace smsghapi_dotnet_v2.Smsgh
             throw new Exception("Request Failed : " + errorMessage);
         }
 
+        /// <summary>
+        ///     Create a new content folder.
+        /// </summary>
+        /// <param name="folderName">The folder name</param>
+        /// <param name="libraryId">The content library Id</param>
+        /// <param name="parentFolder">The parent folder name</param>
+        /// <returns>
+        ///     <see cref="ContentFolder" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate message.</exception>
         public ContentFolder AddContentFolder(string folderName, String libraryId, string parentFolder = null)
         {
             const string resource = "/folders/";
             if (folderName == null) throw new Exception("Parameter 'folderName' cannot be null.");
-            if (folderName != null && !folderName.IsValidFileName(true)) throw new Exception("Parameter 'folderName' must be valid folder name.");
+            if (folderName != null
+                && !folderName.IsValidFileName(true)) throw new Exception("Parameter 'folderName' must be valid folder name.");
 
             if (libraryId == null) throw new Exception("Parameter 'libaryId' cannot be null.");
             if (!libraryId.IsGuid()) throw new Exception("Parameter 'libaryId' must be a valid UUID.");
 
-            if (parentFolder != null && !parentFolder.IsEmpty())
-                if (!parentFolder.IsNumeric() && !parentFolder.IsValidFileName(true)) throw new Exception("Parameter 'parentFolder' must be valid folder name.");
+            if (parentFolder != null
+                && !parentFolder.IsEmpty()) {
+                if (!parentFolder.IsNumeric()
+                    && !parentFolder.IsValidFileName(true)) throw new Exception("Parameter 'parentFolder' must be valid folder name.");
+            }
 
             ParameterMap parameterMap = RestClient.NewParams();
             parameterMap.Set("FolderName", folderName).Set("LibraryId", libraryId).Set("Parent", parentFolder);
@@ -336,16 +428,23 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <param name="folderName">Folder name</param>
         /// <param name="libraryId">Library Id</param>
         /// <param name="parentFolder">Parent folder Id or Name</param>
-        /// <returns>ContentFolder</returns>
-        /// <exception cref="Exception"></exception>
+        /// <returns>
+        ///     <see cref="ContentFolder" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate message.</exception>
         public ContentFolder UpdateContentFolder(ulong folderId, string folderName = null, Guid? libraryId = null, string parentFolder = null)
         {
             string resource = "/folders/" + folderId;
-            if (folderName != null && folderName.IsEmpty()) throw new Exception("Parameter 'folderName' cannot be null.");
-            if (folderName != null && !folderName.IsValidFileName(true)) throw new Exception("Parameter 'folderName' must be valid folder name.");
+            if (folderName != null
+                && folderName.IsEmpty()) throw new Exception("Parameter 'folderName' cannot be null.");
+            if (folderName != null
+                && !folderName.IsValidFileName(true)) throw new Exception("Parameter 'folderName' must be valid folder name.");
 
-            if (parentFolder != null && !parentFolder.IsEmpty())
-                if (!parentFolder.IsNumeric() && !parentFolder.IsValidFileName(true)) throw new Exception("Parameter 'parentFolder' must be valid folder name.");
+            if (parentFolder != null
+                && !parentFolder.IsEmpty()) {
+                if (!parentFolder.IsNumeric()
+                    && !parentFolder.IsValidFileName(true)) throw new Exception("Parameter 'parentFolder' must be valid folder name.");
+            }
 
             ParameterMap parameterMap = RestClient.NewParams();
             parameterMap.Set("FolderName", folderName).Set("LibraryId", libraryId.ToString()).Set("Parent", parentFolder);
@@ -360,8 +459,8 @@ namespace smsghapi_dotnet_v2.Smsgh
         ///     Deletes a content folder and returns true when successful
         /// </summary>
         /// <param name="folderId">The content folder id</param>
-        /// <returns>true or errors</returns>
-        /// <exception cref="Exception"></exception>
+        /// <returns>true when successful</returns>
+        /// <exception cref="Exception">Exception with the appropriate message</exception>
         public bool DeleteContentFolder(ulong folderId)
         {
             string resource = "/folders/" + folderId;
@@ -378,17 +477,20 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <param name="page">The page number</param>
         /// <param name="pageSize">The number of items on a page</param>
         /// <param name="filters">Query filters</param>
-        /// <returns>ApiList of ContentMedia</returns>
-        /// <exception cref="HttpRequestException"></exception>
+        /// <returns>Custom List of <see cref="ContentMedia" /> <seealso cref="ApiList{T}" /></returns>
+        /// <exception cref="Exception">Exception with the appropriate nessage.</exception>
         public ApiList<ContentMedia> GetContentMedias(uint page, uint pageSize, Dictionary<string, string> filters = null)
         {
             const string resource = "/media/";
             ParameterMap parameterMap = RestClient.NewParams();
             if (page > 0) parameterMap.Set("Page", Convert.ToString(page));
             if (pageSize > 0) parameterMap.Set("PageSize", Convert.ToString(pageSize));
-            if (filters != null && filters.Count > 0) foreach (var filter in filters) parameterMap.Set(filter.Key, filter.Value);
+            if (filters != null
+                && filters.Count > 0) foreach (var filter in filters) parameterMap.Set(filter.Key, filter.Value);
 
-            if (page == 0 && pageSize == 0 && filters == null) parameterMap = null;
+            if (page == 0
+                && pageSize == 0
+                && filters == null) parameterMap = null;
             HttpResponse response = RestClient.Get(resource, parameterMap);
             if (response == null) throw new Exception("Request Failed. Unable to get server response");
             if (response.Status == Convert.ToInt32(HttpStatusCode.OK)) return new ApiList<ContentMedia>(JsonConvert.DeserializeObject<ApiDictionary>(response.GetBodyAsString()));
@@ -399,8 +501,8 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <summary>
         ///     Fetches the list of all content medias
         /// </summary>
-        /// <returns>ApiList of ContentMedia</returns>
-        /// <exception cref="Exception"></exception>
+        /// <returns>Custom List of <see cref="ContentMedia" /> <seealso cref="ApiList{T}" /></returns>
+        /// <exception cref="Exception">Exception with the appropriate nessage.</exception>
         public ApiList<ContentMedia> GetContentMedias()
         {
             return GetContentMedias(0, 0);
@@ -410,8 +512,8 @@ namespace smsghapi_dotnet_v2.Smsgh
         ///     Fetches the list of all content medias based upon some filters
         /// </summary>
         /// <param name="filters">Filters</param>
-        /// <returns>ApiList of ContentMedia</returns>
-        /// <exception cref="Exception"></exception>
+        /// <returns>Custom List of <see cref="ContentMedia" /> <seealso cref="ApiList{T}" /></returns>
+        /// <exception cref="Exception">Exception with the appropriate nessage.</exception>
         public ApiList<ContentMedia> GetContentMedias(Dictionary<string, string> filters)
         {
             return GetContentMedias(0, 0, filters);
@@ -421,8 +523,10 @@ namespace smsghapi_dotnet_v2.Smsgh
         ///     Retrieves a given content media.
         /// </summary>
         /// <param name="contentMediaId">The Content Media Id</param>
-        /// <returns>ContentMedia</returns>
-        /// <exception cref="Exception"></exception>
+        /// <returns>
+        ///     <see cref="ContentMedia" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate nessage.</exception>
         public ContentMedia GetContentMedia(Guid contentMediaId)
         {
             string resource = "/media/";
@@ -434,6 +538,14 @@ namespace smsghapi_dotnet_v2.Smsgh
             throw new Exception("Request Failed : " + errorMessage);
         }
 
+        /// <summary>
+        ///     Get a content media
+        /// </summary>
+        /// <param name="contentMediaId">The content media Id</param>
+        /// <returns>
+        ///     <see cref="ContentMedia" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate message.</exception>
         public ContentMedia GetContentMedia(string contentMediaId)
         {
             string resource = "/media/";
@@ -451,9 +563,10 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         /// <param name="filePath">Content Media file</param>
         /// <param name="mediaInfo">Content Media Info</param>
-        /// <returns>ContentMedia</returns>
-        /// <exception cref="Exception"></exception>
-        /// <exception cref="Exception"></exception>
+        /// <returns>
+        ///     <see cref="ContentMedia" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate message.</exception>
         public ContentMedia AddContentMedia(string filePath, MediaInfo mediaInfo)
         {
             const string resource = "/media/";
@@ -481,6 +594,14 @@ namespace smsghapi_dotnet_v2.Smsgh
             throw new Exception("Request Failed : " + errorMessage);
         }
 
+        /// <summary>
+        ///     Add a content media
+        /// </summary>
+        /// <param name="mediaInfo">The content media data <see cref="MediaInfo" /></param>
+        /// <returns>
+        ///     <see cref="ContentMedia" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate message</exception>
         public ContentMedia AddContentMedia(MediaInfo mediaInfo)
         {
             const string resource = "/media/";
@@ -506,8 +627,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         /// <param name="contentMediaId">The Content Media Id</param>
         /// <returns>true when successful</returns>
-        /// <exception cref="Exception"></exception>
-        /// <exception cref="Exception"></exception>
+        /// <exception cref="Exception">Exception with the appropriate message</exception>
         public bool DeleteContentMedia(Guid contentMediaId)
         {
             string resource = "/media/";
@@ -519,6 +639,12 @@ namespace smsghapi_dotnet_v2.Smsgh
             throw new Exception("Request Failed : " + errorMessage);
         }
 
+        /// <summary>
+        ///     Deletes a content media and returns true when successful.
+        /// </summary>
+        /// <param name="contentMediaId">The Content Media Id</param>
+        /// <returns>true when successful</returns>
+        /// <exception cref="Exception">Exception with the appropriate message</exception>
         public bool DeleteContentMedia(string contentMediaId)
         {
             string resource = "/media/";
@@ -535,10 +661,11 @@ namespace smsghapi_dotnet_v2.Smsgh
         ///     Updates an existing content media and returns the updated content media
         /// </summary>
         /// <param name="contentMediaId">The Content Media ID</param>
-        /// <param name="mediaInfo">Content Media Info</param>
-        /// <returns>Content Media</returns>
-        /// <exception cref="Exception"></exception>
-        /// <exception cref="Exception"></exception>
+        /// <param name="mediaInfo">Content Media Info <see cref="MediaInfo" /></param>
+        /// <returns>
+        ///     <see cref="ContentMedia" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate message.</exception>
         public ContentMedia UpdateContentMedia(Guid contentMediaId, MediaInfo mediaInfo)
         {
             string resource = "/media/";
@@ -559,6 +686,15 @@ namespace smsghapi_dotnet_v2.Smsgh
             throw new Exception("Request Failed : " + errorMessage);
         }
 
+        /// <summary>
+        ///     Updates an existing content media and returns the updated content media
+        /// </summary>
+        /// <param name="contentMediaId">The Content Media ID</param>
+        /// <param name="mediaInfo">Content Media Info <see cref="MediaInfo" /></param>
+        /// <returns>
+        ///     <see cref="ContentMedia" />
+        /// </returns>
+        /// <exception cref="Exception">Exception with the appropriate message.</exception>
         public ContentMedia UpdateContentMedia(string contentMediaId, MediaInfo mediaInfo)
         {
             string resource = "/media/";

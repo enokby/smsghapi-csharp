@@ -34,16 +34,17 @@ namespace smsghapi_dotnet_v2.Smsgh
             _actions = new List<Action>();
             _moKeywords = new List<MoKeyWord>();
 
-            foreach (string key in jso.Keys)
+            foreach (string key in jso.Keys) {
                 switch (key.ToLower()) {
                     case "accountid":
                         _accountId = Convert.ToString(jso[key]);
                         break;
                     case "actions":
                         var acs = jso[key] as IEnumerable;
-                        if (acs != null)
+                        if (acs != null) {
                             foreach (JObject o in acs)
                                 _actions.Add(new Action(o.ToObject<ApiDictionary>()));
+                        }
                         break;
                     case "brief":
                         Brief = Convert.ToString(jso[key]);
@@ -52,19 +53,21 @@ namespace smsghapi_dotnet_v2.Smsgh
                         _campaignId = Convert.ToInt64(jso[key]);
                         break;
                     case "datecreated":
-                        DateTime dateCreated;
 
-                        if (jso[key].ToString() != "")
+                        if (jso[key].ToString() != "") {
+                            DateTime dateCreated;
                             DateCreated = DateTime.TryParseExact(jso[key].ToString(), "yyyy-dd-MM hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateCreated)
                                 ? dateCreated
                                 : (DateTime?) null;
+                        }
                         break;
                     case "dateended":
-                        DateTime dateEnded;
-                        if (jso[key].ToString() != "")
+                        if (jso[key].ToString() != "") {
+                            DateTime dateEnded;
                             DateEnded = DateTime.TryParseExact(jso[key].ToString(), "yyyy-dd-MM hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateEnded)
                                 ? dateEnded
                                 : (DateTime?) null;
+                        }
                         break;
                     case "description":
                         Description = Convert.ToString(jso[key]);
@@ -78,14 +81,13 @@ namespace smsghapi_dotnet_v2.Smsgh
                     case "mokeywords":
                         var mos = jso[key] as IEnumerable;
                         if (mos != null)
-                            foreach (JObject mo in mos) {
-                                _moKeywords.Add(new MoKeyWord(mo.ToObject<ApiDictionary>()));
-                            }
+                            foreach (JObject mo in mos) _moKeywords.Add(new MoKeyWord(mo.ToObject<ApiDictionary>()));
                         break;
                     case "pendingapproval":
                         _pendingApproval = Convert.ToBoolean(jso[key]);
                         break;
                 }
+            }
         }
 
         /// <summary>

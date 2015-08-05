@@ -20,7 +20,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         public ServiceType(ApiDictionary jso)
         {
-            foreach (string key in jso.Keys)
+            foreach (string key in jso.Keys) {
                 switch (key.ToLower()) {
                     case "descriptor":
                         _descriptor = Convert.ToString(jso[key]);
@@ -41,6 +41,7 @@ namespace smsghapi_dotnet_v2.Smsgh
                         _requiresActivation = Convert.ToBoolean(jso[key]);
                         break;
                 }
+            }
         }
 
         /// <summary>

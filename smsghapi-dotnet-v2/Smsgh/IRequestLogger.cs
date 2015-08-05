@@ -2,9 +2,21 @@
 
 namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    ///     IRequestLogger
+    /// </summary>
     public interface IRequestLogger
     {
+        /// <summary>
+        ///     State whether logging is enabed or not
+        /// </summary>
+        /// <returns></returns>
         bool IsLoggingEnabled();
+
+        /// <summary>
+        ///     Log the HTTP message onto the console
+        /// </summary>
+        /// <param name="mesg"></param>
         void Log(string mesg);
 
         /// <summary>

@@ -3,6 +3,9 @@ using System.Net;
 
 namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    ///     IRequestHandler
+    /// </summary>
     public interface IRequestHandler
     {
         /// <summary>
@@ -48,6 +51,11 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// <returns></returns>
         Stream OpenInput(HttpWebRequest urlConnection);
 
+        /// <summary>
+        ///     Raise when there are errors
+        /// </summary>
+        /// <param name="error">Error <see cref="HttpRequestException" /></param>
+        /// <returns>true or false</returns>
         bool OnError(HttpRequestException error);
     }
 }

@@ -3,25 +3,46 @@ using System.Net;
 
 namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    ///     Console Http Request Logger. It is a logging framework to log whatever is sent to the server and whatever it is
+    ///     received as response
+    /// </summary>
     public class ConsoleRequestLogger : IRequestLogger
     {
         private readonly bool _loggingEnabled;
 
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="logging">States whether logging is enabled or not.</param>
         public ConsoleRequestLogger(bool logging)
         {
             _loggingEnabled = logging;
         }
 
+        /// <summary>
+        ///     Returns the logging state.
+        /// </summary>
+        /// <returns>true or false</returns>
         public bool IsLoggingEnabled()
         {
             return _loggingEnabled;
         }
 
+        /// <summary>
+        ///     Logs message to the console
+        /// </summary>
+        /// <param name="mesg">message to log</param>
         public void Log(string mesg)
         {
             Console.WriteLine(mesg);
         }
 
+        /// <summary>
+        ///     Log Http Request
+        /// </summary>
+        /// <param name="urlConnection">Http Url connection</param>
+        /// <param name="content">Http Content</param>
         public void LogRequest(HttpWebRequest urlConnection, object content)
         {
             Log("=== HTTP Request ===");
@@ -30,6 +51,10 @@ namespace smsghapi_dotnet_v2.Smsgh
             LogHeaders(urlConnection.Headers);
         }
 
+        /// <summary>
+        ///     Log Http Response
+        /// </summary>
+        /// <param name="response">Http Response</param>
         public void LogResponse(HttpResponse response)
         {
             if (response != null) {
@@ -41,6 +66,10 @@ namespace smsghapi_dotnet_v2.Smsgh
             }
         }
 
+        /// <summary>
+        ///     Log Http Request Headers
+        /// </summary>
+        /// <param name="headers">Http Request Headers</param>
         protected void LogHeaders(WebHeaderCollection headers)
         {
             if (headers != null) {

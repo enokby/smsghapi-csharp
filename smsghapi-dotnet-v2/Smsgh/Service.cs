@@ -17,7 +17,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         public Service(ApiDictionary jso)
         {
-            foreach (string key in jso.Keys)
+            foreach (string key in jso.Keys) {
                 switch (key.ToLower()) {
                     case "accountid":
                         AccountId = Convert.ToString(jso[key]);
@@ -34,11 +34,12 @@ namespace smsghapi_dotnet_v2.Smsgh
                         BillingCycleId = Convert.ToInt64(jso[key]);
                         break;
                     case "datecreated":
-                        DateTime dateCreated;
-                        if (jso[key].ToString() != "")
+                        if (jso[key].ToString() != "") {
+                            DateTime dateCreated;
                             _dateCreated = DateTime.TryParseExact(jso[key].ToString(), "yyyy-dd-MM hh:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateCreated)
                                 ? dateCreated
                                 : (DateTime?) null;
+                        }
 
                         break;
                     case "description":
@@ -63,8 +64,11 @@ namespace smsghapi_dotnet_v2.Smsgh
                         ServiceTypeId = Convert.ToInt64(jso[key]);
                         break;
                 }
+            }
         }
 
+        /// <summary>
+        /// </summary>
         public Service() {}
 
         /// <summary>

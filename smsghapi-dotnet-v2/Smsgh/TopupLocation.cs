@@ -2,10 +2,17 @@
 
 namespace smsghapi_dotnet_v2.Smsgh
 {
+    /// <summary>
+    /// </summary>
     public class TopupLocation
     {
+        /// <summary>
+        /// </summary>
         public TopupLocation() {}
 
+        /// <summary>
+        /// </summary>
+        /// <param name="dix"></param>
         public TopupLocation(ApiDictionary dix)
         {
             foreach (string key in dix.Keys) {
@@ -38,13 +45,36 @@ namespace smsghapi_dotnet_v2.Smsgh
             }
         }
 
+        /// <summary>
+        /// </summary>
         public long Id { private set; get; }
+
+        /// <summary>
+        /// </summary>
         public string City { set; get; }
+
+        /// <summary>
+        /// </summary>
         public string Area { set; get; }
+
+        /// <summary>
+        /// </summary>
         public string Region { set; get; }
+
+        /// <summary>
+        /// </summary>
         public string Details { set; get; }
+
+        /// <summary>
+        /// </summary>
         public string Description { set; get; }
+
+        /// <summary>
+        /// </summary>
         public double Latitude { set; get; }
+
+        /// <summary>
+        /// </summary>
         public double Longitute { set; get; }
     }
 }

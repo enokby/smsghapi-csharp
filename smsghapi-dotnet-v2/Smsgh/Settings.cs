@@ -18,7 +18,7 @@ namespace smsghapi_dotnet_v2.Smsgh
         /// </summary>
         public Settings(ApiDictionary jso)
         {
-            foreach (string key in jso.Keys)
+            foreach (string key in jso.Keys) {
                 switch (key.ToLower()) {
                     case "accountid":
                         _accountId = Convert.ToString(jso[key]);
@@ -60,6 +60,7 @@ namespace smsghapi_dotnet_v2.Smsgh
                         TimeZone = Convert.ToString(jso[key]);
                         break;
                 }
+            }
         }
 
         /// <summary>

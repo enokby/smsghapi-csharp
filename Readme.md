@@ -18,7 +18,7 @@ The SDK can smoothly run on any .Net Platform if it is compiled in the right env
 
 * Clone the repo and run it in Visual Studio
 * Download the binaries from the **binaries** folder. The folder is organized around the various .Net Platform supported. Each folder contains the required dlls to use. Download the appropriate folder and add it to your project library path or reference path.
-* You can also get from [Nuget](https://www.nuget.org/packages/Smsgh.Api.Sdk/1.0.0).
+* You can also get it from [Nuget](https://www.nuget.org/packages/Smsgh.Api.Sdk/1.0.0).
  
 ## **Usage**
 

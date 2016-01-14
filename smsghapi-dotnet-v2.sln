@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "smsghapi-dotnet-v2", "smsghapi-dotnet-v2\smsghapi-dotnet-v2.csproj", "{C67BC006-E559-43C1-8009-2A8B233E2CAB}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "smsghapi-dotnet-v2.40", "smsghapi-dotnet-v2.40\smsghapi-dotnet-v2.40.csproj", "{A44E71E0-6AA2-4810-9239-5039634FEE89}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "smsghapi-dotnet-v2.35", "smsghapi-dotnet-v2.35\smsghapi-dotnet-v2.35.csproj", "{B4EA6358-08ED-4778-8B90-12AD59FE1EB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "smsghapi-dotnet-v2-tests", "smsghapi-dotnet-v2-tests\smsghapi-dotnet-v2-tests.csproj", "{85AE52A6-1B4F-42F4-A3A6-456B3C67E60A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{B4EA6358-08ED-4778-8B90-12AD59FE1EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4EA6358-08ED-4778-8B90-12AD59FE1EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4EA6358-08ED-4778-8B90-12AD59FE1EB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85AE52A6-1B4F-42F4-A3A6-456B3C67E60A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85AE52A6-1B4F-42F4-A3A6-456B3C67E60A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85AE52A6-1B4F-42F4-A3A6-456B3C67E60A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85AE52A6-1B4F-42F4-A3A6-456B3C67E60A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
